@@ -1,0 +1,17 @@
+<form action="{% url 'products:addOrderDone'%}" method="post">
+    {% csrf_token %}
+    <p><b>Название продукта:</b><br>
+        <input name="name" type="text" size="40">
+    </p>
+    <p><b>Количество в штуках ( максимум 9 ):</b><br>
+        <input name="count" type="number" size="40" max="9" min="1" value="1">
+    </p>
+    <p><b>Адрес доставки:</b><br>
+        <input name="address" type="text" size="40">
+    </p>
+    <p><b>Дата доставки</b><br>
+        <input name="delivery_date" type="datetime-local" size="40">
+    </p>
+
+    <p><input type="submit" value="Добавить заказ">
+</form>

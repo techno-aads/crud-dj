@@ -1,0 +1,28 @@
+<form>
+    <button formaction="{% url 'products:addOrder' %}">Добавить заказ</button>
+</form>
+
+{% if product_list %}
+<ul>
+    {% for product in product_list %}
+    <li><p>{{ product.name }}
+        <p>{{ product.count}}
+        <p>{{ product.address }}
+        <p>{{ product.delivery_date }}
+        <p>{{ product.status }}
+        <form action="{% url 'products:editOrder'%}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{product.id}}">
+            <input type="submit" value="Редактировать">
+        </form>
+        <form action="{% url 'products:removeOrder'%}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{product.id}}">
+            <input type="submit" value="Удалить">
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No polls are available.</p>
+{% endif %}
