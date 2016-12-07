@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+
+    {% load staticfiles %}
+
+    <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "bootstrap/css/cover.css" %}" rel="stylesheet">
+
+    <style>
+
+        td:hover {
+            background: #3a3f44;
+            text-decoration-line: none;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand"><a href="{% url "tv:index" %}"><img src="{% static "assets/polis_logo.png" %}"></a></h3>
+                    <nav>
+                        <ul class="nav masthead-nav">
+                            <li><a href="{% url "tv:create" %}">Добавить</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="inner cover">
+                <h1 class="cover-heading">Список программ</h1>
+                <br>
+
+                {% if program_list %}
+                    <table class="table btn-lg">
+
+                        <tbody class="text-muted">
+
+                        {% for program in program_list %}
+                            <tr>
+                                <td>
+                                    <div class="text-warning" onclick="window.location='{% url 'tv:detail' program.id %}'">{{ program.name }} ({{ program.length }} мин) - {{ program.date }}</div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                {% else %}
+                    <tr>No program are available.</tr>
+                {% endif %}
+
+            </div>
+
+            <div class="mastfoot">
+                <div class="inner">
+                    <p>by <a href="https://twitter.com/mmishak" target="_blank">@mmishak</a></p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+</body>
+</html>

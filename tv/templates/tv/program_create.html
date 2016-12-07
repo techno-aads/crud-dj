@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+
+    {% load staticfiles %}
+
+    <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "bootstrap/css/cover.css" %}" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand"><a href="{% url "tv:index" %}"><img
+                            src="{% static "assets/polis_logo.png" %}"></a></h3>
+                    <nav>
+                        <ul class="nav masthead-nav">
+                            <li><a href="{% url "tv:index" %}">Вурнуться к списку</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="inner cover">
+                <h1 class="cover-heading">Добавить программу</h1>
+
+                <br>
+
+                {% if error_message %}
+                <div class="text-warning">{{ error_message }}</div>
+                {% endif %}
+
+                <form class="form-horizontal" action="" method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="id_name" class="col-sm-4 control-label">Название:</label>
+                        <div class="col-sm-5">
+                            <input id="id_name" maxlength="200" name="name" class="form-control" type="text" required/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_description" class="col-sm-4 control-label">Описание:</label>
+                        <div class="col-sm-5">
+                            <input id="id_description" maxlength="1000" name="description" class="form-control"
+                                   type="text" required/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_length" class="col-sm-4 control-label">Продолжительность:</label>
+                        <div class="col-sm-5">
+                            <input id="id_length" name="length" class="form-control" type="number" required/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_date" class="col-sm-4 control-label">Дата:</label>
+                        <div class="col-sm-5">
+                            <input id="id_date" name="date" class="form-control vDateField" type="text" required/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_add_advert" class="col-sm-4 control-label">Наличие рекламы:</label>
+                        <div class="col-sm-1">
+                            <input id="id_add_advert" name="add_advert" class="form-control" type="checkbox"/>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <input type="submit" class="btn btn-success" value="Добавить">
+                </form>
+
+
+            </div>
+
+            <div class="mastfoot">
+                <div class="inner">
+                    <p>by <a href="https://twitter.com/mmishak" target="_blank">@mmishak</a></p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+</body>
+</html>
