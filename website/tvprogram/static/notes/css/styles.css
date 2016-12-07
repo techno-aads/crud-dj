@@ -1,0 +1,41 @@
+body {
+    background: snow;
+}
+
+a {
+    color: #0f0f0f;
+}
+
+.right-label {
+    float: right;
+}
+
+.pin {
+    width: 16px;
+    margin-right: 5px;
+}
+
+.pinned {
+    opacity: 1;
+}
+
+.not-pinned {
+    opacity: 0.2;
+}
+
+.pin:hover {
+    opacity: 1;
+}
+
+#logo {
+    height: 130%;
+}
+
+#note_text {
+    width: 100%;
+    font-size: 14pt;
+    height: 150px;
+    margin-bottom: 15px;
+    resize: vertical;
+    max-height: 300px;
+}
