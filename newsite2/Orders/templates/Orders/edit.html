@@ -1,0 +1,10 @@
+<h1>{{ "Edit form" }}</h1>
+<h2>{{ order.title }}</h2>
+
+<form action="{% url 'Orders:edit' order.id %}" method="post">
+   {% csrf_token %}
+   <input type="text" name="count"
+       value="{{ order.count.count }}">
+  <input type="submit" value="Save" />
+ </form>
+
