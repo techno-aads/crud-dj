@@ -1,0 +1,27 @@
+{% extends 'laba/base.html' %}
+
+{% block content %}
+    {% for programme in programmes %}
+        <div class="post">
+
+            <div class="date">
+                Duration: {{ programme.duration }} min
+            </div>
+            <div class="date">
+                Date: {{ programme.date.day|stringformat:"02d" }}.{{ programme.date.month|stringformat:"02d" }}.{{ programme.date.year }}
+            </div>
+            <div class="date">
+                {% if programme.isAd %}
+                    Ad - Enabled
+                {% else %}
+                    Ad - Disabled
+                {% endif %}
+
+            </div>
+
+            <h1><a href="{% url 'programme_edit' pk=programme.pk %}">{{ programme.title }}</a></h1>
+            <p>{{ programme.description|linebreaksbr }}</p>
+            <a href="{% url 'programme_remove' pk=programme.pk %}">Удалить</a>
+        </div>
+    {% endfor %}
+{% endblock %}
