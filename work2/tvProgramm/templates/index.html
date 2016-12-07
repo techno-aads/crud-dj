@@ -1,0 +1,50 @@
+ {% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<div class="container"><h1>Programm</h1></div>
+ <div class="container">
+     <ul>
+   {% for obj in programms %}
+         <li class="list-group-item">
+             <div class="row">
+                 
+                  <div class="col-sm-2">
+                    <h3>{{ obj }}</h3>
+                    <p>Duration: {{ obj.length }}</p>
+                  </div>
+                  <div class="col-sm-2">
+            <a href= {% url 'save' obj.id %}>
+                        {% buttons %}
+                            <button type="submit" class="btn">
+                                {% bootstrap_icon "star" %} Change
+                            </button>
+                        {% endbuttons %}
+                    </a>
+            <a href={% url 'delete' obj.id %}>
+                {% buttons %}
+                    <button type="submit" class="btn">
+                        {% bootstrap_icon "star" %} Delete
+                    </button>
+                {% endbuttons %}
+            </a>
+            </div>
+                  <div class="col-sm-4">
+                    <h4>Description:</h4>
+                    <p>{{ obj.description }}</p>
+                </div>
+             </div>
+        </li>
+   {% endfor %}
+   </ul>
+   <div class="row">
+       <a href="add">
+           {% buttons %}
+                <button type="submit" class="btn">
+                    {% bootstrap_icon "star" %} Add
+                </button>
+            {% endbuttons %}
+       </a>
+   </div>
+ </div>
