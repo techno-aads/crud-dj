@@ -1,0 +1,27 @@
+<div class="row" style="margin-top: 50px;">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">edit order</div>
+          <div class="panel-body">
+                <form action="{% url 'polls:updateOrder' order.id %}" method="post">
+                {% csrf_token %}
+                    <label>Order name</label>
+                    <input type="text" class="form-control" id="product_name" name="product_name" value="{{ order.product_name }}" required><br>
+                    <label>Order quantity</label>
+                    <input type="text" class="form-control" id="quantity"
+                                 name="quantity" value="{{ order.quantity }}" required><br>
+                     <label>Order address</label>
+                    <input type="text" class="form-control" id="address"
+                                 name="address" value="{{ order.address }}" required><br>
+                     <label>Order date</label>
+                    <input type="text" class="form-control" id="date"
+                                 name="date" value="{{ order.date }}" required><br>
+                     <label>Order status</label>
+                    <input type="text" class="form-control" id="status"
+                                 name="status" value="{{ order.status }}" required><br>
+                    <input class="btn btn-default btn btn-warning" type="submit" value="save changes">
+                </form>
+          </div>
+        </div>
+    </div>
+</div>
