@@ -37,7 +37,7 @@ def edit(request, product_id):
             product.count = (request.POST['count'])
             product.adress = (request.POST['adress'])
             product.date = (request.POST['date'])
-            product.deliveryStatus = (request.POST['status'])
+            product.deliveryStatus = (request.POST['status'][2] + request.POST['status'][3])
         except (KeyError, product.DoesNotExist):
             # Redisplay the question voting form.
             return render(request, 'practise/edit.html', {

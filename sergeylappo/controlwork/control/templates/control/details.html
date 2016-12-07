@@ -26,7 +26,7 @@
     {{ "Set date" }}</label><br />
     {% for choice in product.DELIVEY_STATUS_CHOISES %}
     <label>
-    {{ choice.get_deliveryStatus_display  }}
+    {{ choice.get_DELIVEY_STATUS_CHOISES_display  }}
     <input type="radio" name="status" value="{{ choice }}">{{ choice }}</input>
     </label>
     {% endfor %}
