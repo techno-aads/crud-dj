@@ -4,7 +4,7 @@ from django.db import models
 
 class Product(models.Model):
     name = models.CharField(max_length=77)
-    quantity = models.IntegerField()
+    quantity = models.PositiveIntegerField()
     address = models.CharField(max_length=150)
     delivery_date = models.DateTimeField('delivery date')
     status = models.BooleanField()
