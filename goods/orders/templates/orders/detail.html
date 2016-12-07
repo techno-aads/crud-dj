@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% load staticfiles %}
+
+    <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "bootstrap/css/navbar.css" %}" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand">webCourse</div>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{% url 'orders:index' %}">Orders</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </nav>
+
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <h1>{{ product.name }}</h1>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+        <ul>
+            <li>{{ product.quantity }}</li>
+            <li>{{ product.address }}</li>
+            <li>{{ product.delivery_date }}</li>
+            <li> {% if product.status %}Доставлен{% else %}Не доставлен{% endif %}</li>
+            <br>
+            <input type="button" onclick="window.location='{% url 'orders:delete' product.id %}'" class="btn btn-danger"
+                   value="Delete">
+            <input type="button" onclick="window.location='{% url 'orders:update' product.id %}'" class="btn"
+                   value="Update">
+        </ul>
+    </div>
+</div>
+
+<script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+
+</body>
+</html>
