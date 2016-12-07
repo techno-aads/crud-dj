@@ -1,0 +1,27 @@
+{% extends 'prod2/base.html' %}
+
+{% block content %}
+    {% for prod in prods %}
+        <div class="post">
+
+            <div class="date">
+                Duration: {{ prod.num }} min
+            </div>
+            <div class="date">
+                Date: {{ prod.date.day|stringformat:"02d" }}.{{ prod.date.month|stringformat:"02d" }}.{{ prod.date.year }}
+            </div>
+            <div class="date">
+                {% if prod.status %}
+                    Ad - Enabled
+                {% else %}
+                    Ad - Disabled
+                {% endif %}
+
+            </div>
+
+            <h1><a href="{% url 'prod_edit' pk=prod.pk %}">{{ prod.title }}</a></h1>
+            <p>{{ prod.adress|linebreaksbr }}</p>
+            <a href="{% url 'prod_remove' pk=prod.pk %}">Удалить</a>
+        </div>
+    {% endfor %}
+{% endblock %}
