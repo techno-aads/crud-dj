@@ -10,32 +10,14 @@ a {
     float: right;
 }
 
-.pin {
-    width: 16px;
-    margin-right: 5px;
+.big-font {
+    font-size: 13pt;
 }
 
-.pinned {
-    opacity: 1;
+.light-font, .light-font a {
+    color: #999;
 }
 
-.not-pinned {
-    opacity: 0.2;
-}
-
-.pin:hover {
-    opacity: 1;
-}
-
-#logo {
-    height: 130%;
-}
-
-#note_text {
-    width: 100%;
-    font-size: 14pt;
-    height: 150px;
-    margin-bottom: 15px;
-    resize: vertical;
-    max-height: 300px;
+.mar-right {
+    margin-right: 5px !important;
 }

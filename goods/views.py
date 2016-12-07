@@ -1,6 +1,5 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-
 from django.urls import reverse
 from django.utils.datastructures import MultiValueDictKeyError
 
@@ -8,7 +7,7 @@ from goods.models import Good
 
 
 def index(request):
-    goods = Good.objects.order_by('-delivery_date')[:10]
+    goods = Good.objects.order_by('delivered', '-delivery_date')[:10]
     context = {
         'goods': goods,
     }
@@ -23,7 +22,6 @@ def detail(request, good_id):
     return render(request, 'goods/detail.html', context)
 
 
-# def create(request, name, count, delivery_address, delivery_date, delivered):
 def add(request):
     name = request.POST['name']
     count = request.POST['count']
@@ -36,7 +34,6 @@ def add(request):
     Good.objects.create(
         name=name, count=count, delivery_address=delivery_address, delivery_date=delivery_date, delivered=delivered
     )
-    good_id = Good.objects.latest('id').id
     return HttpResponseRedirect(reverse('goods:index'))
 
 
@@ -60,7 +57,4 @@ def remove(request, good_id):
 
 
 def create(request):
-    context = {
-        'value': 'value'
-    }
-    return render(request, 'goods/create.html', context)
+    return render(request, 'goods/create.html')

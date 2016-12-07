@@ -2,46 +2,37 @@
 
 <html>
 <head>
-    <title>Создать заказ - Доставка</title>
+    <title>Оформление заказа - Доставка</title>
     <link rel="stylesheet" href="{% static 'goods/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'goods/css/styles.css' %}">
 </head>
 <body>
 <main class="container" role="main">
     <nav class="navbar navbar-default">
-        <div class="container-fluid">
+        <div class="container-fluid" id="frist">
             <div class="navbar-header">
                 <a class="navbar-brand" href="{% url 'goods:index' %}">
-                    Доставка товаров
+                    <span class="glyphicon glyphicon-send" style="margin-right: 5px"></span> Доставка товаров
                 </a>
             </div>
 
             <form class="navbar-form navbar-right">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control" placeholder="Поиск">
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default">Найти</button>
             </form>
 
-            <button type="button" class="btn btn-default navbar-btn navbar-right">Sign in</button>
+            <button type="button" class="btn btn-default navbar-btn navbar-right">Зарегистрироваться</button>
 
-            <button type="button" class="btn btn-default navbar-btn navbar-right">Sign up</button>
+            <button type="button" class="btn btn-default navbar-btn navbar-right mar-right">Войти</button>
 
         </div>
     </nav>
 
-    <div class="jumbotron">
-        <div class="container text-center">
-            <h1>Online Store</h1>
-            <p>Mission, Vission & Values</p>
-        </div>
-    </div>
-
     <div class="panel panel-default">
         <div class="panel-heading panel-title">
-            <h4>
-                Создание заказа
-            </h4>
+            <h4>Оформить заказ</h4>
         </div>
         <div class="panel-body">
             <form action="{% url 'goods:add' %}" method="post">
@@ -70,14 +61,31 @@
                     <label for="delivered">Выполнен:</label>
                     <input id="delivered" name="delivered" type="checkbox" class="form-check-input" placeholder="Дата">
                 </div>
-                <input type="submit" class="btn btn-default" value="Create">
+                <input type="submit" class="btn btn-success center-block" value="Оформить заказ">
             </form>
         </div>
-        <div class="panel-footer">
-            Купите что-нибудь!
+    </div>
+    <div class="panel panel-default">
+        <div class="light-font panel-footer">
+            <a href="https://github.com/vaddya" target="_blank">@vaddya</a>
+            <span class="right-align">Веб-технологии - <a href="https://polis.mail.ru" target="_blank">Технополис@Mail.ru</a></span>
         </div>
     </div>
 </main>
 <script src="{% static 'goods/js/bootstrap.min.js' %}"></script>
+<script>
+    window.onload = function () {
+        document.getElementById("date").setAttribute("value", getFormattedDate(new Date()));
+    }
+
+    function getFormattedDate(date) {
+        var year = date.getFullYear();
+        var month = (1 + date.getMonth()).toString();
+        month = month.length > 1 ? month : '0' + month;
+        var day = date.getDate().toString();
+        day = day.length > 1 ? day : '0' + day;
+        return year + '-' + month + '-' + day;
+    }
+</script>
 </body>
 </html>
