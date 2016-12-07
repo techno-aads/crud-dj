@@ -1,0 +1,35 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'orderproduct/style.css' %}" />
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<table>
+	<tr>
+		<td>Title:</td>
+		<td>{{ orderTitle }}</td>
+	</tr>
+	<tr>
+		<td>Count:</td>
+		<td>{{ orderCount }}</td>
+	</tr>
+	<tr>
+		<td>Address:</td>
+		<td>{{ orderAddress }}</td>
+	</tr>
+	<tr>
+		<td>Date:</td>
+		<td>{{ orderDate }}</td>
+	</tr>
+	<tr>
+		<td>Status:</td>
+		<td>{{ orderStatus }}</td>
+	</tr>
+</table>
+  <a href="{% url 'orderproduct:edit' o_id %}">Edit this order</a>
+
+ <form action="{% url 'orderproduct:delete' %}" method="post" >
+       	  {% csrf_token %}
+       	  <input type="hidden" name="id" value="{{ o_id }}">
+          <button type="submit">delete</button>
+         </form>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}

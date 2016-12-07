@@ -1,0 +1,29 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'orderproduct/style.css' %}" />
+
+{% if listOfOrders %}
+	<ul>
+	{% for orderprod in listOfOrders %}
+		<li><a href="{% url 'orderproduct:detail' orderprod.id %}">{{ orderprod.order_title }}</a></li>
+	{% endfor %}
+	</ul>
+	<div>Do you what add new order?</div>
+	<form action="{% url 'orderproduct:add' %}" method="post">
+                  {% csrf_token %}
+                  <label>Title</label><br>
+                  <input type="text" id="ordtit" name="order_title" required><br>
+                  <label>Count</label><br>
+                  <input type="number"  id="cnt" name="order_count" value="1" min="1" max="50" required><br>
+                  <label>Your Address</label><br>
+                  <input type="text" id="ordadd" name="order_address" required><br>
+                  <label>Delivery data</label><br>
+                  <input type="date" id="orddat" name="order_data" required><br>
+                  <label>Order status</label><br>
+                  <input type="text" id="ordst" name="order_status" required pattern="(выполнен|не выполнен)"
+                         title="Может принимать значения выполнен или не выполнен"><br>
+                  <input type="submit" value="add order">
+    </form>
+{% else %}
+	<p>No order are available.</p>
+{% endif %}
