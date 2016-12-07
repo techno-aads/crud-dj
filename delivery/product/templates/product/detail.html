@@ -1,0 +1,12 @@
+<h1>{{ product.name_product }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'product' product.name_product %}" method="post">
+{% csrf_token %}
+    <label type="text" name="count" value="{{product.count_product}}"> </label><br />
+	<label type="text" name="count" value="{{product.destination_adress}}"> </label><br />
+	<label type="text" name="count" value="{{product.date_delivery}}"> </label><br />
+	<label type="text" name="count" value="{{product.status}}"> </label><br />
+<input type="submit" value="Vote" />
+</form>
