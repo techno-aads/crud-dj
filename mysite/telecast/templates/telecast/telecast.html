@@ -23,15 +23,13 @@
                     <th>is Advertising?</th>
                 </tr>
                 {% for telecast in telecast_list %}
-                    <tr {% comment %}onclick="window.location = '{% url 'practice:edit_telecast' telecast.id %}'"{% endcomment %}>
+                    <tr onclick="window.location = '{% url 'telecast:edit_telecast' telecast.id %}'">
                         <th>{{ telecast.id }}</th>
                         <th>{{ telecast.title }}</th>
                         <th>{{ telecast.description }}</th>
                         <th>{{ telecast.duration }}</th>
                         <th>{{ telecast.broadcastDate }}</th>
                         <th>{{ telecast.isAdvertising }}</th>
-{#                        <th>{{ telecast.name }}</th>#}
-{#                        <th>{{ telecast.family }}</th>#}
                     </tr>
                 {% endfor %}
             </table>
@@ -40,7 +38,7 @@
         <p>No telecasts are available.</p>
     {% endif %}
 
-{#    <a class="btn btn-primary" href="{% url 'practice:add_telecast' %}" role="button">Add new</a>#}
+    <a class="btn btn-primary" href="{% url 'telecast:add_telecast' %}" role="button">Add new</a>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
