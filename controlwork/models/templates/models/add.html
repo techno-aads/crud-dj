@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class = "container">
+<a href = "/admin" target="_blank"> Admin </a>
+<form action = "{% url 'models:added' %}"  method="post">
+	{% csrf_token %}
+	<label for ="name_input"> Название </label>
+	<input type = "text" class="form-control" name = "name" id = "name_input">
+	<label for ="count_input"> Количество </label>
+	<input type = "number" class="form-control" name = "count" id = "count_input">
+	<label for ="address_input"> Адрес </label>
+	<input type = "text" class="form-control" name = "address" id = "address_input">
+	<label for ="order_date_input"> Дата </label>
+	<input type="date" name = "order_date" id = "order_date_input">
+	<label for ="state_input"> Выдан </label>
+	<input type = "checkbox" class="checkbox" value = "Yes"  name = "state" id = "state_input">
+	<p>
+	<p>
+	<input type = "submit" class="btn btn-success" value = "Сохранить">
+	<a href="/index" class="btn btn-danger" role="button">Отмена</a>
+</form>
+</div>
+</body>
