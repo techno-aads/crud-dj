@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'telecast.apps.TelecastConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
