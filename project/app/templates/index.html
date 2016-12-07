@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block data_page %}index{% endblock %}
+
+{% block breadcrumbs %}
+<li class="active">Home</li>
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+  <h1>Welcome to our website for orders!</h1>
+  <p>You can click on the button below to go to editing products in your order</p><a class="btn btn-primary btn-lg" href="{% url 'products' %}">List of products</a>
+</div>
+{% endblock %}
