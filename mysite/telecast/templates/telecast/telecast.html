@@ -28,7 +28,7 @@
                         <th>{{ telecast.title }}</th>
                         <th>{{ telecast.description }}</th>
                         <th>{{ telecast.duration }}</th>
-                        <th>{{ telecast.broadcastDate }}</th>
+                        <th>{{ telecast.broadcastDate|date:"Y-m-d H:i" }}</th>
                         <th>{{ telecast.isAdvertising }}</th>
                     </tr>
                 {% endfor %}
