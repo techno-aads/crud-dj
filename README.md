@@ -1,1 +1,1 @@
-# crud-dj
+# variant 2
