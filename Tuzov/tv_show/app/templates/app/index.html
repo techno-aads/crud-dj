@@ -1,0 +1,38 @@
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<h1>TVShows</h1>
+    {% if tv_show_list %}
+        <ul>
+        {% for tv_show in tv_show_list %}
+            <li><a href="{% url 'app:detail' tv_show.id %}">{{ tv_show.name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tv shows are available.</p>
+    {% endif %}
+
+    <br><br><br>
+
+    <form action="{% url 'app:add' %}" method="post">
+            {% csrf_token %}
+
+            Select tv show name <br>
+            <input type="text" name="name"></input><br>
+
+            Select duration<br>
+            <input type="number" name="dur"></input><br>
+
+            Select description<br>
+            <input type="text" name="descr"></input><br>
+
+            Select broadcasting date<br>
+            <input type="date" name="date"></input><br>
+
+            Select advertisement<br>
+
+            <br><br>
+            <input type="submit" class="btn btn-primary" value="Add show" name="btnAdd"></input>
+          </form>
