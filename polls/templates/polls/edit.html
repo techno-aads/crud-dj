@@ -12,7 +12,7 @@
         <div class="panel panel-info">
           <div class="panel-heading">редактировать товар</div>
           <div class="panel-body">
-              <form action="{% url 'polls:updateCourse' goods.id %}" method="post">
+              <form action="{% url 'polls:updateGoods' goods.id %}" method="post">
                   {% csrf_token %}
                   <input type="text" class="form-control" name="name" placeholder="название" value="{{ goods.name }}" required><br>
                   <input type="number" class="form-control" name="count" placeholder="кол-во" value="{{ goods.count }}" required><br>
@@ -24,10 +24,10 @@
 
                   {% if goods.isArrive == "True" %}
                         <input type="radio" name="arrived" value="True" checked>выполнен<br>
-                        <input type="radio" name="arrived" value="False">не выполнен<br>
+                        <input type="radio" name="arrived" value="False">не выполнен<br><br>
                   {% else %}
                         <input type="radio" name="arrived" value="True">выполнен<br>
-                        <input type="radio" name="arrived" value="False" checked>не выполнен<br>
+                        <input type="radio" name="arrived" value="False" checked>не выполнен<br><br>
                   {% endif %}
 
                   <input class="btn btn-default btn btn-success" type="submit" value="добавить">
