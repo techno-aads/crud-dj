@@ -6,4 +6,5 @@ urlpatterns = urlpatterns = [
     url(r'new/', views.product_new, name='product_new'),
     url(r'^$', views.product_list, name="product_list"),
     url(r'^(?P<id>[0-9]+)/delete/$', views.delete, name="product_delete"),
+    url(r'^(?P<id>[0-9]+)/edit/$', views.edit, name="product_edit"),
 ]

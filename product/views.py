@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Product
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse
 from django.utils import timezone
 from .forms import ProductForm
@@ -28,3 +28,16 @@ def delete(request, id):
    prod = get_object_or_404(Product, pk=id)
    prod.delete()
    return HttpResponseRedirect(reverse('product:product_list'))
+
+def edit(request, id):
+    article = get_object_or_404(Product, pk=id)
+
+    form = ProductForm(request.POST or None, instance=article)
+    if request.POST and form.is_valid():
+        form.save()
+
+        return HttpResponseRedirect(reverse('product:product_list'))
+
+    return render(request, 'product/product_edit.html', {
+        'form': form
+    })
