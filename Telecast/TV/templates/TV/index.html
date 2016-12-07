@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>index.html</title>
+    {% load static %}
+</head>
+<body>
+<div class="main">Telecasts</div>
+
+{% if tv_list %}
+    <ul>
+        {% for tv in tv_list %}
+                <li> </li>
+                <ul>{{ tv.name }}
+        <li>{{ tv.description }}</li>
+        <li>{{ tv.duration }}</li>
+        <li>{{ tv.date }}</li>
+                    <a href="{% url 'TV:edit' tv.id%}">Edit</a>
+                </ul>
+
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No telecasts are available.</p>
+{% endif %}
+
+</body>
+</html>
