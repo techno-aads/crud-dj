@@ -2,5 +2,7 @@
 
 <div class="container">
 	<h1>{{ item }}</h1>
+	<p>Amount {{ item.amount }}</p>
+	<p>Address {{ item.address }}</p>
 	<a href="{% url 'item_edit' item.id %}">Edit Item</a>
 </div>	
