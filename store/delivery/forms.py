@@ -10,4 +10,4 @@ class ItemForm(forms.Form):
 	amount = forms.IntegerField()
 	address = forms.CharField()
 	#delivery_time = forms.DateField(widget=DateWidget(usel10n=True, bootstrap_version=3))
-	status = forms.CharField()
+	#status = forms.CharField()

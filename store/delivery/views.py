@@ -22,19 +22,36 @@ class ItemNewView(generic.FormView):
 	form_class = ItemForm
 	template_name = 'delivery/items/new.html'
 
+	def post(self, request):
+		item = Item(name = request.POST['name'],
+					 		amount = request.POST['amount'],
+							address = request.POST['address'],
+						 )
+		item.save()
+		return HttpResponseRedirect(reverse('item_show', args=(item.id,)))
+
 class ItemEditView(generic.FormView):
 	model = Item
 	form_class = ItemForm
 	template_name = 'delivery/items/new.html'
 
-def item_create(request):
-	item = Item(name = request.POST['name'],
+	def post(self, request):
+		item = Item(name = request.POST['name'],
 					 		amount = request.POST['amount'],
 							address = request.POST['address'],
-							delivery_time = request.POST['delivery_time'],
 						 )
+		item.save()
+		return HttpResponseRedirect(reverse('item_show', args=(item.id,)))
+
+def item_create(request):
+	item = Item(name = request.POST['name'],
+			 		amount = request.POST['amount'],
+					address = request.POST['address'],
+					delivery_time = request.POST['delivery_time'],
+				 )
 	item.save()
 	return HttpResponseRedirect(reverse('item_show', args=(item.id,)))
+
 
 def item_update(request, item_id):
 	item = Item(name = request.POST['name'],
