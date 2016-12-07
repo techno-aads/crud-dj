@@ -4,35 +4,61 @@
 <script src="{% static 'polls/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'polls/js/jquery-3.1.1.min.js' %}"></script>
 
-{% if listOfCourses %}
+{% if listOfGoods %}
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <table class="table table-bordered table-hover table-condensed" style="margin-top:50px;">
+    <div class="col-md-10 col-md-offset-1">
+        <table class="table table-bordered table-hover table-condensed" style="margin-top:25px; margin-bottom: 30px;">
             <thead>
                 <tr style="text-align:center;">
                     <td>№</td>
-                    <td>course</td>
-                    <td colspan="2">options</td>
+                    <td>товар</td>
+                    <td>адрес доставки</td>
+                    <td>кол-во</td>
+                    <td>дата доставки</td>
+                    <td>статус</td>
+                    <td colspan="2">настройки</td>
                 </tr>
             </thead>
             <tbody>
-                {% for course in listOfCourses %}
+                {% for course in listOfGoods %}
                 <tr style="text-align:center;">
                     <td>
                         {{ forloop.counter }}
                     </td>
+
                     <td>
-                        <a href="{% url 'polls:detail' course.id %}">{{ course.name }}</a>
+                        {{ course.name }}
                     </td>
+
+                    <td>
+                        {{ course.address }}
+                    </td>
+
+                    <td>
+                        {{ course.count }}
+                    </td>
+
+                    <td>
+                        {{ course.date }}
+                    </td>
+
+                    <td>
+                        {% if course.isArrive == "True" %}
+                            выполнен
+                        {% else %}
+                            не выполнен
+                        {% endif %}
+                    </td>
+
                     <td>
                         <form action="{% url 'polls:delete' %}" style="height: 10px; margin-top: -6px;" method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="id" value="{{ course.id }}">
-                            <button type="submit" class="btn btn-link" style="color:red;">remove</button>
+                            <button type="submit" class="btn btn-link" style="color:red;">удалить</button>
                         </form>
                     </td>
                     <td>
-                        <a style="color:green;" href="{% url 'polls:edit' course.id %}">edit</a>
+                        <a style="color:green;" href="{% url 'polls:edit' course.id %}">редактировать</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -42,7 +68,7 @@
 </div>
 {% else %}
 <div class="col-md-6 col-md-offset-3" style="text-align: center;">
-    <H2>No courses are available.</H2>
+    <H2>Нет доступных товаров.</H2>
     <hr>
 </div>
 {% endif %}
@@ -50,14 +76,21 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-info">
-          <div class="panel-heading">add new course</div>
+          <div class="panel-heading">Добавить новый товар</div>
           <div class="panel-body">
               <form action="{% url 'polls:add' %}" method="post">
                   {% csrf_token %}
-                  <input type="text" class="form-control" id="name" name="name" placeholder="course name" required><br>
-                  <input type="text" class="form-control" id="description"
-                         name="description" placeholder="course description" required><br>
-                  <input class="btn btn-default btn btn-success" type="submit" value="add course">
+                  <input type="text" class="form-control" name="name" placeholder="название" required><br>
+                  <input type="number" class="form-control" name="count" placeholder="кол-во" required><br>
+                  <input type="text" class="form-control" name="address" placeholder="адрес доставки" required><br>
+
+                  <input type="text" name="date" class="form-control" pattern=
+                          "(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}"
+                         placeholder="DD.MM.YYYY"><br>
+                  <input type="radio" name="arrived" value="True">выполнен<br>
+                  <input type="radio" name="arrived" value="False" checked>не выполнен<br><br>
+
+                  <input class="btn btn-default btn btn-success" type="submit" value="добавить">
               </form>
           </div>
         </div>

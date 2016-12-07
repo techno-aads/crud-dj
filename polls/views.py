@@ -3,17 +3,17 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from .models import Course, Student
+from .models import Course, Student, Goods
 
 
 # Create your views here.
 
 
 def index(request):
-    listOfCourses = Course.objects.order_by('name')[:5]
+    listOfGoods = Goods.objects.order_by('name')
     template = loader.get_template('polls/index.html')
     context = {
-        'listOfCourses': listOfCourses
+        'listOfGoods': listOfGoods
     }
     return HttpResponse(template.render(context, request))
 
@@ -48,13 +48,16 @@ def addStu(request, course_id):
 
 
 def add(request):
-    courseNew = Course(name=request.POST['name'], description=request.POST['description'])
-    courseNew.save()
+    goods = Goods(name=request.POST['name'], count=request.POST['count'],
+                  address=request.POST['address'],
+                  date=request.POST['date'],
+                  isArrive=request.POST['arrived'])
+    goods.save()
     return HttpResponseRedirect(reverse('polls:index'))
 
 
 def delete(request):
-    Course.objects.filter(id=request.POST["id"]).delete()
+    Goods.objects.filter(id=request.POST["id"]).delete()
     return HttpResponseRedirect(reverse('polls:index'))
 
 
@@ -63,14 +66,16 @@ def deleteStudent(request):
     return HttpResponseRedirect(reverse('polls:detail', args=(request.POST["course_id"],)))
 
 
-def editCourse(request, course_id):
-    course = get_object_or_404(Course, pk=course_id)
-    return render(request, 'polls/editCourse.html', {'course': course})
+def editCourse(request, goods_id):
+    goods = get_object_or_404(Goods, id=goods_id)
+    return render(request, 'polls/editCourse.html', {'goods': goods})
 
 
 def updateCourse(request, course_id):
-    Course.objects.filter(id=course_id).update(name=request.POST['name'],
-                                               description=request.POST['description'])
+    Goods.objects.filter(id=course_id).update(name=request.POST['name'], count=request.POST['count'],
+                                              address=request.POST['address'],
+                                              date=request.POST['date'],
+                                              isArrive=request.POST['arrived'])
     return HttpResponseRedirect(reverse('polls:index'))
 
 

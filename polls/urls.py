@@ -17,7 +17,7 @@ urlpatterns = [
     # ex: /polls/removeStudent/5/course/4/
     url(r'^removeStudent/$', views.deleteStudent, name='deleteStudent'),
     # ex: /polls/edit/5/
-    url(r'^edit/(?P<course_id>[0-9]+)$', views.editCourse, name='edit'),
+    url(r'^edit/(?P<goods_id>[0-9]+)$', views.editCourse, name='edit'),
     # ex: /polls/updateCourse/4/
     url(r'^updateCourse/(?P<course_id>[0-9]+)$', views.updateCourse, name='updateCourse'),
     # ex: /polls/editStu/4
