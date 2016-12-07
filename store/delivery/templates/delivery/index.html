@@ -1,0 +1,20 @@
+{% include 'delivery/_header.html' %}
+
+
+<div class="container">
+	<div class="page-header">
+		<h1><a href="{% url 'item_new' %}">New delivering</a></h1>
+	</div>
+</div>
+
+<div class="container">
+	{% if items %}
+    <div class="list-group">
+    {% for item in items %}
+        <a  class="list-group-item" href="{% url 'item_show' item.id %}">{{ item }}</a>
+    {% endfor %}
+    <div>
+	{% else %}
+	    <h4>No items to deliver yet</h4>
+	{% endif %}
+</div>

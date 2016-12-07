@@ -1,0 +1,11 @@
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+
+{% csrf_token %}
+{% bootstrap_form form %}
+{% buttons submit='Save' %}{% endbuttons %}
