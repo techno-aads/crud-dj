@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TV shows! -> all</title>
+{#    <link rel="stylesheet" href="../style.css">#}
+    <style type="text/css">
+        p {
+            margin: 15px 0 0 16px;
+            background-color: #dff0d8;
+        }
+        .under {
+            margin: 5px 0 5px 100px;
+            background-color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <a href="index.html">home</a>
+    </div>
+    <div>
+        <h2>All shows:</h2>
+    </div>
+
+    {% for show in shows %}
+        <p>
+            {{ show.date }}
+            <p class="under">
+                <a href="">{{ show.name }} ({{ show.duration }} m, ad: {{ show.advertisement }})</a><br>
+                {{ show.description|linebreaksbr }}
+                <form method="post">
+                    <input type="submit" value="Change">
+                    <input type="submit" value="Delete">
+                </form>
+            </p>
+        </p>
+    {% endfor %}
+</body>
+</html>
