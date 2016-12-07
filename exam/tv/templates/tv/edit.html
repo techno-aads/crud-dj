@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать передачу {{obj.name}}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "tv/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "tv/mystyle.css" %}">
+</head>
+<body>
+<h1>Редактирование данной программы:</h1>
+<br>
+<div class="holdIt">
+    <div class="my_form">
+        <form action="{% url 'tv:edit' obj.id %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Название</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="{{obj.name}}"
+                       required>
+            </div>
+            <div class="form-group">
+                <label for="description">Описание</label>
+                <input type="text" class="form-control" id="description" name="description"
+                       placeholder="{{obj.description}}" required>
+                </input>
+            </div>
+            <div class="form-group">
+                <label for="len">Продолжительность</label>
+                <input type="text" class="form-control" id="len" name="timeLen" placeholder="{{obj.timeLen}}" required>
+                </input>
+            </div>
+            <div class="form-group">
+                <label for="ad">Опции: реклама</label>
+                <input type="text" class="form-control" id="ad" name="ad" placeholder="{{obj.ad}}" required>
+                </input>
+            </div>
+            <div class="form-group">
+                <label for="time">Время</label>
+                <input type="text" class="form-control" id="time" name="dateTime" placeholder="{{obj.dateTime}}"
+                       required>
+                </input>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-default" value="Изменить">
+            </div>
+        </form>
+    <a href="delete">Удалить программу</a>
+    </div>
+</div>
+</body>
+</html>

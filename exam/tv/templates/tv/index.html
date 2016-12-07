@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ТВ-Программа</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "tv/mystyle.css" %}">
+</head>
+<body>
+<div class="inhere">
+<h1>Телепередачи</h1>
+    <ul>
+        {% for obj in list %}
+        <li>
+            <a href="{% url 'tv:edit' obj.id %}">{{ obj }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="add">Добавить новую передачу</a>
+</div>
+</body>
+</html>

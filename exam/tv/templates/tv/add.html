@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить передачу</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "tv/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "tv/mystyle.css" %}">
+</head>
+<body>
+<div class="holdIt">
+    <h1>Добавить новую передачу:</h1>
+    <form method="POST" class="post-form" class="form-group">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+</div>
+</body>
+</html>

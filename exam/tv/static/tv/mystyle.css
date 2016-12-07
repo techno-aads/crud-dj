@@ -1,0 +1,19 @@
+a {
+    text-decoration: none;
+    font-size: 20px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.inhere {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.holdIt{
+    display: block;
+    width: 800px;
+    margin: 0 auto;
+}
