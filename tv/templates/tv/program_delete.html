@@ -31,7 +31,7 @@
                             src="{% static "assets/polis_logo.png" %}"></a></h3>
                     <nav>
                         <ul class="nav masthead-nav">
-                            <li><a href="{% url "tv:index" %}">Вурнуться к списку</a></li>
+                            <li><a href="{% url "tv:index" %}">Вернуться к списку</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -45,6 +45,7 @@
                 <form action="" method="post">
                     {% csrf_token %}
                     <p>Вы действительно хотите удалить программу: {{ program.name }}?</p>
+                    <br>
                     <input type="submit" class="btn" value="Подтвердить">
                 </form>
 

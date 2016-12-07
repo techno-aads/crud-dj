@@ -24,16 +24,31 @@
                             src="{% static "assets/polis_logo.png" %}"></a></h3>
                     <nav>
                         <ul class="nav masthead-nav">
-                            <li><a href="{% url "tv:index" %}">Вурнуться к списку</a></li>
+                            <li><a href="{% url "tv:index" %}">Вернуться к списку</a></li>
                         </ul>
                     </nav>
                 </div>
             </div>
 
             <div class="inner cover">
-                <h1 class="cover-heading">Изменить данные студента</h1>
+                <h1 class="cover-heading">Изменить данные о программе</h1>
 
-                <br>
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <br>
+                {% endif %}
 
                 <form class="form-horizontal" action="" method="post">
                     {% csrf_token %}
@@ -66,8 +81,10 @@
                     <div class="form-group">
                         <label for="id_date" class="col-sm-4 control-label">Дата:</label>
                         <div class="col-sm-5">
-                            <input id="id_date" name="date" class="form-control" type="text" value="{{ program.date }}"
+                            <input id="id_date" name="date" class="form-control" type="text"
+                                   value="{{ program.date.year }}-{{ program.date.month }}-{{ program.date.day }}"
                                    required/>
+                            <div id="helpBlock" class="help-block">Формат: гггг-мм-дд</div>
                         </div>
                     </div>
 
@@ -79,7 +96,6 @@
                         </div>
                     </div>
 
-                    <br>
 
                     <input type="submit" class="btn btn-success" value="Сохранить">
                 </form>
