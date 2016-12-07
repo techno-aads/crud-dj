@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Телепрограмма</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+{% if list_shows %}
+<div class="container">
+  <h2>Телепрограмма</h2>
+  <table class="table">
+    <thead>
+      <tr>
+          <th>Название передачи</th>
+          <th>Дата</th>
+          <th>Продолжительность</th>
+          <th>Описание</th>
+          <th>Реклама</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for show in list_shows %}
+      <tr>
+          <td>{{show.name}}</td>
+          <td>{{show.broadcast_date}}</td>
+          <td>{{show.duration}}</td>
+          <td>{{show.description}}</td>
+          <td>{{show.advert}}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+    <p>Передачи закончились. Канал закрывается.</p>
+{% endif %}
+    <a href="/admin">Перейти в админ (логин ilgsha, пароль adminadmin)</a>
+</div>
+</body>
+</html>
