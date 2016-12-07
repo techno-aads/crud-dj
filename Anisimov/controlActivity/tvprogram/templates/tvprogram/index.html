@@ -1,0 +1,18 @@
+<head>
+  {% load staticfiles %}
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="{% static 'css/tvprogram.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <h1> Welcome: </h1>
+  {% if tvprograms_list %}
+ 	  <ul>
+ 	    {% for tvprogram in tvprograms_list %}
+   	    <li><a href="/tvprogram/{{ tvprogram.id }}/edit"><p>	{{ tvprogram.title }}</p> </a></li>
+        {% endfor %}
+ 	    </ul>
+      {% endif %}
+
+</body>

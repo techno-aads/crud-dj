@@ -1,0 +1,15 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="{% static 'css/tvprogram.css' %}">
+<link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+
+<form action="edit" method="POST">
+  {%csrf_token %}
+  <li><input type="text" name="title" value="{{tvprogram.title}}"></li>
+  <li><input type="text" name="description" value="{{tvprogram.description}}"></li>
+  <li><input type="number" name="duration" value="{{tvprogram.duration}}"></li>
+  <li><input type="datetime" name="date" value="{{tvprogram.date}}"></li>
+  <li><input type="text" name="adv_option" value="{{tvprogram.adv_option}}"></li>
+  <a href="/tvprogram"> <h2> Save </h2> </a>
+</form>

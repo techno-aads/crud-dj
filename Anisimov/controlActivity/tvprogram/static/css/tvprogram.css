@@ -1,0 +1,14 @@
+body {
+  color: #5c1daa;
+  background-color: #ead493;
+}
+
+h1,h2 {
+  font-family: 'Lobster'
+}
+
+a {
+  color: #551f6b;
+  font-size: 20px;
+  font-style: italic;
+}
