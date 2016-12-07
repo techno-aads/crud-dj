@@ -20,30 +20,30 @@
                 </tr>
             </thead>
             <tbody>
-                {% for course in listOfGoods %}
+                {% for goods in listOfGoods %}
                 <tr style="text-align:center;">
                     <td>
                         {{ forloop.counter }}
                     </td>
 
                     <td>
-                        {{ course.name }}
+                        {{ goods.name }}
                     </td>
 
                     <td>
-                        {{ course.address }}
+                        {{ goods.address }}
                     </td>
 
                     <td>
-                        {{ course.count }}
+                        {{ goods.count }}
                     </td>
 
                     <td>
-                        {{ course.date }}
+                        {{ goods.date }}
                     </td>
 
                     <td>
-                        {% if course.isArrive == "True" %}
+                        {% if goods.isArrive == "True" %}
                             выполнен
                         {% else %}
                             не выполнен
@@ -53,12 +53,12 @@
                     <td>
                         <form action="{% url 'polls:delete' %}" style="height: 10px; margin-top: -6px;" method="POST">
                             {% csrf_token %}
-                            <input type="hidden" name="id" value="{{ course.id }}">
+                            <input type="hidden" name="id" value="{{ goods.id }}">
                             <button type="submit" class="btn btn-link" style="color:red;">удалить</button>
                         </form>
                     </td>
                     <td>
-                        <a style="color:green;" href="{% url 'polls:edit' course.id %}">редактировать</a>
+                        <a style="color:green;" href="{% url 'polls:edit' goods.id %}">редактировать</a>
                     </td>
                 </tr>
                 {% endfor %}
