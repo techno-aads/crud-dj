@@ -12,7 +12,7 @@
 <br>
 <div class="holdIt">
     <div class="my_form">
-        <form action="{% url 'tv:edit' obj.id %}" method="post">
+        <form action="{% url 'tv:save' obj.id %}" method="post">
             {% csrf_token %}
             <div class="form-group">
                 <label for="name">Название</label>

@@ -23,16 +23,17 @@ def edit(request, id):
 def save(request, id):
     obj = get_object_or_404(Program, pk=id)
     try:
-        obj.name = request.POST['name']
         obj.description = request.POST['description']
         obj.timeLen = request.POST['timeLen']
         obj.ad = request.POST['ad']
         obj.dateTime = request.POST['dateTime']
+        obj.name = request.POST['name']
         obj.save()
     except KeyError:
         return render(request, 'tv/edit.html', {'obj': obj})
     else:
-        return HttpResponseRedirect(reverse('tv:index'))
+        return render(request, 'tv/edit.html', {'obj': obj})
+    return HttpResponseRedirect(reverse('tv:index'))
 
 
 def add(request):

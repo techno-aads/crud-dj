@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^(?P<id>[0-9]*)/$', views.edit, name='edit'),
     url(r'add/$', views.add, name='add'),
     url(r'^(?P<id>[0-9]+)/delete/$', views.delete, name='delete'),
+    url(r'^(?P<id>[0-9]+)/save/$', views.save, name='save'),
 
 ]
