@@ -1,0 +1,35 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/css/bootstrap.css' %}" />
+<script src="{% static 'polls/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'polls/js/jquery-3.1.1.min.js' %}"></script>
+
+<div class="row" style="margin-top: 50px;">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">edit student</div>
+          <div class="panel-body">
+                <form action="{% url 'polls:updateStu' student.id  %}" method="post">
+                {% csrf_token %}
+                    <label>name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ student.name }}" required><br>
+                    <label>second name</label>
+                    <input type="text" class="form-control" id="family"
+                                 name="family" value="{{ student.family }}" required><br>
+
+                    <label>course</label><br>
+                    <select name="course" class="form-control">
+                    {% for course in courses %}
+                        {% if course.name == student.learnSubj.name %}
+                            <option selected="selected" value="{{ course.name }}">{{ course.name }}</option>
+                        {% else %}
+                            <option value="{{ course.name }}">{{ course.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                    </select>
+                    <br>
+                    <input class="btn btn-default btn btn-warning" type="submit" value="save changes">
+                </form>
+          </div>
+        </div>
+    </div>
+</div>

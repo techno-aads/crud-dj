@@ -1,0 +1,77 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/css/bootstrap.css' %}" />
+
+<script src="{% static 'polls/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'polls/js/jquery-3.1.1.min.js' %}"></script>
+
+<div class="row" style="margin-top: 25px;">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">Course description</div>
+            <div class="panel-body">
+                {{ desc }}
+            </div>
+        </div>
+
+        <table class="table table-bordered table-hover table-condensed" style="text-align: center;">
+            <thead>
+                <tr style="background-color:#F5F5F5;">
+                    <td colspan="5">
+                        {{ mainTitle }} course
+                    </td>
+                </tr>
+                <tr style="background-color:#F5F5F5;">
+                    <td>№</td>
+                    <td>name</td>
+                    <td>second name</td>
+                    <td colspan="2">options</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for student in studentsList %}
+                <tr>
+                    <td>
+                        {{forloop.counter}}
+                    </td>
+                    <td>
+                        {{ student.name }}
+                    </td>
+                    <td>
+                        {{ student.family }}
+                    </td>
+                    <td style="padding-left:15px;">
+                        <form action="{% url 'polls:deleteStudent' %}" style="height: 10px; margin-top: -6px;" method="post" >
+                            {% csrf_token %}
+                            <input type="hidden" name="course_id" value="{{ myId }}">
+                            <input type="hidden" name="student_id" value="{{ student.id }}">
+                            <button type="submit" class="btn btn-link" style="color:red;">delete</button>
+                        </form>
+                    </td>
+                    <td>
+                        <a style="color:green" href="{% url 'polls:editStu' student.id %}">edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-info">
+          <div class="panel-heading">add new Student</div>
+          <div class="panel-body">
+              <form action="{% url 'polls:vote' myId %}" method="post">
+                  {% csrf_token %}
+                  <input type="text" class="form-control" id="nameStu" name="name" placeholder="name" required><br>
+                  <input type="text" class="form-control" id="familyStu"
+                         name="family" placeholder="family" required><br>
+                  <input class="btn btn-default btn btn-success" type="submit" value="add student" />
+              </form>
+          </div>
+        </div>
+    </div>
+</div>

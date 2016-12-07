@@ -1,0 +1,65 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/css/bootstrap.css' %}" />
+
+<script src="{% static 'polls/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'polls/js/jquery-3.1.1.min.js' %}"></script>
+
+{% if listOfCourses %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <table class="table table-bordered table-hover table-condensed" style="margin-top:50px;">
+            <thead>
+                <tr style="text-align:center;">
+                    <td>№</td>
+                    <td>course</td>
+                    <td colspan="2">options</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in listOfCourses %}
+                <tr style="text-align:center;">
+                    <td>
+                        {{ forloop.counter }}
+                    </td>
+                    <td>
+                        <a href="{% url 'polls:detail' course.id %}">{{ course.name }}</a>
+                    </td>
+                    <td>
+                        <form action="{% url 'polls:delete' %}" style="height: 10px; margin-top: -6px;" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ course.id }}">
+                            <button type="submit" class="btn btn-link" style="color:red;">remove</button>
+                        </form>
+                    </td>
+                    <td>
+                        <a style="color:green;" href="{% url 'polls:edit' course.id %}">edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<div class="col-md-6 col-md-offset-3" style="text-align: center;">
+    <H2>No courses are available.</H2>
+    <hr>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-info">
+          <div class="panel-heading">add new course</div>
+          <div class="panel-body">
+              <form action="{% url 'polls:add' %}" method="post">
+                  {% csrf_token %}
+                  <input type="text" class="form-control" id="name" name="name" placeholder="course name" required><br>
+                  <input type="text" class="form-control" id="description"
+                         name="description" placeholder="course description" required><br>
+                  <input class="btn btn-default btn btn-success" type="submit" value="add course">
+              </form>
+          </div>
+        </div>
+    </div>
+</div>
