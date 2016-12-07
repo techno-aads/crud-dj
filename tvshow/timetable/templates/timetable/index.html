@@ -1,0 +1,18 @@
+{% load static %}
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'timetable/style.css' %}" />
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+
+
+{% if show_list %}
+    <ul>
+    {% for show in show_list %}
+        <li><a href="{% url 'timetable:detail' show.id %}">{{ show.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No shows are available.</p>
+{% endif %}
