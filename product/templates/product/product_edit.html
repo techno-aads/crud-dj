@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% block content %}
-        <h1>New product</h1>
+        <h1>Product</h1>
         <form method="POST" class="post-form" class="form-group">{% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="save btn btn-default">Save</button>
