@@ -1,0 +1,18 @@
+<div>
+    <div >
+        <div >
+          <div >edit telecast</div>
+          <div >
+                <form action="{% url 'polls:updateTelecast' telecast.id %}" method="post">
+                {% csrf_token %}
+                    <label>Telecast name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ telecast.tel_name }}" required><br>
+                    <label>Telecast description</label>
+                    <input type="text" class="form-control" id="description"
+                                 name="description" value="{{ telecast.tel_descr }}" required><br>
+                    <input class="btn btn-default btn btn-warning" type="submit" value="save changes">
+                </form>
+          </div>
+        </div>
+    </div>
+</div>
