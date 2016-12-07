@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit form</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+</head>
+<body>
+<h1>Edit form</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'edit' product.id %}" method="post">
+    {% csrf_token %}
+    <label >
+    <input type="text" name="name" value="{{ product.name }}" />
+    {{ "Set name" }}</label><br />
+    <label>
+    <input type="number" name="count" value="{{ product.count }}" />
+    {{ "Set count" }}</label><br />
+    <input type="text" name="adress" value="{{ product.adress }}" />
+    {{ "Set adress" }}</label><br />
+    <input type="date" name="date" value="{{ product.date|date:"Y-m-d" }}" />
+    {{ "Set date" }}</label><br />
+    {% for choice in product.DELIVEY_STATUS_CHOISES %}
+    <label>
+    {{ choice.get_deliveryStatus_display  }}
+    <input type="radio" name="status" value="{{ choice }}">{{ choice }}</input>
+    </label>
+    {% endfor %}
+    <input type="submit" value="Send" />
+</form>
+<form action="{% url 'edit' product.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" name="delete" value="Delete" />
+</form>
+</body>
+</html>

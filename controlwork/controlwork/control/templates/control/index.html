@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Goods list</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+</head>
+<body>
+{% if product_list %}
+<ul>
+    <h1>Products</h1>
+    {% for product in product_list %}
+    <li><a href="{% url 'details' product.id %}">{{ product.name }} </a></li>
+    <p>Due date: {{ product.date }}<br>
+        Count: {{ product.count }}<br>
+        Adress: {{ product.adress }} <br>
+        Status: {{ product.get_deliveryStatus_display }}
+    </p>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No products are available.</p>
+{% endif %}
+</body>
+<h3>New product</h3>
+<form action="{% url 'product' %}" method="post">
+    {% csrf_token %}
+    <label>
+        <input type="text" name="name" value="{{ product.name }}"/>
+        {{ "Set name" }}</label><br/>
+    <label>
+        <input type="number" name="count" value="{{ product.count }}"/>
+        {{ "Set count" }}</label><br/>
+    <input type="text" name="adress" value="{{ product.adress }}"/>
+    {{ "Set adress" }}</label><br/>
+    <input type="date" name="date" value="{{ product.date|date:" Y-m-d" }}" />
+    {{ "Set date" }}</label><br/>
+    {% for choice in Product.DELIVEY_STATUS_CHOISES %}
+    <label>
+        {{ choice.get_deliveryStatus_display }}
+        <input type="radio" name="status" value="{{ choice }}">{{ choice }}</input>
+    </label>
+    {% endfor %}
+    <input type="submit" value="Add"/>
+</form>
+</body>
+</html>
