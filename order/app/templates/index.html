@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+
+
+<head>
+    
+    <title>Orders</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script> src="js/bootstrap.min.js"</script>
+    <script> src="js/jquery-3.1.1.min.js"</script>
+    <meta charset="utf-8">
+    
+</head>
+
+
+<style type="text/css">
+   TABLE {
+    border: 2px solid black; /* Рамка вокруг таблицы */
+   }
+   TD, TH {
+    padding: 3px; /* Поля вокруг содержимого ячеек */
+   }
+   TH {
+    text-align: left;
+    background: black; 
+    color: white; 
+   }
+  </style>
+ 
+
+<body>
+	<h1>orders</h1>
+	<table cellspacing="30" >
+
+	<tr ALIGN=CENTER>
+		<td>название</td>
+		<td>количество</td>
+		<td>адрес</td>
+		<td>дата</td>
+		<td>статус</td>
+	</tr>
+	
+	{%for order in list %}
+	<tr ALIGN=CENTER>
+	<td>{{order.name}}</td>
+	<td>{{order.amount}}</td>
+	<td>{{order.addres}}</td>
+	<td>{{order.date}}</td>
+	<td>{{order.status}}</td>
+	</tr>
+	{% endfor %}
+
+
+	</table>
+
+	<form action="{% url 'app:add' %}" method="post">
+            {% csrf_token %}
+ 
+            Select order name <br>
+            <input type="text" name="name"></input><br>
+ 
+            Select amount<br>
+            <input type="number" name="amount"></input><br>
+ 
+            Select addres<br>
+            <input type="text" name="addres"></input><br>
+ 
+            Select order date<br>
+            <input type="date" name="date"></input><br>
+ 
+            Select status<br>
+            <input type="text" name="status"></input><br>
+ 
+            <br><br>
+            <input type="submit" value="Add show" name="btnAdd"></input>
+          </form>
+
+</body>
