@@ -1,94 +1,63 @@
-{% load staticfiles %}
+{% extends 'goods/base.html' %}
 
-<html>
-<head>
-    <title>{{ good.name }} - Доставка</title>
-    <link rel="stylesheet" href="{% static 'goods/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'goods/css/styles.css' %}">
-    <script src="{% static 'goods/js/jquery-3.1.1.js' %}"></script>
-    <script src="{% static 'goods/js/bootstrap.min.js' %}"></script>
-</head>
-<body>
-<main class="container" role="main">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="{% url 'goods:index' %}">
-                    <span class="glyphicon glyphicon-send" style="margin-right: 5px"></span> Доставка товаров
-                </a>
-            </div>
+{% block title %}
+    Изменение заказа №{{ good.id }}
+{% endblock %}
 
-            <form class="navbar-form navbar-right">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Поиск">
-                </div>
-                <button type="submit" class="btn btn-default">Найти</button>
-            </form>
-
-            <button type="button" class="btn btn-default navbar-btn navbar-right">Зарегистрироваться</button>
-
-            <button type="button" class="btn btn-default navbar-btn navbar-right mar-right">Войти</button>
-
-        </div>
-    </nav>
-
+{% block content %}
     <div class="panel panel-default">
         <div class="panel-heading panel-title">
-            <h4>Изменить заказ №{{ good.id }}</h4>
+            <h4>Изменение заказа №{{ good.id }}</h4>
         </div>
         <div class="panel-body">
             <form action="{% url 'goods:save' good.id %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="name">Название товара:</label>
+
                     <input id="name" name="name" type="text" class="form-control" placeholder="Название"
-                           value="{{ good.name }}" required>
+                           value="{{ good.name }}" required {% if not user.is_authenticated %} readonly {% endif %}>
                 </div>
 
                 <div class="form-group">
                     <label for="count">Количество товара:</label>
                     <input id="count" name="count" type="number" class="form-control" placeholder="Количество"
-                           value="{{ good.count }}" required>
+                           value="{{ good.count }}" required {% if not user.is_authenticated %} readonly {% endif %}>
                 </div>
 
                 <div class="form-group">
                     <label for="address">Адрес доставки:</label>
                     <input id=address" name="address" type="text" class="form-control" placeholder="Адрес"
-                           value="{{ good.delivery_address }}" required>
+                           value="{{ good.delivery_address }}" required
+                            {% if not user.is_authenticated %} readonly {% endif %}>
                 </div>
 
                 <div class="form-group">
                     <label for="date">Дата доставки:</label>
                     <input id="date" name="date" type="date" class="form-control" placeholder="Дата"
-                           value="{{ good.delivery_date|date:'Y-m-d' }}" required>
+                           value="{{ good.delivery_date | date:'Y-m-d' }}" required
+                            {% if not user.is_authenticated %} readonly {% endif %}>
                 </div>
 
                 <div class="form-group">
                     <label for="delivered">Выполнен:</label>
-                    {% if good.delivered %}
-                        <input id="delivered" name="delivered" type="checkbox" class="form-check-input"
-                               placeholder="Дата" checked>
-                    {% else %}
-                        <input id="delivered" name="delivered" type="checkbox" class="form-check-input"
-                               placeholder="Дата">
-                    {% endif %}
+                    <input id="delivered" name="delivered" type="checkbox" class="form-check-input" placeholder="Дата"
+                            {% if not user.is_authenticated %} onclick="return false;" {% endif %}
+                            {% if good.delivered %} checked {% endif %}>
                 </div>
-                <input type="submit" class="btn btn-success" value="Сохранить" required>
+                {% if user.is_authenticated %}
+                    <input type="submit" class="btn btn-success" value="Сохранить" required>
+                {% else %}
+                    <div class="text-center">Авторизуйтесь, для того чтобы изменить заказ</div>
+                {% endif %}
             </form>
-
-            <form action="{% url 'goods:remove' good.id %}" method="post">
-                {% csrf_token %}
-                <input type="submit" class="btn btn-danger right-align" value="Отменить заказ"
-                       style="margin-top: -50px">
-            </form>
+            {% if user.is_authenticated %}
+                <form action="{% url 'goods:remove' good.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-danger right-align" value="Отменить заказ"
+                           style="margin-top: -50px">
+                </form>
+            {% endif %}
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="light-font panel-footer">
-            <a href="https://github.com/vaddya" target="_blank">@vaddya</a>
-            <a class="right-align" href="https://polis.mail.ru" target="_blank">Веб-технологии - Технополис@Mail.ru</a>
-        </div>
-    </div>
-</main>
-</body>
-</html>
+{% endblock %}

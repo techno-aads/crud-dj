@@ -1,92 +1,65 @@
-{% load staticfiles %}
+{% extends 'goods/base.html' %}
 
-<html>
-<head>
-    <title>Оформление заказа - Доставка</title>
-    <link rel="stylesheet" href="{% static 'goods/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'goods/css/styles.css' %}">
-    <script src="{% static 'goods/js/jquery-3.1.1.js' %}"></script>
-    <script src="{% static 'goods/js/bootstrap.min.js' %}"></script>
-</head>
-<body>
-<main class="container" role="main">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid" id="frist">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="{% url 'goods:index' %}">
-                    <span class="glyphicon glyphicon-send" style="margin-right: 5px"></span> Доставка товаров
-                </a>
-            </div>
+{% block title %}
+    Оформление заказа
+{% endblock %}
 
-            <form class="navbar-form navbar-right">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Поиск">
-                </div>
-                <button type="submit" class="btn btn-default">Найти</button>
-            </form>
-
-            <button type="button" class="btn btn-default navbar-btn navbar-right">Зарегистрироваться</button>
-
-            <button type="button" class="btn btn-default navbar-btn navbar-right mar-right">Войти</button>
-
-        </div>
-    </nav>
-
+{% block content %}
     <div class="panel panel-default">
         <div class="panel-heading panel-title">
             <h4>Оформить заказ</h4>
         </div>
+
         <div class="panel-body">
-            <form action="{% url 'goods:add' %}" method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="name">Название товара:</label>
-                    <input id="name" name="name" type="text" class="form-control" placeholder="Название" required>
-                </div>
+            {% if user.is_authenticated %}
+                <form action="{% url 'goods:add' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Название товара:</label>
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Название" required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="count">Количество товара:</label>
-                    <input id="count" name="count" type="number" class="form-control" placeholder="Количество" required>
-                </div>
+                    <div class="form-group">
+                        <label for="count">Количество товара:</label>
+                        <input id="count" name="count" type="number" class="form-control" placeholder="Количество"
+                               required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="address">Адрес доставки:</label>
-                    <input id=address" name="address" type="text" class="form-control" placeholder="Адрес" required>
-                </div>
+                    <div class="form-group">
+                        <label for="address">Адрес доставки:</label>
+                        <input id=address" name="address" type="text" class="form-control" placeholder="Адрес" required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="date">Дата доставки:</label>
-                    <input id="date" name="date" type="date" class="form-control" placeholder="Дата" required>
-                </div>
+                    <div class="form-group">
+                        <label for="date">Дата доставки:</label>
+                        <input id="date" name="date" type="date" class="form-control" placeholder="Дата" required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="delivered">Выполнен:</label>
-                    <input id="delivered" name="delivered" type="checkbox" class="form-check-input" placeholder="Дата">
-                </div>
-                <input type="submit" class="btn btn-success center-block" value="Оформить заказ">
-            </form>
+                    <div class="form-group">
+                        <label for="delivered">Выполнен:</label>
+                        <input id="delivered" name="delivered" type="checkbox" class="form-check-input"
+                               placeholder="Дата">
+                    </div>
+                    <input type="submit" class="btn btn-success center-block" value="Оформить заказ">
+                </form>
+            {% else %}
+                Авторизуйтесь, для того чтобы оформить заказ
+            {% endif %}
         </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="light-font panel-footer">
-            <a href="https://github.com/vaddya" target="_blank">@vaddya</a>
-            <a class="right-align" href="https://polis.mail.ru" target="_blank">Веб-технологии - Технополис@Mail.ru</a>
-        </div>
-    </div>
-</main>
-<script>
-    window.onload = function () {
-        document.getElementById("date").setAttribute("value", getFormattedDate(new Date()));
-    }
 
-    function getFormattedDate(date) {
-        var year = date.getFullYear();
-        var month = (1 + date.getMonth()).toString();
-        month = month.length > 1 ? month : '0' + month;
-        var day = date.getDate().toString();
-        day = day.length > 1 ? day : '0' + day;
-        return year + '-' + month + '-' + day;
-    }
-</script>
-</body>
-</html>
+    </div>
+    <script>
+        window.onload = function () {
+            document.getElementById("date").setAttribute("value", getFormattedDate(new Date()));
+        };
+
+        function getFormattedDate(date) {
+            var year = date.getFullYear();
+            var month = (1 + date.getMonth()).toString();
+            month = month.length > 1 ? month : '0' + month;
+            var day = date.getDate().toString();
+            day = day.length > 1 ? day : '0' + day;
+            return year + '-' + month + '-' + day;
+        }
+    </script>
+{% endblock %}

@@ -1,37 +1,10 @@
-{% load staticfiles %}
+{% extends 'goods/base.html' %}
 
-<html>
-<head>
-    <title>Доставка</title>
-    <link rel="stylesheet" href="{% static 'goods/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'goods/css/styles.css' %}">
-    <script src="{% static 'goods/js/jquery-3.1.1.js' %}"></script>
-    <script src="{% static 'goods/js/bootstrap.min.js' %}"></script>
-</head>
-<body>
-<main class="container" role="main">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="{% url 'goods:index' %}">
-                    <span class="glyphicon glyphicon-send mar-right"></span> Доставка товаров
-                </a>
-            </div>
+{% block title %}
+    Главная
+{% endblock %}
 
-            <form class="navbar-form navbar-right">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Поиск">
-                </div>
-                <button type="submit" class="btn btn-default">Найти</button>
-            </form>
-
-            <button type="button" class="btn btn-default navbar-btn navbar-right">Зарегистрироваться</button>
-
-            <button type="button" class="btn btn-default navbar-btn navbar-right mar-right">Войти</button>
-
-        </div>
-    </nav>
-
+{% block content %}
     <div class="jumbotron" style="background: snow">
         <div class="container text-center">
             <h1>Список заказов</h1>
@@ -74,18 +47,10 @@
                     </h4>
                 </div>
                 <div class="panel-body">
-                    <h4>Дата доставки: {{ good.delivery_date|date:'d.m.Y' }}</h4>
+                    <h4>Дата доставки: {{ good.delivery_date | date:'d.m.Y' }}</h4>
                     <h4>Адрес доставки: {{ good.delivery_address }}</h4>
                 </div>
             </div>
         {% endfor %}
     {% endif %}
-    <div class="panel panel-default">
-        <div class="light-font panel-footer">
-            <a href="https://github.com/vaddya" target="_blank">@vaddya</a>
-            <a class="right-align" href="https://polis.mail.ru" target="_blank">Веб-технологии - Технополис@Mail.ru</a>
-        </div>
-    </div>
-</main>
-</body>
-</html>
+{% endblock %}

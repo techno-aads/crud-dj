@@ -7,7 +7,7 @@ from goods.models import Good
 
 
 def index(request):
-    goods = Good.objects.order_by('delivered', '-delivery_date')[:10]
+    goods = Good.objects.order_by('delivered', '-delivery_date')
     context = {
         'goods': goods,
     }
