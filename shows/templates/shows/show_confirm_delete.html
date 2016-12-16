@@ -1,0 +1,9 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shows/style.css' %}" />
+
+<a href="{% url "shows:show_list"%}"><h1>Shows</h1></a>
+<form method="post">
+    {% csrf_token %}
+    Are you sure you want to delete "{{ object }}" ?<br>
+    <input type="submit" value="Yes, delete it" />
+</form>

@@ -1,0 +1,14 @@
+.delete {
+    border: 1px solid;
+    color: red;
+}
+
+.new {
+    border: 1px solid;
+    color: green;
+}
+
+a {
+    color: grey;
+    text-decoration: none;
+}
