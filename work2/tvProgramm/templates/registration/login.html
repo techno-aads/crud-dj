@@ -5,9 +5,6 @@
 
 <form action="" method="post" class="form">
     {% csrf_token %}
-    {% if error %}
-    <div class="container"><p class="text-danger">Invalid username or password</p></div>
-    {% endif %}
     {% bootstrap_form form %}
     {% buttons %}
         <button type="submit" class="btn btn-primary">
