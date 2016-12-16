@@ -1,0 +1,83 @@
+ {% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">TV programs</a>
+    </div>
+
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+          {% if isLogged %}
+          <li><a href="#">{{ name }}</a></li>
+          <li><a href="logout">Log out</a></li>
+          {% else %}
+          <li><a href="signup">Sign up</a></li>
+          <li><a href="login">Log in</a></li>
+          {% endif %}
+      </ul>
+  </div>
+  </div>
+</nav>
+
+<div class = "container">
+<div class = "container"><h1>Programs</h1></div>
+ <div class = "container">
+     <ul>
+   {% for obj in programms %}
+         <li class="list-group-item">
+             <div class="row">
+                 
+                  <div class="col-sm-2">
+                    <h3>{{ obj }}</h3>
+                    <p>Duration: {{ obj.length }}</p>
+                  </div>
+                  <div class="col-sm-2">
+            {% if isLogged %}
+            <a href= {% url 'save' obj.id %}>
+                        {% buttons %}
+                            <button type="submit" class="btn">
+                                {% bootstrap_icon "star" %} Change
+                            </button>
+                        {% endbuttons %}
+                    </a>
+            <a href={% url 'delete' obj.id %}>
+                {% buttons %}
+                    <button type="submit" class="btn">
+                        {% bootstrap_icon "star" %} Delete
+                    </button>
+                {% endbuttons %}
+            </a>
+            {% endif %}
+            </div>
+                  <div class="col-sm-4">
+                    <h4>Description:</h4>
+                    <p>{{ obj.description }}</p>
+                </div>
+             </div>
+        </li>
+   {% endfor %}
+   </ul>
+   {% if isLogged %}
+   <div class="row">
+       <a href="add">
+           {% buttons %}
+                <button type="submit" class="btn">
+                    {% bootstrap_icon "star" %} Add
+                </button>
+            {% endbuttons %}
+       </a>
+   </div>
+   {% endif %}
+ </div>
+</div>
