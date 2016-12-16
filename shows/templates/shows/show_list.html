@@ -1,0 +1,14 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shows/style.css' %}" />
+
+<a href="{% url "shows:show_list"%}"><h1>Shows</h1></a>
+<ul>
+    {% for show in object_list %}
+    <li>{{show.run_date}}:
+    <a href="{% url "shows:show_edit" show.id %}" title="{{ show.description }}">{{ show.name }} ({{show.running_time}}min)  {% if show.has_ads == False %}[no ads]{% endif %}</a>
+    <a class="delete" href="{% url "shows:show_delete" show.id %}" title="Delete show">x</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<a class="new" href="{% url "shows:show_new" %}">Add show</a>
