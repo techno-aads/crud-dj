@@ -8,7 +8,7 @@ class Programm(models.Model):
     length = models.TimeField()
     description = models.CharField(max_length=300)
     date = models.DateField()
-    ad = models.BooleanField(default=True)
+    ad = models.BooleanField(blank=True)
     
 
     def __str__(self):
