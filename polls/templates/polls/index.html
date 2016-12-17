@@ -7,9 +7,11 @@
 <div class="container-fluid" style="background-color:#2BBBAD; height: 30px;">
     <p class="text-center">
         {% if username %}
-            <a style="color: white; font-size: 20px;" href="{% url 'polls:logout' %}">logout</a>
+            <a style="color: white; font-size: 20px;" href="{% url 'polls:logout' %}">log out ({{ username }})</a>
         {% else %}
             <a style="color: white; font-size: 20px;" href="{% url 'polls:login' %}">login</a>
+            <span style="color:white; padding-left:20px; padding-right:20px;">|</span>
+            <a style="color: white; font-size: 20px;" href="{% url 'polls:register' %}">register</a>
         {% endif %}
     </p>
 </div>
