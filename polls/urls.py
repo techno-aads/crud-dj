@@ -8,6 +8,9 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     # ex: /polls/add/
     url(r'^add/$', views.add, name='add'),
+    url(r'^login/', views.login, name='login'),
+    url(r'^logout/', views.logout, name='logout'),
+    url(r'^userlogin/', views.userlogin, name='Userlogin'),
     # ex: /polls/remove/5/
     url(r'^remove/$', views.delete, name='delete'),
     # ex: /polls/edit/5/

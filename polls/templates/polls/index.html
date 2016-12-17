@@ -4,6 +4,16 @@
 <script src="{% static 'polls/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'polls/js/jquery-3.1.1.min.js' %}"></script>
 
+<div class="container-fluid" style="background-color:#2BBBAD; height: 30px;">
+    <p class="text-center">
+        {% if username %}
+            <a style="color: white; font-size: 20px;" href="{% url 'polls:logout' %}">logout</a>
+        {% else %}
+            <a style="color: white; font-size: 20px;" href="{% url 'polls:login' %}">login</a>
+        {% endif %}
+    </p>
+</div>
+
 {% if listOfGoods %}
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
@@ -51,14 +61,22 @@
                     </td>
 
                     <td>
-                        <form action="{% url 'polls:delete' %}" style="height: 10px; margin-top: -6px;" method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="{{ goods.id }}">
-                            <button type="submit" class="btn btn-link" style="color:red;">удалить</button>
-                        </form>
+                        {% if username %}
+                            <form action="{% url 'polls:delete' %}" style="height: 10px; margin-top: -6px;" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="id" value="{{ goods.id }}">
+                                <button type="submit" class="btn btn-link" style="color:red;">удалить</button>
+                            </form>
+                        {% else %}
+                            <a data-toggle="tooltip" title="you need to login" style="color:red;" href="#">удалить</a>
+                        {% endif %}
                     </td>
                     <td>
-                        <a style="color:green;" href="{% url 'polls:edit' goods.id %}">редактировать</a>
+                        {% if username %}
+                            <a data-toggle="tooltip" title="you need to login" style="color:green;" href="{% url 'polls:edit' goods.id %}">редактировать</a>
+                        {% else %}
+                            <a data-toggle="tooltip" title="you need to login" style="color:green;" href="#">редактировать</a>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
@@ -73,6 +91,7 @@
 </div>
 {% endif %}
 
+{% if username %}
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-info">
@@ -86,7 +105,7 @@
 
                   <input type="text" name="date" class="form-control" pattern=
                           "(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}"
-                         placeholder="DD.MM.YYYY"><br>
+                         placeholder="DD.MM.YYYY" required><br>
                   <input type="radio" name="arrived" value="True">выполнен<br>
                   <input type="radio" name="arrived" value="False" checked>не выполнен<br><br>
 
@@ -96,3 +115,15 @@
         </div>
     </div>
 </div>
+{% else %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-info">
+          <div class="panel-heading">Добавить новый товар</div>
+          <div class="panel-body">
+            <p style="padding-top:5px;">you need to login to add new goods.</p>
+          </div>
+        </div>
+    </div>
+</div>
+{% endif%}
