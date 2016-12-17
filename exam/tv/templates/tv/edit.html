@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Редактировать передачу {{obj.name}}</title>
@@ -8,44 +8,56 @@
     <link rel="stylesheet" type="text/css" href="{% static "tv/mystyle.css" %}">
 </head>
 <body>
-<h1>Редактирование данной программы:</h1>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand">
+        Телепередачи
+      </a>
+    </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/tv">Главная</a></li>
+        <li><a href="/tv/add">Добавить новую передачу</a></li>
+        <li><a href="/tv/register">Зарегистрироваться</a></li>
+      </ul>
+      </div>
+
+  </div>
+</nav>
+
 <br>
-<div class="holdIt">
+<div class="hold_edit">
     <div class="my_form">
         <form action="{% url 'tv:save' obj.id %}" method="post">
             {% csrf_token %}
             <div class="form-group">
-                <label for="name">Название</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="{{obj.name}}"
-                       required>
+                <label for="name">Название:</label>
+                <textarea id="name" name="name" class="form-control" rows="1">{{obj.name}}</textarea>
             </div>
             <div class="form-group">
-                <label for="description">Описание</label>
-                <input type="text" class="form-control" id="description" name="description"
-                       placeholder="{{obj.description}}" required>
-                </input>
+                <label for="description">Описание:</label>
+                <textarea id="description" name="description" class="form-control" rows="4">{{obj.description}}</textarea>
             </div>
             <div class="form-group">
-                <label for="len">Продолжительность</label>
-                <input type="text" class="form-control" id="len" name="timeLen" placeholder="{{obj.timeLen}}" required>
-                </input>
+                <label for="len">Продолжительность, мин:</label>
+                <input type="number" class="form-control" id="len" name="timeLen" value="{{obj.timeLen}}" required>
             </div>
             <div class="form-group">
-                <label for="ad">Опции: реклама</label>
-                <input type="text" class="form-control" id="ad" name="ad" placeholder="{{obj.ad}}" required>
-                </input>
+                <label for="ad">Опции - реклама:</label>
+                <textarea id="ad" name="ad" class="form-control" rows="1">{{obj.ad}}</textarea>
             </div>
             <div class="form-group">
-                <label for="time">Время</label>
-                <input type="text" class="form-control" id="time" name="dateTime" placeholder="{{obj.dateTime}}"
-                       required>
-                </input>
+                <label for="time">Время:</label>
+                <textarea id="time" name="dateTime" class="form-control" rows="1">{{obj.dateTime}}</textarea>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-default" value="Изменить">
+                <input type="submit" class="btn btn-success" value="Изменить">
             </div>
+            <a href="delete" class="btn btn-danger">Удалить программу</a>
         </form>
-    <a href="delete">Удалить программу</a>
     </div>
 </div>
 </body>

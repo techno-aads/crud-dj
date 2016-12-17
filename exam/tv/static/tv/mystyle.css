@@ -8,12 +8,64 @@ ul {
 }
 
 .inhere {
-    width: 500px;
+    display: block;
+    /*min-width: 400px;*/
+    /*width: 1000px;*/
+    /*margin: 0 auto;*/
+    margin-top: 30px;
+}
+
+.holdIt {
+    /*display: block;*/
+    /*width: 2000px;*/
+    /*margin: 0 auto;*/
+}
+
+.my_ul {
+    display: inline-block;
+}
+
+.my_li {
+    width: 300px;
+    margin: 20px 20px;
+    float: left;
+}
+
+.my_height {
+    min-height: 340px;
+}
+
+.head_text {
+    display: block;
+    font-size: 40px;
+    margin: 15px 15px;
+}
+
+.hold_edit {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px 10px;
+    display: block;
+    width: 600px;
     margin: 0 auto;
 }
 
-.holdIt{
+.logged_h4 {
+    margin: 10px;
+}
+
+.img_in {
     display: block;
-    width: 800px;
     margin: 0 auto;
+}
+
+.hold_reg {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px 10px;
+    display: block;
+    width: 600px;
+    margin-left: 40px;
+    display: inline-block;
+    float: left;
 }

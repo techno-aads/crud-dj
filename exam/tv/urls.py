@@ -9,5 +9,8 @@ urlpatterns = [
     url(r'add/$', views.add, name='add'),
     url(r'^(?P<id>[0-9]+)/delete/$', views.delete, name='delete'),
     url(r'^(?P<id>[0-9]+)/save/$', views.save, name='save'),
+    url(r'register/$', views.register, name='register'),
+    url(r'logout/$', views.logout, name='logout'),
+    url(r'login/$', views.login, name='login'),
 
 ]

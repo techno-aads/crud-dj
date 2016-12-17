@@ -1,22 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>ТВ-Программа</title>
     {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "tv/bootstrap.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "tv/mystyle.css" %}">
 </head>
 <body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand">
+        Телепередачи
+      </a>
+    </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/tv">Главная</a></li>
+        <li><a href="/tv/add">Добавить новую передачу</a></li>
+        <li><a href="/tv/register">Зарегистрироваться</a></li>
+      </ul>
+      </div>
+
+  </div>
+</nav>
+
 <div class="inhere">
-<h1>Телепередачи</h1>
-    <ul>
+    <ul class="thumbnails my_ul">
         {% for obj in list %}
-        <li>
-            <a href="{% url 'tv:edit' obj.id %}">{{ obj }}</a>
+        <li class="span4 my_li">
+            <div class="thumbnail my_height">
+                <div class="caption">
+                    <h3>{{ obj.name }}</h3>
+                    <hr>
+                    <p>
+                        {{ obj.description }}
+                    </p>
+                    <p>
+                        <a href="{% url 'tv:edit' obj.id %}" class="btn btn-primary">Редактировать</a>
+                    </p>
+                </div>
+            </div>
         </li>
         {% endfor %}
     </ul>
-    <a href="add">Добавить новую передачу</a>
 </div>
 </body>
 </html>

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Добавить передачу</title>
+    <title>Регистрация</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static "tv/bootstrap.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "tv/mystyle.css" %}">
 </head>
 <body>
+
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -19,18 +20,18 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="/tv">Главная</a></li>
-        <li class="active"><a href="/tv/add">Добавить новую передачу</a></li>
-        <li><a href="/tv/register">Зарегистрироваться</a></li>
+        <li><a href="/tv/add">Добавить новую передачу</a></li>
+        <li class="active"><a href="/tv/register">Зарегистрироваться</a></li>
       </ul>
       </div>
 
   </div>
 </nav>
-<div class="hold_edit">
-    <form method="POST" class="post-form" class="form-group">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-success">Сохранить</button>
-    </form>
-</div>
+<h4 class="logged_h4">Вы вошли, {{username}}. Можете приступить к работе с данными.</h4>
+
+<a href="tv/logout" class="logged_h4 btn btn-danger">Выйти</a>
+{% load static %}
+<img src="{% static "tv/logged_in.png" %}" alt="You are in" class="img_in"/>
+
 </body>
 </html>
