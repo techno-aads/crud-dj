@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "tv/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "tv/mystyle.css" %}">
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand">
+        Телепередачи
+      </a>
+    </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/tv">Главная</a></li>
+        <li><a href="/tv/add">Добавить новую передачу</a></li>
+        <li class="active"><a href="/tv/register">Личный кабинет</a></li>
+      </ul>
+      </div>
+
+  </div>
+</nav>
+<h4 class="logged_h4">Вы вошли, {{username}}. Можете приступить к работе с данными.</h4>
+
+<a href="tv/logout" class="logged_h4 btn btn-danger">Выйти</a>
+{% load static %}
+<img src="{% static "tv/logged_in.png" %}" alt="You are in" class="img_in"/>
+
+</body>
+</html>
