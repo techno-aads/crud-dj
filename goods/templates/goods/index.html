@@ -1,0 +1,56 @@
+{% extends 'goods/base.html' %}
+
+{% block title %}
+    Главная
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron" style="background: snow">
+        <div class="container text-center">
+            <h1>Список заказов</h1>
+            <p>Строительный магазин "Доставка товаров"</p>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading panel-title">
+            <span class="big-font">
+                {% if goods %}
+                    Всего заказов: <b>{{ goods.count }}</b>
+                {% else %}
+                    Заказы отсутсвуют
+                {% endif %}
+            </span>
+            <a class="right-align" href="{% url 'goods:create' %}" style="margin: -5px -10px 0 0">
+                <button type="button" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-shopping-cart"></span> Оформить новый заказ
+                </button>
+            </a>
+        </div>
+    </div>
+
+    {% if goods %}
+        {% for good in goods %}
+            <div class="panel panel-default">
+                <div class="panel-heading panel-title">
+                    <h4>
+                        {% if good.delivered %}
+                            <a href="{% url 'goods:detail' good.id %}" class="label label-success big-font"
+                               title="Заказ выполнен">{{ good.name }}</a>
+                        {% else %}
+                            <a href="{% url 'goods:detail' good.id %}" class="label label-danger big-font"
+                               title="Заказ не выполнен">{{ good.name }}</a>
+                        {% endif %}
+                        <span class="right-align big-font">
+                            Количество: {{ good.count }}
+                        </span>
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <h4>Дата доставки: {{ good.delivery_date | date:'d.m.Y' }}</h4>
+                    <h4>Адрес доставки: {{ good.delivery_address }}</h4>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

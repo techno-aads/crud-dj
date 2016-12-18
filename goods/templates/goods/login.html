@@ -1,0 +1,31 @@
+{% extends 'goods/base.html' %}
+
+{% block title %}
+    Авторизация
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading panel-title">
+            <h4>Авторизация</h4>
+        </div>
+        <div class="panel-body text-center">
+            {% if form.errors %}
+                <div class="text-danger">Имя пользователя и пароль не совпадают. Попробуйте еще раз.</div><br>
+            {% endif %}
+
+            <form action="{% url 'goods:login' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group form-field">
+                    <label for="name">{{ form.username.label_tag }}</label>
+                    {{ form.username }}
+                </div>
+                <div class="form-group form-field">
+                    <label for="name">{{ form.password.label_tag }}</label>
+                    {{ form.password }}
+                </div>
+                <input type="submit" class="btn btn-success center-block btn-send" value="Войти">
+            </form>
+        </div>
+    </div>
+{% endblock %}

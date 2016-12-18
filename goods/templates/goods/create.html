@@ -1,0 +1,65 @@
+{% extends 'goods/base.html' %}
+
+{% block title %}
+    Оформление заказа
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading panel-title">
+            <h4>Оформить заказ</h4>
+        </div>
+
+        <div class="panel-body">
+            {% if user.is_authenticated %}
+                <form action="{% url 'goods:add' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Название товара:</label>
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Название" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="count">Количество товара:</label>
+                        <input id="count" name="count" type="number" class="form-control" placeholder="Количество"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Адрес доставки:</label>
+                        <input id=address" name="address" type="text" class="form-control" placeholder="Адрес" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Дата доставки:</label>
+                        <input id="date" name="date" type="date" class="form-control" placeholder="Дата" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="delivered">Выполнен:</label>
+                        <input id="delivered" name="delivered" type="checkbox" class="form-check-input"
+                               placeholder="Дата">
+                    </div>
+                    <input type="submit" class="btn btn-success center-block btn-send" value="Оформить заказ">
+                </form>
+            {% else %}
+                <div class="text-danger text-center">Авторизуйтесь, для того чтобы оформить заказ.</div>
+            {% endif %}
+        </div>
+
+    </div>
+    <script>
+        window.onload = function () {
+            document.getElementById("date").setAttribute("value", getFormattedDate(new Date()));
+        };
+
+        function getFormattedDate(date) {
+            var year = date.getFullYear();
+            var month = (1 + date.getMonth()).toString();
+            month = month.length > 1 ? month : '0' + month;
+            var day = date.getDate().toString();
+            day = day.length > 1 ? day : '0' + day;
+            return year + '-' + month + '-' + day;
+        }
+    </script>
+{% endblock %}

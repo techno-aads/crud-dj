@@ -1,0 +1,64 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %} - Доставка товаров</title>
+    <link rel="stylesheet" href="{% static 'goods/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'goods/css/styles.css' %}">
+    <script src="{% static 'goods/js/jquery-3.1.1.js' %}"></script>
+    <script src="{% static 'goods/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<main class="container" role="main">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid" id="frist">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'goods:index' %}">
+                    <span class="glyphicon glyphicon-send mar-right"></span> Доставка товаров
+                </a>
+            </div>
+
+            <form class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Поиск">
+                </div>
+                <button type="submit" class="btn btn-default">Найти</button>
+            </form>
+
+            {% block buttons %}
+                {% if user.is_authenticated %}
+                    <form action="{% url 'goods:logout' %}">
+                        <button type="submit" class="btn btn-default navbar-btn navbar-right mar-right">
+                            Выйти
+                        </button>
+                    </form>
+                    <div class="navbar-right" style="margin-top: 15px; margin-right: 15px">
+                        Приветствуем, {{ user.username }}!
+                    </div>
+                {% else %}
+                    <form action="{% url 'goods:signup' %}">
+                        <button type="submit" class="btn btn-default navbar-btn navbar-right mar-right">
+                            Зарегистрироваться
+                        </button>
+                    </form>
+                    <form action="{% url 'goods:login' %}">
+                        <button type="submit" class="btn btn-default navbar-btn navbar-right mar-right">
+                            Войти
+                        </button>
+                    </form>
+                {% endif %}
+            {% endblock %}
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <div class="panel panel-default">
+        <div class="light-font panel-heading">
+            <a href="https://github.com/vaddya" target="_blank">@vaddya</a>
+            <a href="https://polis.mail.ru" class="right-align" target="_blank">Веб-технологии - Технополис@Mail.ru</a>
+        </div>
+    </div>
+</main>
+</body>
+</html>

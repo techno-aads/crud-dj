@@ -1,0 +1,64 @@
+{% extends 'goods/base.html' %}
+
+{% block title %}
+    Изменение заказа №{{ good.id }}
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading panel-title">
+            <h4>Изменение заказа №{{ good.id }}</h4>
+        </div>
+        <div class="panel-body">
+            <form action="{% url 'goods:save' good.id %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Название товара:</label>
+
+                    <input id="name" name="name" type="text" class="form-control" placeholder="Название"
+                           value="{{ good.name }}" required {% if not user.is_authenticated %} readonly {% endif %}>
+                </div>
+
+                <div class="form-group">
+                    <label for="count">Количество товара:</label>
+                    <input id="count" name="count" type="number" class="form-control" placeholder="Количество"
+                           value="{{ good.count }}" required {% if not user.is_authenticated %} readonly {% endif %}>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Адрес доставки:</label>
+                    <input id=address" name="address" type="text" class="form-control" placeholder="Адрес"
+                           value="{{ good.delivery_address }}" required
+                            {% if not user.is_authenticated %} readonly {% endif %}>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Дата доставки:</label>
+                    <input id="date" name="date" type="date" class="form-control" placeholder="Дата"
+                           value="{{ good.delivery_date | date:'Y-m-d' }}" required
+                            {% if not user.is_authenticated %} readonly {% endif %}>
+                </div>
+
+                <div class="form-group">
+                    <label for="delivered">Выполнен:</label>
+                    <input id="delivered" name="delivered" type="checkbox" class="form-check-input" placeholder="Дата"
+                            {% if not user.is_authenticated %} onclick="return false;" {% endif %}
+                            {% if good.delivered %} checked {% endif %}>
+                </div>
+                {% if user.is_authenticated %}
+                    <input type="submit" class="btn btn-success" value="Сохранить" required>
+                {% else %}
+                    <div class="text-danger text-center">Авторизуйтесь, для того чтобы изменить или отменить заказ.
+                    </div>
+                {% endif %}
+            </form>
+            {% if user.is_authenticated %}
+                <form action="{% url 'goods:remove' good.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-danger right-align btn-send" value="Отменить заказ"
+                           style="margin-top: -35px">
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
