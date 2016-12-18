@@ -16,12 +16,15 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth import views
-from shows.forms import LoginForm
+from shows.forms import LoginForm, RegistrationForm
+from shows import views as shows_views
 
 urlpatterns = [
     url(r'^shows/', include('shows.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', views.login, {'template_name': 'shows/login.html', 'authentication_form': LoginForm}, name='login'),
     url(r'^logout/$', views.logout, {'next_page': '/shows'}, name='logout'),  
+    url(r'^registration/$', shows_views.registration, name='registration'),  
+    url(r'^perform_registration/$', shows_views.perform_registration, name='perform_registration'),  
     url(r'', include('shows.urls')),
 ]

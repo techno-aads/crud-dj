@@ -1,10 +1,10 @@
 {% extends 'shows/base.html' %}
 {% block content %}
 
-<div class="col-md-8">
-    <h1>Add new show</h1>
+<div class="col-md-6">
+    <h1>Registration</h1>
 
-    {% if form.errors %}
+       {% if form.errors %}
         {% for field in form %}
             {% for error in field.errors %}
                 <div class="alert alert-danger">
@@ -19,7 +19,9 @@
         {% endfor %}
     {% endif %}
 
-    <form action="{% url 'shows:create' %}" method="post">
+    <form method="post" action="{% url 'perform_registration' %}">
+    {% csrf_token %}
+
     {% csrf_token %}
     {% for field in form %}
             <div class="form-group">
@@ -30,9 +32,10 @@
                 </p>
             </div>
     {% endfor %}
-    <input class="btn btn-success" type="submit" value="Add"/>
-    <a href="/shows" class="btn btn-default">Back</a>
-    </form>
-</div>
 
+    <input type="submit" class="btn btn-primary" value="OK" />
+    <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+
+</div>
 {% endblock %}

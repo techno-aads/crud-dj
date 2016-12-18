@@ -25,6 +25,9 @@
             <div class="form-group">
                 {{ field.label_tag }}
                 {{ field }}
+                <p class="form-text text-muted">
+                    <i>{{ field.help_text }}</i>
+                </p>
             </div>
     {% endfor %}
     <input class="btn btn-primary" type="submit" value="Save"/>
