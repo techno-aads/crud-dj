@@ -27,6 +27,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# добавляем приложение в setting.py
+ACCOUNT_ACTIVATION_DAYS = 2 # кол-во дней для хранения кода активации
+
+# для отправки кода активации
+AUTH_USER_EMAIL_UNIQUE = True
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'info@google.ru'
+
 
 # Application definition
 
@@ -38,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'product',
+    'registration',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +132,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LANGUAGE_CODE = 'ru-RU'  # для русской локали
+USE_I18N = True # интернационалицация по-умолчанию включена
+LOGIN_REDIRECT_URL = "/"

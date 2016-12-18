@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 {% load staticfiles %}
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:padding="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Product list</title>
+    <title>Список продуктов</title>
     <link rel="stylesheet" href="{% static 'css/product.css' %}">
     <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
-        <a href="new">Добавить новый продукт</a>
-        <ul class="list-group">
+        <h1>Список продуктов</h1>
+        <ul class="list-group" padding: 10%>
         {% for product in products %}
             <li class="list-group-item">
-            <h1>{{ product.name }} </h1>
+            <h2 class="list-group-item-heading">{{ product.name }} </h2>
 
-            <div>
+            <div class="list-group-item-text">
                 <p>Количество: {{ product.quantity }}</p>
                 <p>Адрес: {{ product.address }}</p>
                 <p>Дата: {{ product.date }}</p>
@@ -28,6 +28,12 @@
             </li>
         {% endfor %}
         </ul>
-
+        <a href="new" class="save btn btn-default">Добавить новый продукт</a>
+        <br/>
+        <a href="{% url 'login' %}" class="save btn btn-default">Войти</a>
+        <br/>
+        <a href="{% url 'logout' %}" class="save btn btn-default">Выйти</a>
+        <br/>
+        <a href="{% url 'registration_register' %}" class="save btn btn-default">Зарегистрироваться</a>
 </body>
 </html>

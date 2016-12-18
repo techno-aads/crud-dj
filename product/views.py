@@ -5,13 +5,14 @@ from django.urls import reverse
 from django.utils import timezone
 from .forms import ProductForm
 from django.shortcuts import redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def product_list(request):
     products = Product.objects.order_by('date')
     return render(request, 'product/product_list.html', {'products': products})
 
-
+@login_required
 def product_new(request):
     if request.method == "POST":
         form = ProductForm(request.POST)
@@ -24,11 +25,13 @@ def product_new(request):
         form = ProductForm()
     return render(request, 'product/product_edit.html', {'form' : form})
 
+@login_required
 def delete(request, id):
    prod = get_object_or_404(Product, pk=id)
    prod.delete()
    return HttpResponseRedirect(reverse('product:product_list'))
 
+@login_required
 def edit(request, id):
     article = get_object_or_404(Product, pk=id)
 
