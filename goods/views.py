@@ -1,3 +1,5 @@
+from django.contrib import auth
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -58,3 +60,21 @@ def remove(request, good_id):
 
 def create(request):
     return render(request, 'goods/create.html')
+
+
+def signup(request):
+    context = {}
+    if request.method == 'POST':
+        user_form = UserCreationForm(request.POST)
+        if user_form.is_valid():
+            user_form.save()
+            user_form = auth.authenticate(username=user_form.cleaned_data['username'],
+                                          password=user_form.cleaned_data['password2'])
+            auth.login(request, user_form)
+            return HttpResponseRedirect(reverse('goods:index'))
+        else:
+            context['form'] = user_form
+    else:
+        context['form'] = UserCreationForm()
+
+    return render(request, 'goods/signup.html', context)

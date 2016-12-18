@@ -28,8 +28,13 @@
             {% block buttons %}
                 {% if user.is_authenticated %}
                     <form action="{% url 'goods:logout' %}">
-                        <button type="submit" class="btn btn-default navbar-btn navbar-right mar-right">Выйти</button>
+                        <button type="submit" class="btn btn-default navbar-btn navbar-right mar-right">
+                            Выйти
+                        </button>
                     </form>
+                    <div class="navbar-right" style="margin-top: 15px; margin-right: 15px">
+                        Приветствуем, {{ user.username }}!
+                    </div>
                 {% else %}
                     <form action="{% url 'goods:signup' %}">
                         <button type="submit" class="btn btn-default navbar-btn navbar-right mar-right">
@@ -37,7 +42,9 @@
                         </button>
                     </form>
                     <form action="{% url 'goods:login' %}">
-                        <button type="submit" class="btn btn-default navbar-btn navbar-right mar-right">Войти</button>
+                        <button type="submit" class="btn btn-default navbar-btn navbar-right mar-right">
+                            Войти
+                        </button>
                     </form>
                 {% endif %}
             {% endblock %}

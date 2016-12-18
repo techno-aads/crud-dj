@@ -9,8 +9,30 @@
         <div class="panel-heading panel-title">
             <h4>Регистрация</h4>
         </div>
-        <div class="panel-body text-center">
-            {{ form.as_p }}
+        <div class="panel-body">
+            {% if not user.is_authenticated %}
+                <form action="{% url 'goods:signup' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group form-field">
+                        <label for="name">{{ form.username.label_tag }}</label>
+                        {{ form.username }}
+                        <div class="text-danger text-right">{{ form.username.errors }}</div>
+                    </div>
+                    <div class="form-group form-field">
+                        <label for="name">{{ form.password1.label_tag }}</label>
+                        {{ form.password1 }}
+                        <div class="text-danger text-right">{{ form.password1.errors }}</div>
+                    </div>
+                    <div class="form-group form-field">
+                        <label for="name">{{ form.password2.label_tag }}</label>
+                        {{ form.password2 }}
+                        <div class="text-danger text-right">{{ form.password2.errors }}</div>
+                    </div>
+                    <input type="submit" class="btn btn-success center-block btn-send" value="Зарегистрироваться">
+                </form>
+            {% else %}
+                <div class="text-danger text-center">Вы уже зарегистрированы!</div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

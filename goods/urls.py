@@ -7,9 +7,8 @@ from goods import views
 app_name = 'goods'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^signup/$', views.signup, name='signup'),
     url(r'^login/$', django.contrib.auth.views.login, {'template_name': 'goods/login.html'}, name='login'),
-    # todo
-    url(r'^signup/$', django.contrib.auth.views.login, {'template_name': 'goods/signup.html'}, name='signup'),
     url(r'^logout/$', django.contrib.auth.views.logout, {'next_page': '/goods'}, name='logout'),
     url(r'^create/', views.create, name='create'),
     url(r'^add/$', views.add, name='add'),

@@ -11,20 +11,20 @@
         </div>
         <div class="panel-body text-center">
             {% if form.errors %}
-                <p>Имя пользователя и пароль не совпадают. Попробуйте еще раз.</p><br>
+                <div class="text-danger">Имя пользователя и пароль не совпадают. Попробуйте еще раз.</div><br>
             {% endif %}
 
             <form action="{% url 'goods:login' %}" method="post">
                 {% csrf_token %}
-                <div class="form-group">
+                <div class="form-group form-field">
                     <label for="name">{{ form.username.label_tag }}</label>
                     {{ form.username }}
                 </div>
-                <div class="form-group">
+                <div class="form-group form-field">
                     <label for="name">{{ form.password.label_tag }}</label>
                     {{ form.password }}
                 </div>
-                <input type="submit" class="btn btn-success center-block" value="Войти">
+                <input type="submit" class="btn btn-success center-block btn-send" value="Войти">
             </form>
         </div>
     </div>

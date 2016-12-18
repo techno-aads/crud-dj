@@ -48,14 +48,15 @@
                 {% if user.is_authenticated %}
                     <input type="submit" class="btn btn-success" value="Сохранить" required>
                 {% else %}
-                    <div class="text-center">Авторизуйтесь, для того чтобы изменить заказ</div>
+                    <div class="text-danger text-center">Авторизуйтесь, для того чтобы изменить или отменить заказ.
+                    </div>
                 {% endif %}
             </form>
             {% if user.is_authenticated %}
                 <form action="{% url 'goods:remove' good.id %}" method="post">
                     {% csrf_token %}
-                    <input type="submit" class="btn btn-danger right-align" value="Отменить заказ"
-                           style="margin-top: -50px">
+                    <input type="submit" class="btn btn-danger right-align btn-send" value="Отменить заказ"
+                           style="margin-top: -35px">
                 </form>
             {% endif %}
         </div>
