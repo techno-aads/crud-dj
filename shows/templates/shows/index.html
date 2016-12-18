@@ -1,45 +1,47 @@
-{% load static %}
+{% extends 'shows/base.html' %}
+{% block content %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'shows/css/bootstrap.css' %}" />
-
-<script src="{% static 'shows/js/jquery-3.1.1.min.js' %}"></script>
-<script src="{% static 'shows/js/bootstrap.min.js' %}"></script>
-<div class="container">
-    <div class="col-md-12">
-        <h1>Shows list</h1>
+<div class="col-md-12">
+    <h1>Shows list</h1>
+    {% if user.is_authenticated %}
         <a href="add" class="btn btn-info pull-right">Add show</a>
-        <table class="table table-striped">
-            <thead>
+    {% endif %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Running time</th>
+                <th>Description</th>
+                <th>Run date</th>
+                <th>Ads</th>
+                {% if user.is_authenticated %}
+                <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for show in show_list %}
                 <tr>
-                    <th>Name</th>
-                    <th>Running time</th>
-                    <th>Description</th>
-                    <th>Run date</th>
-                    <th>Ads</th>
-                    <th>Actions</th>
+                    <td>{{show.name}}</td>
+                    <td>{{show.running_time}}min.</td>
+                    <td>{{show.description}}</td>
+                    <td>{{show.run_date}}</td>
+                    <td>
+                        {% if show.has_ads %}
+                        Yes
+                        {% else %}
+                        No
+                        {% endif %}
+                    </td>
+                    {% if user.is_authenticated %}
+                    <td>
+                        <a href="{% url 'shows:edit' show.id %}" class="btn btn-warning">Edit</a>
+                        <a href="{% url 'shows:delete' show.id %}" class="btn btn-danger" onclick="return confirm('Are you sure?');">Delete</a>
+                    </td>   
+                    {% endif %}
                 </tr>
-            </thead>
-            <tbody>
-                {% for show in show_list %}
-                    <tr>
-                        <td>{{show.name}}</td>
-                        <td>{{show.running_time}}min.</td>
-                        <td>{{show.description}}</td>
-                        <td>{{show.run_date}}</td>
-                        <td>
-                            {% if show.has_ads %}
-                            Yes
-                            {% else %}
-                            No
-                            {% endif %}
-                        </td>
-                        <td>
-                            <a href="{% url 'shows:edit' show.id %}" class="btn btn-warning">Edit</a>
-                            <a href="{% url 'shows:delete' show.id %}" class="btn btn-danger" onclick="return confirm('Are you sure?');">Delete</a>
-                        </td>   
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
+{% endblock %}

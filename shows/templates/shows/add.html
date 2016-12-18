@@ -1,39 +1,35 @@
-{% load static %}
+{% extends 'shows/base.html' %}
+{% block content %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'shows/css/bootstrap.css' %}" />
+<div class="col-md-8">
+    <h1>Add new show</h1>
 
-<script src="{% static 'shows/js/jquery-3.1.1.min.js' %}"></script>
-<script src="{% static 'shows/js/bootstrap.min.js' %}"></script>
-
-<div class="container">
-    <div class="col-md-8">
-        <h1>Add new show</h1>
-
-        {% if form.errors %}
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <div class="alert alert-danger">
-                        <strong>{{ error|escape }}</strong>
-                    </div>
-                {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
                 <div class="alert alert-danger">
                     <strong>{{ error|escape }}</strong>
                 </div>
             {% endfor %}
-        {% endif %}
-
-        <form action="{% url 'shows:create' %}" method="post">
-        {% csrf_token %}
-        {% for field in form %}
-                <div class="form-group">
-                    {{ field.label_tag }}
-                    {{ field }}
-                </div>
         {% endfor %}
-        <input class="btn btn-success" type="submit" value="Add"/>
-        <a href="/shows" class="btn btn-default">Back</a>
-        </form>
-    </div>
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form action="{% url 'shows:create' %}" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+    {% endfor %}
+    <input class="btn btn-success" type="submit" value="Add"/>
+    <a href="/shows" class="btn btn-default">Back</a>
+    </form>
 </div>
+
+{% endblock %}

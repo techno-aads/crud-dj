@@ -22,4 +22,6 @@ urlpatterns = [
     url(r'^shows/', include('shows.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', views.login, {'template_name': 'shows/login.html', 'authentication_form': LoginForm}, name='login'),
+    url(r'^logout/$', views.logout, {'next_page': '/shows'}, name='logout'),  
+    url(r'', include('shows.urls')),
 ]

@@ -6,21 +6,23 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-@login_required
 def index(request):
     show_list = Show.objects.order_by('run_date')
     context = {'show_list': show_list}
     return render(request, 'shows/index.html', context)
 
+@login_required(login_url="/login/")
 def edit(request, show_id):
     show = get_object_or_404(Show, pk=show_id)  
     form = ShowForm(instance=show)
     return render(request, 'shows/edit.html', {'show': show, 'form': form})
-    
+
+@login_required(login_url="/login/")    
 def add(request):
     form = ShowForm()
     return render(request, 'shows/add.html', {'form': form})
 
+@login_required(login_url="/login/")
 def update(request, show_id):
     show = get_object_or_404(Show, pk=show_id)  
     if request.method == 'POST':
@@ -31,6 +33,7 @@ def update(request, show_id):
         else:
             return render(request, 'shows/edit.html', {'show': show, 'form': form})
 
+@login_required(login_url="/login/")
 def create(request):
     if request.method == 'POST':
         form = ShowForm(request.POST)
@@ -40,6 +43,7 @@ def create(request):
         else:
             return render(request, 'shows/add.html', {'form': form})
 
+@login_required(login_url="/login/")
 def delete(request, show_id):
     show = get_object_or_404(Show, pk=show_id)  
     show.delete()
