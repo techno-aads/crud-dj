@@ -1,10 +1,12 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from .models import Show, ShowForm
+from django.contrib.auth.decorators import login_required
 #from .forms import ShowForm
 
 # Create your views here.
 
+@login_required
 def index(request):
     show_list = Show.objects.order_by('run_date')
     context = {'show_list': show_list}

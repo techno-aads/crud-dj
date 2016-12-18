@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.auth import views
+from shows.forms import LoginForm
 
 urlpatterns = [
     url(r'^shows/', include('shows.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^login/$', views.login, {'template_name': 'shows/login.html', 'authentication_form': LoginForm}, name='login'),
 ]
