@@ -15,8 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import login, logout
+from django.views.generic.edit import CreateView
+from django.contrib.auth.forms import UserCreationForm
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include('delivery.urls'))
+    url(r'', include('delivery.urls')),
+    url(r'^login/$', login, {'template_name': 'delivery/users/session/new.html'}, name='login'),
+		url(r'^logout/$', logout, name='logout'),
+		url(r'^signup/$', CreateView.as_view(	template_name='delivery/users/new.html',
+																					form_class=UserCreationForm,
+																					success_url='/'),
+																					name='sign_up'),
 ]
