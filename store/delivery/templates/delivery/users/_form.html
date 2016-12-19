@@ -1,0 +1,16 @@
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<div class="container">
+	<form action="" method="post" class="form">
+	    {% csrf_token %}
+	    {% bootstrap_form form %}
+	    {% buttons %}
+	        <button type="submit" class="btn">
+	            Submit
+	        </button>
+	    {% endbuttons %}
+	</form>
+</div>
