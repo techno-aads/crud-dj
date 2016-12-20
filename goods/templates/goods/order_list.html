@@ -1,0 +1,26 @@
+{% extends 'goods/base.html' %}
+{% block content %}
+    {% for order in orders %}
+        <h3>
+            {{ order.delivery_date }}
+            {% if user.is_authenticated %}
+                <a href="{% url 'goods:order_edit' pk=order.pk %}" class="btn btn-default">Edit</a>
+                <a href="{% url 'goods:order_remove' pk=order.pk %}" class="btn btn-danger">Delete</a>
+            {% endif %}
+        </h3>
+        <i>Product:</i> {{ order.product_name }} ({{ order.product_quantity }})
+        <br>
+        <i>Address:</i> {{ order.delivery_address }}
+        <br>
+        <i>Status: </i>
+        {% if order.status == True %}
+             <span class="alert-success">OK</span>
+        {% else %}
+            <span class="alert-warning">Non OK</span>
+        {% endif %}
+    {% endfor %}
+    <hr>
+    {% if user.is_authenticated %}
+        <a href="{% url 'goods:order_new' %}" class="btn btn-primary">New order</a>
+    {% endif %}
+{% endblock %}

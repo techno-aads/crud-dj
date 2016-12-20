@@ -1,12 +1,11 @@
-*.class
+db.sqlite3
+.DS_Store
+.idea/
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+Task/__pycache__/
+goods/__pycache__/
+goods/migrations/0001_initial.py
+goods/migrations/0002_auto_20161207_1945.py
+goods/migrations/0003_auto_20161207_2104.py
+goods/migrations/__pycache__/
+/login_app/migrations/

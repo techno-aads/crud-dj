@@ -1,0 +1,11 @@
+{% extends 'goods/base.html' %}
+{% load bootstrap %}
+{% block login %}
+    <form action="{% url 'login_app:register' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form|bootstrap }}
+        </div>
+        <input type="submit" class="btn btn-success" value="Sign up">
+    </form>
+{% endblock %}
