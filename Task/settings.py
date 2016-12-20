@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'goods.apps.GoodsConfig',
+    'login_app',
     'bootstrapform',
 ]
 
@@ -35,8 +36,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'goods/templates'),
+            os.path.join(BASE_DIR, 'login_app/templates'),
         ]
         ,
         'APP_DIRS': True,
@@ -84,5 +85,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/'),
-    os.path.join(BASE_DIR, 'goods/static'),
+    os.path.join(BASE_DIR, 'goods/static/'),
 ]

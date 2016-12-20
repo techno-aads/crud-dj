@@ -11,9 +11,15 @@
     <div class="main-title">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <h1><a href="{% url 'goods:order_list' %}">Orders</a></h1>
-
+                </div>
+                <div class="col-md-5">
+                    {% if user.is_authenticated %}
+                        <p>Hello, {{ user.username }} <small>(<a href="{% url 'login_app:logout' %}">Log out</a>)</small></p>
+                    {% else %}
+                        <a href="{% url 'login_app:login' %}">Sign In</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -22,6 +28,7 @@
     <div class="content container">
         <div class="row">
             <div class="col-md-8">
+                {% block login %}{% endblock %}
                 {% block content %}{% endblock %}
             </div>
         </div>
