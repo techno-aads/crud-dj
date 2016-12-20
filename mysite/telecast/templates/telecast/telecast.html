@@ -10,6 +10,18 @@
 </head>
 <body>
 <div class="container">
+    <header>
+        {% if user.is_authenticated %}
+            Hi {{ user.username }}!
+            <a href="{% url 'logout' %}">logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">login</a>
+        {% endif %}
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
     <h1>Telecast table</h1>
     {% if telecast_list %}
         <div class="table-responsive">
