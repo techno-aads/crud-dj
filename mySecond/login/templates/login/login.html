@@ -1,0 +1,23 @@
+{% extends 'tele/base.html' %}
+
+{% block login %}
+    <form action="{% url 'login:login' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username: </label>
+            <input type="text" name="username" id="username" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password: </label>
+            <input type="password" name="password" id="password" class="form-control">
+        </div>
+
+        {% if login_error %}
+            <label class="has-error">{{ login_error }}</label>
+        {% endif %}
+
+        <input class="btn btn-success" type="submit" value="Sign in">
+        <button class="btn btn-primary"><a style="text-decoration: none; color: white;" href="{% url 'login:register' %}">Register</a></button>
+    </form>
+{% endblock %}
