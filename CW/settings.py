@@ -50,6 +50,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+<<<<<<< HEAD
+LOGIN_REDIRECT_URL = '/FirstClassWork/show'
+
+LOGOUT_REDIRECT_URL = '/FirstClassWork/show'
+
+=======
+>>>>>>> e5aa9da59321a6318a92a2c80dbe808ee851327f
 ROOT_URLCONF = 'CW.urls'
 
 TEMPLATES = [

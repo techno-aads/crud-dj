@@ -2,12 +2,40 @@ from django.shortcuts import render
 from .models import Item
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+<<<<<<< HEAD
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django import forms
+
+# Create your views here.
+
+
+
+def register(request):
+    return render(request,"registration/registration.html")
+
+def create_new_user(request):
+    try:
+        user = User.objects.create_user(username=request.POST['username'],password=request.POST['password'])
+    except Exception:
+        return HttpResponse("Такой пользователь уже существует!")
+    user.save()
+    return HttpResponse("Вы успешно зарегистрировались, теперь вы можете <a href='/FirstClassWork/login'>зайти</a> под своим аккаунтом")
+
+def show_items(request):
+    myItems = Item.objects.filter()
+    if not request.user.is_authenticated():
+        return render(request,"FirstClassWork/Items.html",{"items":myItems,"flag":False})
+    else:
+        return render(request,"FirstClassWork/Items.html",{"items":myItems,"flag":True})
+=======
 
 # Create your views here.
 
 def show_items(request):
     myItems = Item.objects.filter()
     return render(request,"FirstClassWork/Items.html",{"items":myItems})
+>>>>>>> e5aa9da59321a6318a92a2c80dbe808ee851327f
 
 def delete_item(request, uid):
     myItem = Item.objects.get(id=uid)
@@ -28,7 +56,16 @@ def add_item(request):
 
 def show_full(request, uid):
     myItem = Item.objects.get(id=uid)
+<<<<<<< HEAD
+    if not request.user.is_authenticated():
+        return render(request,"FirstClassWork/full.html",{"item":myItem,"flag":False})
+    else:
+        return render(request,"FirstClassWork/full.html",{"item":myItem,"flag":True})
+
+
+=======
     return render(request,"FirstClassWork/full.html",{"item":myItem})
+>>>>>>> e5aa9da59321a6318a92a2c80dbe808ee851327f
 def save_item(request, uid):
     myItem = Item.objects.get(id=uid)
     myItem.name = request.POST.get('name',False)
