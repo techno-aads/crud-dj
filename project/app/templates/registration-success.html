@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Registration success!{% endblock %}
+
+{% block data_page %}registrationSuccess{% endblock %}
+
+{% block content %}
+<h1>Registration success!</h1>
+<div class="alert alert-success">
+	<p><b>Well done!</b> You have successfully signed up on our website. Now you can click the link below to login</p>
+</div>
+<a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+{% endblock %}

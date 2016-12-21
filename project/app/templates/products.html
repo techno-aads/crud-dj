@@ -10,8 +10,17 @@
 {% endblock %}
 
 {% block content %}
+
+{% if user.is_authenticated %}
 <h1>Here you can edit the list of products</h1>
+{% else %}
+<h1>Here you can view the list of products</h1>
+{% endif %}
+
+{% if user.is_authenticated %}
 <a class="btn btn-primary btn-add-product" href="{% url 'add_product' %}">Add product</a>
+{% endif %}
+
 {% if products %}
 <table class="table-products table table-bordered table-hover" id="table-products">
   <thead>
@@ -22,7 +31,7 @@
 		<th>Address</th>
 		<th>Delivery Date</th>
 		<th>Status</th>
-		<th>Edit</th>
+		<th>{% if user.is_authenticated %}Edit{% else %}View{% endif %}</th>
 	 </tr>
   </thead>
   <tbody>
@@ -34,12 +43,14 @@
 			<td>{{ product.address }}</td>
 			<td>{{ product.delivery_date }}</td>
 			<td>{% if product.status %}Enabled{% else %}Disabled{% endif %}</td>
-			<td><a class="btn btn-default pull-left" href="{% url 'product' product.id %}">Edit</a></td>
+			<td><a class="btn btn-default pull-left" href="{% url 'product' product.id %}">{% if user.is_authenticated %}Edit{% else %}View{% endif %}</a></td>
 		</tr>
 		{% endfor %}
   </tbody>
 </table>
+{% if user.is_authenticated %}
 <a class="btn btn-primary btn-add-product" href="{% url 'add_product' %}">Add product</a>
+{% endif %}
 {% else %}
 	<p>List of products is empty</p>
 {% endif %}
