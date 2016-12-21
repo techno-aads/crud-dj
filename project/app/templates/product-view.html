@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block data_page %}productView{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="/">Home</a></li>
+<li><a href="{% url 'products' %}">Products</a></li>
+<li class="active">{{ product.name}}</li>
+{% endblock %}
+
+{% block content %}
+<h1>{{ product.name }}</h1>
+<div class="row">
+	<div class="col-sm-2">
+		<p><b>id</b></p>
+	</div>
+	<div class="col-sm-10">
+		<p>{{ product.pk }}</p>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-2">
+		<p><b>Name</b></p>
+	</div>
+	<div class="col-sm-10">
+		<p>{{ product.name }}</p>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-2">
+		<p><b>Count</b></p>
+	</div>
+	<div class="col-sm-10">
+		<p>{{ product.count }}</p>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-2">
+		<p><b>Address</b></p>
+	</div>
+	<div class="col-sm-10">
+		<p>{{ product.address }}</p>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-2">
+		<p><b>Delivery Date</b></p>
+	</div>
+	<div class="col-sm-10">
+		<p>{{ product.delivery_date }}</p>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block data_page %}product{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="/">Home</a></li>
+<li><a href="{% url 'products' %}">Products</a></li>
+<li class="active">{{ product.name}}</li>
+{% endblock %}
+
+{% block content %}
+<h1>{{ product.name }}</h1>
+<form class="form-horizontal" id="form-product" method="POST" action="{% url 'save_product' %}">
+	{% csrf_token %}
+	<input type="hidden" name="product_id" value="{{ product.id }}">
+  <div class="form-group">
+	 <label class="col-sm-2 control-label">id</label>
+	 <div class="col-sm-10">
+		<p class="form-control-static">{{ product.pk }}</p>
+	 </div>
+  </div>
+  <div class="form-group check-valid">
+	 <label class="col-sm-2 control-label" for="input-name">Name</label>
+	 <div class="col-sm-10">
+		<input name="name" class="form-control input-valid" id="input-name" type="text" placeholder="Name" value="{{ product.name}}">
+	 </div>
+  </div>
+  <div class="form-group check-valid">
+	 <label class="col-sm-2 control-label" for="input-count">Count</label>
+	 <div class="col-sm-10">
+		<input name="count" class="form-control input-valid" id="input-count" type="number" placeholder="Count" value="{{ product.count}}">
+	 </div>
+  </div>
+  <div class="form-group check-valid">
+	 <label class="col-sm-2 control-label" for="input-address">Address</label>
+	 <div class="col-sm-10">
+		<textarea name="address" class="form-control input-valid" id="input-address" placeholder="Address">{{ product.address}}</textarea>
+	 </div>
+  </div>
+  <div class="form-group check-valid">
+	 <label class="col-sm-2 control-label" for="input-date">Delivery Date</label>
+	 <div class="col-sm-10">
+		<input name="delivery_date" class="form-control input-valid" id="input-date" type="text" placeholder="Delivery Date" value="{{ product.delivery_date }}">
+	 </div>
+  </div>
+  <div class="form-group check-valid">
+	 <label class="col-sm-2 control-label">Status</label>
+	 <div class="col-sm-10">
+		 <div class="checkbox">
+         <label><input name="status" type="checkbox" value="1" {% if product.status %}checked="checked"{% endif %}> Active</label>
+       </div>
+	 </div>
+  </div>
+</form>
+<div class="form-horizontal">
+	<div class="form-group">
+		<div class="col-sm-10 col-sm-offset-2">
+			<button form="form-product" class="btn btn-primary pull-left" type="submit">Save</button>
+			<form id="remove-form" class="pull-right" method="POST" action="{% url 'remove_product' %}">
+				{% csrf_token %}
+				<input type="hidden" name="product_id" value="{{ product.id }}">
+				<button class="btn btn-danger" type="submit">Remove</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="modal-remove" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+			<h4 class="modal-title" id="mySmallModalLabel">Remove product?</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="modal-no" class="btn btn-default pull-left">No</button>
+					<button type="button" id="modal-yes" class="btn btn-danger pull-right">Yes</button>
+				</div>
+			</div>
+		</div>
+    </div>
+  </div>
+</div>
+{% endblock %}
