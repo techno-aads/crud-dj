@@ -1,0 +1,99 @@
+{% load staticfiles %}
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<<<<<<< HEAD
+<title>Подробно</title>
+
+</head>
+{%if flag %}
+<div style="position:absolute;right:15px;top:0px;margin-top:-5px;">
+  <h4>Вы зашли как: {{user.username}}</h4>
+  <form action = "/FirstClassWork/logout">
+  {% csrf_token %}
+    <input type="submit" class="btn btn-primary" value="Выйти">
+  </form>
+</div>
+
+<h2 style="text-align:center">Изменить товар</h2>
+<br>
+
+<div style="position:fixed;width:400px;left:50%;margin-left:-200px;">
+<form action = "save_item/{{item.id}}/" method ="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <input id="name" name="name" type="text" class="form-control" placeholder="Название" value="{{item.name}}" style="width:400px" required>
+    </div>
+
+  <div class="form-group">
+    <input id="count" name="count" min="1" type="number" class="form-control" placeholder="Количество" value="{{item.count}}" style="width:400px" required>
+  </div>
+
+  <div class="form-group">
+    <input id="to" name="to" type="text" class="form-control" placeholder="Адрес"value="{{item.to}}" style="width:400px" required>
+  </div>
+
+  <div class="form-group">
+    <input id="date" name="date" type="text"required pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" class="form-control" placeholder="YYYY-MM-DD" value='{{item.date|date:"Y-m-d"}}' style="width:400px">
+  </div>
+  
+  <div class="form-group" style="position:absolute;right:0px;">
+    <label>Товар доставлен: <input id="complete" name="complete" type="checkbox" {% if item.complete %} checked {% endif %}></div></label>
+    <br>
+    <br>
+  <div class="form-group" style="position:absolute;right:0px;">
+    <input type="submit" class="btn btn-primary" value = "Сохранить">
+  </div>
+</form>
+</div>
+
+{%else%}
+
+<h1 style="text-align:center">Подробно</h1>
+<br>
+<table class="table" style="margin:auto; width:80%;">
+<tr>
+<td><strong>Название</strong></td>
+<td><strong>Количество</strong></td>
+<td><strong>Адрес</strong></td>
+<td><strong>Дата</strong></td>
+<td><strong>Доставлено</strong></td>
+</tr>
+<tr>
+<td>{{item.name}}</td>
+<td>{{item.count}}</td>
+<td>{{item.to}}</td>
+<td>{{item.date|date:"Y-m-d"}}</td>
+<td>{% if item.complete %}Да {%else%} Нет {% endif %}</td>
+</tr>
+</table>
+<br>
+<br>
+<h3 style="text-align:center"><a href="/FirstClassWork/login">Зайдите</a> под своим аккаунтом либо <a href="/FirstClassWork/registration">зарегистрируйтесь</a>, чтобы изменить товар</h3>
+{%endif%}
+
+
+
+
+=======
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+<h2 style="text-align:center">Изменить товар</h2>
+<form action = "save_item/{{item.id}}/" method ="post">
+{% csrf_token %}
+<div class="input-group">
+<input id="name" name="name" type="text" class="form-control" placeholder="Название" aria-describedby="basic-addon1" value="{{item.name}}" required>
+<input id="count" name="count" min="1" type="number" class="form-control" placeholder="Количество" aria-describedby="basic-addon1" value="{{item.count}}" required>
+<input id="to" name="to" type="text" class="form-control" placeholder="Адрес" aria-describedby="basic-addon1" value="{{item.to}}" required>
+<input id="date" name="date" type="text"required pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" class="form-control" placeholder="YYYY-MM-DD" aria-describedby="basic-addon1" value='{{item.date|date:"Y-m-d"}}'>
+<label>Товар доставлен: <input id="complete" name="complete" type="checkbox" {% if item.complete %} checked {% endif %}><br></label><br>
+<input type="submit" value = "Сохранить">
+</div>
+</form>
+>>>>>>> e5aa9da59321a6318a92a2c80dbe808ee851327f
