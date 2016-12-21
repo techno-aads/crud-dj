@@ -1,48 +1,76 @@
-  .page-header {
-        background-color: #ff9400;
-        margin-top: 0;
-        padding: 20px 20px 20px 40px;
-    }
+.page-header {
+    background-color: #ff9400;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.12), 0 0px 2px rgba(0, 0, 0, 0.24);
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
 
-    .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
-        color: #ffffff;
-        font-size: 36pt;
-        text-decoration: none;
-    }
+    border: none;
+}
 
-    .content {
-        margin-left: 40px;
-    }
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+    color: #ffffff;
+    font-size: 36pt;
+    text-decoration: none;
+}
 
-    h1, h2, h3, h4 {
-        font-family: 'Roboto', cursive;
-    }
+.page-header h2{
+    color: #ffffff;
+    font-size: 24pt;
+    text-decoration: none;
+}
 
-    .date {
-        float: right;
-        color: #828282;
-        margin: 10px;
-    }
+.remove, .remove:visited {
+    color: #9f2519;
+    font-size: 36pt;
+    text-decoration: none;
+}
 
-    .save {
-        float: right;
-    }
+.remove:hover {
+    color: #d22619;
+}
 
-    .post-form textarea, .post-form input {
-        width: 100%;
-    }
+.add, .add:visited {
+    color: #099f10;
+    font-size: 36pt;
+    text-decoration: none;
+}
 
-    .top-menu, .top-menu:hover, .top-menu:visited {
-        color: #ffffff;
-        float: right;
-        font-size: 26pt;
-        margin-right: 20px;
-    }
+.add:hover {
+    color: #09d111;
+}
 
-    .post {
-        margin-bottom: 70px;
-    }
+.content {
+    margin-top: 120px;
+    margin-left: 40px;
+}
 
-    .post h1 a, .post h1 a:visited {
-        color: #000000;
-    }
+h1, h2, h3, h4 {
+    font-family: 'Roboto', cursive;
+}
+
+.date {
+    float: right;
+    color: #828282;
+    margin: 10px;
+}
+
+.save {
+    float: right;
+}
+
+.post-form textarea, .post-form input {
+    width: 100%;
+}
+
+.top-menu, .top-menu:hover, .top-menu:visited {
+    font-size: 26pt;
+    margin-right: 20px;
+}
+
+.post {
+    margin-bottom: 70px;
+}
+
+.post h1 a, .post h1 a:visited {
+    color: #000000;
+}

@@ -1,6 +1,9 @@
 {% extends 'laba/base.html' %}
-
 {% block content %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'laba.views.programme_new' %}" class="add top-menu"><span
+                class="glyphicon glyphicon-plus"></span></a>
+    {% endif %}
     {% for programme in programmes %}
         <div class="post">
 
@@ -18,10 +21,16 @@
                 {% endif %}
 
             </div>
-
-            <h1><a href="{% url 'programme_edit' pk=programme.pk %}">{{ programme.title }}</a></h1>
+            {% if user.is_authenticated %}
+                <h1><a href="{% url 'programme_edit' pk=programme.pk %}">{{ programme.title }}</a></h1>
+            {% else %}
+                <h1><a href="">{{ programme.title }}</a></h1>
+            {% endif %}
             <p>{{ programme.description|linebreaksbr }}</p>
-            <a href="{% url 'programme_remove' pk=programme.pk %}">Удалить</a>
+            {% if user.is_authenticated %}
+                <a class="remove top-menu" href="{% url 'programme_remove' pk=programme.pk %}"><span
+                        class="glyphicon glyphicon-minus"></span></a>
+            {% endif %}
         </div>
     {% endfor %}
 {% endblock %}
