@@ -1,0 +1,11 @@
+    {% extends 'blog/base.html' %}
+
+    {% block content %}
+        <div class="post">
+            <a class="btn btn-default" href="{% url 'tele_edit'%}"><span class="glyphicon glyphicon-pencil"></span></a>
+            <h1>{{ tele.name }}</h1>
+            <p>{{ tele.time }}</p>
+            <p>{{ tele.description }}</p>
+            <p>{{ tele.date }}</p>
+        </div>
+    {% endblock %}

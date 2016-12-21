@@ -1,0 +1,11 @@
+{% extends 'tele/base.html' %}
+{% load static %}
+{% block login %}
+    <form action="{% url 'login:register' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form }}
+        </div>
+        <input type="submit" class="btn btn-success" value="Sign up">
+    </form>
+{% endblock %}

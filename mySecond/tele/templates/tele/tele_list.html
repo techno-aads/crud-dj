@@ -1,0 +1,22 @@
+{% extends 'tele/base.html' %}
+{% block content %}
+    {% for tele in teles %}
+        <h3>
+            {{ tele.name }}
+            {% if user.is_authenticated %}
+                <a href="{% url 'tele:tele_edit' pk=tele.pk %}" class="btn btn-default">Edit</a>
+                <a href="{% url 'tele:tele_remove' pk=tele.pk %}" class="btn btn-danger">Delete</a>
+            {% endif %}
+        </h3>
+        <i>Time:</i> {{ tele.time }}
+        <br>
+        <i>Description:</i> {{ tele.description }}
+        <br>
+        <i>Date: </i>{{ tele.date }}
+        <span class="alert-success">OK</span>
+    {% endfor %}
+    <hr>
+    {% if user.is_authenticated %}
+        <a href="{% url 'tele:tele_new' %}" class="btn btn-primary">New TV Programm</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+ {% extends 'tele/base.html' %}
+  {% block content %}
+        {% for tele in teles %}
+            <div class="post">
+                 <h1><a href="{% url 'tele_detail' pk=tele.pk %}">{{ tele.name }}</a></h1>
+                <p>{{ tele.time}}</p>
+                <p> {{ tele.description }}</p>
+                <p> {{ tele.date }}</p>
+
+            </div>
+        {% endfor %}
+  {% endblock content %}
+
