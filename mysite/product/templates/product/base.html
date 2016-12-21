@@ -1,0 +1,34 @@
+{% load staticfiles %}
+<html>
+
+        <head>
+            <title >Products</title>
+            <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+            <link rel="stylesheet" href="{% static 'css/product.css' %}">
+        </head>
+        <body>
+            <div class="page-header">
+                {% if user.is_authenticated %}
+                <a href="{% url 'prod_new'%}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+                <a href="{% url 'authen:logout' %}"><span class="glyphicon glyphicon-log-out"></span></a></p>
+                {% else %}
+                <a href="{% url 'authen:authen' %}"><span class="glyphicon glyphicon-log-in"></span></a>
+                {% endif %}
+                <h1><a href="/">Products</a></h1>
+            </div>
+
+            <div class="content container">
+                <div class="row">
+                    <div class="col-md-8">
+                     {% block authen %}{% endblock %}
+                    {% block content %}
+                    {% endblock %}
+                    </div>
+                </div>
+            </div>
+
+        </body>
+    </html>
+

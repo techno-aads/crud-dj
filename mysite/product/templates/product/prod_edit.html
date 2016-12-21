@@ -1,0 +1,13 @@
+{% extends 'product/base.html' %}
+
+    {% block content %}
+        {% if isNew %}
+        <h1>New post</h1>
+        {% else %}
+        <h1>Edit post</h1>
+        {% endif %}
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+    {% endblock %}
