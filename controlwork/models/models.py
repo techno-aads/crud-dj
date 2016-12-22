@@ -9,4 +9,4 @@ class Order(models.Model):
 	order_date = models.DateTimeField('date published');
 	state = models.BooleanField(default=False)
 	def __str__(self):
-		return self.id.__str__() +' '+self.name+', '+self.address
+		return self.id.__str__() +' '+self.name+', '+self.address+', '+self.order_date.__str__()

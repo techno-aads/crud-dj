@@ -20,10 +20,14 @@
 	<input type = "number" class="form-control" name = "count" id = "count_input">
 	<label for ="address_input"> Адрес </label>
 	<input type = "text" class="form-control" name = "address" id = "address_input">
+
 	<label for ="order_date_input"> Дата </label>
-	<input type="date" name = "order_date" id = "order_date_input">
-	<label for ="state_input"> Выдан </label>
-	<input type = "checkbox" class="checkbox" value = "Yes"  name = "state" id = "state_input">
+	<input type="text" class="form-control" name = "order_date" value = "{{ date_now|date:"d.m.Y" }}" id = "order_date_input">	
+	<label for ="order_time_input"> Время </label>
+	<input type="text" name = "order_time" value = "{{date_now|date:"H:i"}}" id = "order_time_input">
+
+	<br><label for ="state_input"> Выдан </label>
+	<input type = "checkbox" value = "Yes"  name = "state" id = "state_input">
 	<p>
 	<p>
 	<input type = "submit" class="btn btn-success" value = "Сохранить">

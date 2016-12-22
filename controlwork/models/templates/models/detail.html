@@ -21,8 +21,13 @@
 	<input type = "text" class="form-control" value = "{{order.count}}" name = "count" id = "count_input">
 	<label for ="address_input"> Адрес </label>
 	<input type = "text" class="form-control" value = "{{order.address}}" name = "address" id = "address_input">
+
 	<label for ="order_date_input"> Дата </label>
-	<input type="date" class="form-control" name = "order_date" value = "{{order.order_date}}" id = "order_date_input">	
+	<input type="text" class="form-control" name = "order_date" value = "{{order.order_date|date:"d.m.Y"}}" id = "order_date_input">	
+	<label for ="order_time_input"> Время </label>
+	<input type="text" name = "order_time" value = "{{order.order_date|date:"H:i"}}" id = "order_time_input">
+
+
 	<label for ="state_input"> Выдан </label>
 	<input type = "checkbox" name = "state" value = "Yes"
 	{% if order.state%}

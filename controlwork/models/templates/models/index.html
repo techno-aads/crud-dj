@@ -10,11 +10,19 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class = container>    
-<a href = "/admin" target="_blank"> Admin </a>
+<div class = container> 
+
+{% if auth %} 
+<a class="btn btn-default" role="button" href = "{% url 'models:logout' %}"> Выход </a>
+{% else %}
+<a class = "btn btn-default" href = "{% url 'models:signin' %}"> Вход </a>
+<a class = "btn btn-default" href = "{% url 'models:signup' %}">  Регистрация </a>
+{% endif %}
 <h2>Заказы</h2>
-<a  class="btn btn-default" role="button" href="{% url 'models:add' %}">Добавить</a>
 <p>
+{% if auth %} 
+<a  class="btn btn-default" role="button" href="{% url 'models:add' %}">Добавить</a>
+{% endif %}
 {% if order_list %}    
     <table class="table">
     	<tr>
@@ -24,8 +32,10 @@
             <th>Адрес</th>
             <th>Дата</th>
             <th>Выдан</th>
+            {% if auth %}
             <th>Изменить</th>
             <th>Удалить</th>
+            {% endif %}
     	</tr>
     {% for order in order_list %}
     	<tr>
@@ -41,8 +51,10 @@
                 Нет
                 {% endif %}
             </td>
+            {% if auth %}
             <td><a href="{% url 'models:detail' order.id %}">Изменить</a></td>
             <td><a href="{% url 'models:delete' order.id %}">Удалить</a></td>
+            {% endif %}
     	</tr>
     {% endfor %}
     </table> 
