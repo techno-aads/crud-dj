@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class = container> 
+
+{% if auth %} 
+<a class="btn btn-default" role="button" href = "{% url 'models:logout' %}"> Выход </a>
+{% else %}
+<a class = "btn btn-default" href = "{% url 'models:signin' %}"> Вход </a>
+<a class = "btn btn-default" href = "{% url 'models:signup' %}">  Регистрация </a>
+{% endif %}
+<h2>Заказы</h2>
+<p>
+{% if auth %} 
+<a  class="btn btn-default" role="button" href="{% url 'models:add' %}">Добавить</a>
+{% endif %}
+{% if order_list %}    
+    <table class="table">
+    	<tr>
+    		<th>Id</th>
+    		<th>Название</th>
+    		<th>Количество</th>
+            <th>Адрес</th>
+            <th>Дата</th>
+            <th>Выдан</th>
+            {% if auth %}
+            <th>Изменить</th>
+            <th>Удалить</th>
+            {% endif %}
+    	</tr>
+    {% for order in order_list %}
+    	<tr>
+        	<td>{{ order.id }}</td>
+        	<td>{{ order.name }}</td>
+        	<td>{{ order.count }}</td>
+            <td>{{ order.address }}</td>
+            <td>{{ order.order_date }}</td>
+            <td>
+                {% if order.state%}
+                Да
+                {% else %}
+                Нет
+                {% endif %}
+            </td>
+            {% if auth %}
+            <td><a href="{% url 'models:detail' order.id %}">Изменить</a></td>
+            <td><a href="{% url 'models:delete' order.id %}">Удалить</a></td>
+            {% endif %}
+    	</tr>
+    {% endfor %}
+    </table> 
+{% else %}
+    <p>No orders are available.</p>
+{% endif %}
+<br>
+
+</div>
+</body>
