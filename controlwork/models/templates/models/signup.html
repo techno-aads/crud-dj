@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class = "container">
+<form action = "{% url 'models:add_user' %}"  method="post">
+	{% csrf_token %}
+	{% if error_message %}
+		<p><strong>{{ error_message }}</strong></p>
+	{% endif %}
+	<label for ="login_input"> Логин </label>
+	<input type = "text" class="form-control" name = "login" id = "login_input">
+	<label for ="pass_input"> Пароль </label>
+	<input type = "password" class="form-control" name = "pass" id = "pass_input">
+	<small id="emailHelp" class="form-text text-muted">Минимальная длина 8 символов</small>
+	<br>
+	<label for ="pass2_input"> Повторите пароль </label>
+	<input type = "password" class="form-control" name = "pass2" id = "pass2_input">
+	<p>
+	<input type = "submit" class="btn btn-success" value = "Вход">
+	<a href="/index" class="btn btn-danger" role="button">Отмена</a>
+</form>
+</div>
+</body>
