@@ -1,18 +1,21 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'orderproduct/style.css' %}" />
-<form action="{% url 'orderproduct:add' %}" method="post">
+<form action="{% url 'orderproduct:update' orderproduct.id %}" method="post" class="centerc">
                   {% csrf_token %}
-                  <label>Title</label><br>
+                  <label>Название</label><br>
                   <input type="text" id="ordtit" name="order_title" value="{{ orderproduct.order_title }}" required><br>
-                  <label>Count</label><br>
+                  <label>Количество</label><br>
                   <input type="number"  id="cnt" name="order_count" value="{{ orderproduct.order_count }}" min="1" max="50"  required><br>
-                  <label>Your Address</label><br>
+                  <label>Адрес</label><br>
                   <input type="text" id="ordadd" name="order_address" value="{{ orderproduct.order_address }}" required><br>
-                  <label>Delivery data</label><br>
-                  <input type="data" id="orddat" name="order_data" value="{{ orderproduct.order_date}}" required><br>
-                  <label>Order status</label><br>
-                  <input type="text" id="ordst" name="order_status" value="{{ orderproduct.oredr_status }}" required pattern="(выполнен|не выполнен)"
-                         title="Может принимать значения выполнен или не выполнен"><br>
-                  <input type="submit" value="save changes">
+                  <label>Дата доставки</label><br>
+                  <input type="date" id="orddat" name="order_data" value="{{ orderproduct.order_date}}" required><br>
+                  <label>Статус заказа</label><br>
+                  <div class="big">
+                  <select id="ordst" name="order_status" required >
+                      <option>выполнен</option>
+                      <option  selected>не выполнен</option> 
+                  </select></div><br>
+                  <input type="submit" value="Сохранить изменения">
 </form>

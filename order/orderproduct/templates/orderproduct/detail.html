@@ -2,34 +2,57 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'orderproduct/style.css' %}" />
 
+<div class="righttop">
+  <selection>
+    <ul>
+      {% if username %}
+        <li><a href="logout/" class="logc">Выйти ({{ username }})</a></li>
+      {% else %}
+        <li><a href="login/" class="logc">Войти</a></li>
+      {% endif %}
+    </ul>
+  </selection>
+</div>
+<div class="lefttop"><a href="{% url 'orderproduct:index' %}" class="logc">Вернуться на главную страницу</a></div>
+
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-<table>
+<table class="smallword">
 	<tr>
-		<td>Title:</td>
+		<td>Название:</td>
 		<td>{{ orderTitle }}</td>
+		{% if username %}
+		<td> <a href="{% url 'orderproduct:edit' o_id %}" class="editc">Изменить</a></td>
+		{% endif %}
 	</tr>
 	<tr>
-		<td>Count:</td>
+		<td>Количество:</td>
 		<td>{{ orderCount }}</td>
 	</tr>
 	<tr>
-		<td>Address:</td>
+		<td>Адрес:</td>
 		<td>{{ orderAddress }}</td>
 	</tr>
 	<tr>
-		<td>Date:</td>
+		<td>Дата доставки:</td>
 		<td>{{ orderDate }}</td>
 	</tr>
 	<tr>
-		<td>Status:</td>
+		<td>Статус заказа:</td>
 		<td>{{ orderStatus }}</td>
 	</tr>
-</table>
-  <a href="{% url 'orderproduct:edit' o_id %}">Edit this order</a>
-
- <form action="{% url 'orderproduct:delete' %}" method="post" >
+	<tr>
+	  <td></td>
+      <td>
+      		{% if username %}
+		 <form action="{% url 'orderproduct:delete' %}" method="post" >
        	  {% csrf_token %}
        	  <input type="hidden" name="id" value="{{ o_id }}">
-          <button type="submit">delete</button>
+          <button type="submit" class="dels">Удалить</button>
          </form>
+        {% endif %}
+    </td>
+	</tr>
+</table>
+		
+
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}

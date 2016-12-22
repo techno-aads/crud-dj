@@ -1,38 +1,108 @@
 :invalid { 
-  border-color: #e88;
-  -webkit-box-shadow: 0 0 5px rgba(255, 0, 0, .8);
-  -moz-box-shadow: 0 0 5px rbba(255, 0, 0, .8);
-  -o-box-shadow: 0 0 5px rbba(255, 0, 0, .8);
-  -ms-box-shadow: 0 0 5px rbba(255, 0, 0, .8);
-  box-shadow:0 0 5px rgba(255, 0, 0, .8);
+   border-color: #88a;
+  -webkit-box-shadow: 0 0 5px red;
+  -moz-box-shadow: 0 0 5px red;
+  -o-box-shadow: 0 0 5px red;
+  -ms-box-shadow: 0 0 5px red;
+  box-shadow: 0 0 5px red;
 }
 
 :required {
   border-color: #88a;
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 255, .5);
-  -moz-box-shadow: 0 0 5px rgba(0, 0, 255, .5);
-  -o-box-shadow: 0 0 5px rgba(0, 0, 255, .5);
-  -ms-box-shadow: 0 0 5px rgba(0, 0, 255, .5);
-  box-shadow: 0 0 5px rgba(0, 0, 255, .5);
+  -webkit-box-shadow: 0 0 5px darkcyan;
+  -moz-box-shadow: 0 0 5px darkcyan;
+  -o-box-shadow: 0 0 5px darkcyan;
+  -ms-box-shadow: 0 0 5px darkcyan;
+  box-shadow: 0 0 5px darkcyan;
 }
 
 form {
   width:300px;
-  margin: 20px;
+}
+
+.centerc{
+  margin:auto;
+  margin-top: 20px;
 }
 
 input {
  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   border:1px solid #ccc;
-  font-size:20px;
+  font-size:14px;
   width:300px;
   min-height:30px;
   margin-bottom:15px;
   margin-top:5px;
 }
+
+.big select{
+ font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border:1px solid #ccc;
+  font-size:14px;
+  width:300px;
+  min-height:30px;
+  margin-bottom:15px;
+  margin-top:5px;
+}
+table{
+  padding:10px;
+}
 tr{
-  width:200px;
+  width:400px;
+}
+.bigword{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:20px;
+}
+label,.delc{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:14px;
+}
+.smallword{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:18px;
+  position: absolute;
+  margin-left: 5px;
+  margin-top: 20px;
+}
+.editc{
+  color:grey;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:14px;
+}
+.sptable{
+  width:100%;
+  position: absolute;
+  top:50px;
+}
+.topleft{
+  text-align: left;
+  vertical-align: top;
+}
+.rightc{
+  margin-left: 60%;
+}
+li{
+  list-style-type: none;
 }
 a{
-  color:#334488;
+  color:teal;
+  text-decoration: none;
+}
+
+.logc{
+  color:darkslategray;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:14px;
+}
+
+.righttop{
+  position: absolute;
+  right: 5px;
+  top:1px;
+}
+.lefttop{
+  position: absolute;
+  left: 5px;
+  top:15px;
 }
