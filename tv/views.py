@@ -1,38 +1,16 @@
+from audioop import reverse
+
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
 # Create your views here.
-from django.urls import reverse
 
 from tv.models import Program
-
-
-#
-# def choose(request, student_id):
-#     course_list = Course.objects.all()
-#     student = get_object_or_404(Student, pk=student_id)
-#     try:
-#         selected_course = Course.objects.get(pk=request.POST['course'])
-#     except (KeyError, Course.DoesNotExist):
-#         return render(request, 'tv/detail.html', {
-#             'student': student,
-#             'error_message': "Вы не выбрали курс",
-#             'course_list': course_list,
-#         })
-#     else:
-#         if StudentCourses.objects.filter(student=student, course=selected_course):
-#             return render(request, 'tv/detail.html', {
-#                 'student': student,
-#                 'error_message': "Студент уже записан на этот курс",
-#                 'course_list': course_list,
-#             })
-#
-#         student_course = StudentCourses(student=student, course=selected_course)
-#         student_course.save()
-#
-#         return HttpResponseRedirect(reverse('tv:courses', args=(student.id,)))
 
 
 class IndexView(generic.ListView):
@@ -41,6 +19,11 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         return Program.objects.order_by('date')
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
 
 
 class DetailView(generic.DetailView):
@@ -66,3 +49,31 @@ class ProgramDelete(generic.DeleteView):
     template_name_suffix = '_delete'
     model = Program
     success_url = reverse_lazy('tv:index')
+
+
+class RegisterFormView(generic.FormView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('tv:login')
+    template_name = 'tv/register.html'
+
+    def form_valid(self, form):
+        form.save()
+        return super(RegisterFormView, self).form_valid(form)
+
+
+class LoginFormView(generic.FormView):
+    form_class = AuthenticationForm
+    template_name = 'tv/login.html'
+    success_url = reverse_lazy('tv:index')
+
+    def form_valid(self, form):
+        self.user = form.get_user()
+        login(self.request, self.user)
+        return super(LoginFormView, self).form_valid(form)
+
+
+class LogoutView(generic.View):
+
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect(reverse_lazy('tv:index'))

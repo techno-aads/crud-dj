@@ -41,15 +41,21 @@
 
                 <br>
 
-                <p class="align-left"> <label class="text-warning">Описание:</label> {{ program.description }}</p>
-                <p class="align-left"> <label class="text-warning">Дата:</label> {{ program.date }}</p>
-                <p class="align-left"> <label class="text-warning">Наличие рекламы:</label> {% if program.add_advert %}присутствует{% else %}отсутствует{% endif %}</p>
-                <p class="align-left"> <label class="text-warning">Продолжительность:</label> {{ program.length }} мин.</p>
+                <p class="align-left"><label class="text-warning">Описание:</label> {{ program.description }}</p>
+                <p class="align-left"><label class="text-warning">Дата:</label> {{ program.date }}</p>
+                <p class="align-left"><label class="text-warning">Наличие рекламы:</label> {% if program.add_advert %}
+                    присутствует{% else %}отсутствует{% endif %}</p>
+                <p class="align-left"><label class="text-warning">Продолжительность:</label> {{ program.length }} мин.
+                </p>
 
                 <br>
 
-                <input type="button" onclick="window.location='{% url 'tv:update' program.id %}'" class="btn" value="Именить">
-                <input type="button" onclick="window.location='{% url 'tv:delete' program.id %}'" class="btn btn-danger" value="Удалить">
+                {% if user.is_authenticated %}
+                <input type="button" onclick="window.location='{% url 'tv:update' program.id %}'" class="btn"
+                       value="Именить">
+                <input type="button" onclick="window.location='{% url 'tv:delete' program.id %}'" class="btn btn-danger"
+                       value="Удалить">
+                {% endif %}
 
 
             </div>
@@ -67,6 +73,5 @@
 </div>
 
 
-<script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
 </body>
 </html>

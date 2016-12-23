@@ -31,7 +31,7 @@
             </div>
 
             <div class="inner cover">
-                <h1 class="cover-heading">Добавить программу</h1>
+                <h1 class="cover-heading">Регистрация</h1>
 
                 {% if form.errors %}
                     {% for field in form %}
@@ -51,46 +51,34 @@
                 {% endif %}
 
                 <form class="form-horizontal" action="" method="post">
+
                     {% csrf_token %}
 
+
                     <div class="form-group">
-                        <label for="id_name" class="col-sm-4 control-label">Название:</label>
+                        <label for="id_username" class="col-sm-4 control-label">Логин:</label>
                         <div class="col-sm-5">
-                            <input id="id_name" maxlength="200" name="name" class="form-control" type="text" required/>
+                            <input class="form-control" autofocus="" id="id_username" maxlength="150" name="username" type="text" required/>
+
+                            <span class="help-block">Допустимы буквы, цифры и символы @/./+/-/_.</span>
                         </div>
                     </div>
-
                     <div class="form-group">
-                        <label for="id_description" class="col-sm-4 control-label">Описание:</label>
+                        <label for="id_password1" class="col-sm-4 control-label">Пароль:</label>
                         <div class="col-sm-5">
-                            <input id="id_description" maxlength="1000" name="description" class="form-control"
-                                   type="text" required/>
+                            <input class="form-control" id="id_password1" name="password1" type="password" required/>
                         </div>
                     </div>
-
                     <div class="form-group">
-                        <label for="id_length" class="col-sm-4 control-label">Продолжительность:</label>
+                        <label for="id_password2" class="col-sm-4 control-label">Повторите пароль:</label>
                         <div class="col-sm-5">
-                            <input id="id_length" name="length" class="form-control" type="number" required/>
+                            <input class="form-control" id="id_password2" name="password2" type="password" required/>
+                            <span class="help-block">Введите пароль еще раз для подтверждения.</span>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="id_date" class="col-sm-4 control-label">Дата:</label>
-                        <div class="col-sm-5">
-                            <input id="id_date" name="date" class="form-control vDateField" type="text" required/>
-                            <div id="helpBlock" class="help-block">Формат: гггг-мм-дд</div>
-                        </div>
-                    </div>
+                    <button type="submit" class="btn-success btn-lg">Зарегистрироваться</button>
 
-                    <div class="form-group">
-                        <label for="id_add_advert" class="col-sm-4 control-label">Наличие рекламы:</label>
-                        <div class="col-sm-1">
-                            <input id="id_add_advert" name="add_advert" class="form-control" type="checkbox"/>
-                        </div>
-                    </div>
-
-                    <input type="submit" class="btn btn-success" value="Добавить">
                 </form>
 
 
@@ -107,7 +95,6 @@
     </div>
 
 </div>
-
 
 
 </body>
