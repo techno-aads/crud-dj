@@ -1,9 +1,6 @@
-from audioop import reverse
 
 from django.contrib.auth import login, logout
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -37,6 +34,12 @@ class ProgramCreate(generic.CreateView):
     fields = ['name', 'description', 'length', 'date', 'add_advert']
     success_url = reverse_lazy('tv:index')
 
+    def get(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect(reverse_lazy('tv:login'))
+        else:
+            return super(ProgramCreate, self).get(request, args, kwargs)
+
 
 class ProgramUpdate(generic.UpdateView):
     template_name_suffix = '_update'
@@ -44,11 +47,23 @@ class ProgramUpdate(generic.UpdateView):
     fields = ['name', 'description', 'length', 'date', 'add_advert']
     success_url = reverse_lazy('tv:index')
 
+    def get(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect(reverse_lazy('tv:login'))
+        else:
+            return super(ProgramUpdate, self).get(request, args, kwargs)
+
 
 class ProgramDelete(generic.DeleteView):
     template_name_suffix = '_delete'
     model = Program
     success_url = reverse_lazy('tv:index')
+
+    def get(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect(reverse_lazy('tv:login'))
+        else:
+            return super(ProgramDelete, self).get(request, args, kwargs)
 
 
 class RegisterFormView(generic.FormView):
