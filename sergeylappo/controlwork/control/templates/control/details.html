@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,36 +6,48 @@
     <title>Edit form</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
+    <link rel="stylesheet" href="{% static 'css/control.css' %}">
 </head>
 <body>
-<h1>Edit form</h1>
+<div class="page-header">
+    <h1><a href="/products/{{ product.id }}/">Edit form</a></h1>
+</div>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
+
 <form action="{% url 'edit' product.id %}" method="post">
     {% csrf_token %}
-    <label >
-    <input type="text" name="name" value="{{ product.name }}" />
-    {{ "Set name" }}</label><br />
-    <label>
-    <input type="number" name="count" value="{{ product.count }}" />
-    {{ "Set count" }}</label><br />
-    <input type="text" name="adress" value="{{ product.adress }}" />
-    {{ "Set adress" }}</label><br />
-    <input type="date" name="date" value="{{ product.date|date:"Y-m-d" }}" />
-    {{ "Set date" }}</label><br />
-    {% for choice in product.DELIVEY_STATUS_CHOISES %}
-    <label>
-    {{ choice.get_DELIVEY_STATUS_CHOISES_display  }}
-    <input type="radio" name="status" value="{{ choice }}">{{ choice }}</input>
-    </label>
-    {% endfor %}
-    <input type="submit" value="Send" />
+    <table cellspacing="5" cellpadding="10" border="1" width="100%">
+        <tr>
+            <th>Product</th>
+            <th>Due date</th>
+            <th>Count</th>
+            <th>Address</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td><input class="inputField" type="text" placeholder="Enter product name" name="name"
+                       value="{{ product.name }}"/></td>
+            <td><input class="inputField" type="date" name="date" value="{{ product.date|date:"c" }}"/></td>
+            <td><input class="inputField" type="number" name="count" value="{{ product.count }}"/></td>
+            <td><input class="inputField" type="text" name="address" value="{{ product.address }}"/></td>
+            <td><select class="inputField" value="{{ product.deliveryStatus }}" name="status">
+                {% for choice in product.DELIVEY_STATUS_CHOISES %}
+                    <option value="{{ choice }}">
+                        {{ choice }}
+                    </option>
+                {% endfor %}
+            </select></td>
+        </tr>
+    </table>
+
+    <input class="submitField" type="submit" value="Send"/>
 </form>
 <form action="{% url 'edit' product.id %}" method="post">
     {% csrf_token %}
-    <input type="submit" name="delete" value="Delete" />
+    <input class="submitDeleteField" type="submit" name="delete" value="Delete"/>
 </form>
+<a class="backButton" href="../"> Back </a>
 </body>
 </html>

@@ -1,0 +1,73 @@
+body {
+    background-color: whitesmoke;
+}
+
+.page-header {
+    background-color: #80b1ff;
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding: 5px 0px 5px 5px;
+    text-align: center;
+}
+
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+    color: #ffffff;
+    font-size: 36pt;
+    text-decoration: dotted;
+}
+
+a {
+    color: black;
+}
+
+.content {
+    margin-left: 40px;
+}
+
+h3 {
+    background-color: #80b1ff;
+    margin-top: 30px;
+    margin-bottom: 0;
+    text-align: center;
+    color: white;
+    padding: 5px 5px 5px 5px;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Lobster', cursive;
+}
+
+.inputField {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: white;
+}
+
+.submitField {
+    width: 100%;
+    border: none;
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 100%;
+    color: white;
+    background-color: #80b1ff;
+}
+
+.backButton {
+    width: 10%;
+    border: none;
+    font-size: 15pt;
+
+    padding: 0px 5px 0px 5px;
+    color: white;
+    background-color: #80b1ff;
+}
+
+.submitDeleteField {
+    width: 100%;
+    border: none;
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 100%;
+    color: white;
+    background-color: red;
+}

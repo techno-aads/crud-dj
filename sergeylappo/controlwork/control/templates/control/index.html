@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,45 +6,63 @@
     <title>Goods list</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
+    <link rel="stylesheet" href="{% static 'css/control.css' %}">
 </head>
 <body>
+<div class="page-header">
+    <h1><a href="/">Products list</a></h1>
+</div>
 {% if product_list %}
-<ul>
-    <h1>Products</h1>
-    {% for product in product_list %}
-    <li><a href="{% url 'details' product.id %}">{{ product.name }} </a></li>
-    <p>Due date: {{ product.date }}<br>
-        Count: {{ product.count }}<br>
-        Adress: {{ product.adress }} <br>
-        Status: {{ product.get_deliveryStatus_display }}
-    </p>
-    {% endfor %}
-</ul>
+    <table cellspacing="5" cellpadding="10" border="1" width="100%">
+        <tr>
+            <th>Product</th>
+            <th>Due date</th>
+            <th>Count</th>
+            <th>Address</th>
+            <th>Status</th>
+        </tr>
+        {% for product in product_list %}
+            <tr>
+                <td><a href="{% url 'details' product.id %}">{{ product.name }} </a></td>
+                <td>{{ product.date }}</td>
+                <td>{{ product.count }}</td>
+                <td>{{ product.address }} </td>
+                <td>{{ product.get_deliveryStatus_display }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 {% else %}
-<p>No products are available.</p>
+    <p>No products are available.</p>
 {% endif %}
-</body>
+{% if user.is_authenticated %}
 <h3>New product</h3>
+
 <form action="{% url 'product' %}" method="post">
     {% csrf_token %}
-    <label>
-        <input type="text" name="name" value="{{ product.name }}"/>
-        {{ "Set name" }}</label><br/>
-    <label>
-        <input type="number" name="count" value="{{ product.count }}"/>
-        {{ "Set count" }}</label><br/>
-    <input type="text" name="adress" value="{{ product.adress }}"/>
-    {{ "Set adress" }}</label><br/>
-    <input type="date" name="date" value="{{ product.date|date:" Y-m-d" }}" />
-    {{ "Set date" }}</label><br/>
-    {% for choice in Product.DELIVEY_STATUS_CHOISES %}
-    <label>
-        {{ choice.get_deliveryStatus_display }}
-        <input type="radio" name="status" value="{{ choice }}">{{ choice }}</input>
-    </label>
-    {% endfor %}
-    <input type="submit" value="Add"/>
+    <table cellspacing="5" cellpadding="10" border="1" width="100%">
+        <tr>
+            <th>Product</th>
+            <th>Due date</th>
+            <th>Count</th>
+            <th>Address</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td><input class="inputField" type="text" placeholder="Enter product name" name="name"
+                       value="{{ product.name }}"/></td>
+            <td><input class="inputField" type="date" name="date" value="{{ product.date|date:"c" }}"/></td>
+            <td><input class="inputField" type="number" placeholder="Enter products count" name="count"
+                       value="{{ product.count }}"/></td>
+            <td><input class="inputField" type="text" placeholder="Enter delivery address" name="address"
+                       value="{{ product.address }}"/></td>
+            <td>Created</td>
+        </tr>
+    </table>
+    <input class="submitField" type="submit" value="Add"/>
 </form>
+    <a class="backButton" href="/logout"> Logout </a>
+{% else %}
+    <a class="backButton" href="/login"> Login </a>
+{% endif %}
 </body>
 </html>
