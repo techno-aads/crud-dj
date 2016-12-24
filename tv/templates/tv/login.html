@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+
+    {% load staticfiles %}
+
+    <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "bootstrap/css/cover.css" %}" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand"><a href="{% url "tv:index" %}"><img
+                            src="{% static "assets/polis_logo.png" %}"></a></h3>
+                    <nav>
+                        <ul class="nav masthead-nav">
+                            <li><a href="{% url "tv:index" %}">Вернуться к списку</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="inner cover">
+                <h1 class="cover-heading">Вход</h1>
+
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <br>
+                {% endif %}
+
+                <form class="form-horizontal" action="" method="post">
+
+                    {% csrf_token %}
+
+
+                    <div class="form-group">
+                        <label for="id_username" class="col-sm-4 control-label">Логин:</label>
+                        <div class="col-sm-5">
+                            <input class="form-control" autofocus="" id="id_username" maxlength="150" name="username"
+                                   type="text" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_password" class="col-sm-4 control-label">Пароль:</label>
+                        <div class="col-sm-5">
+                            <input class="form-control" id="id_password" name="password" type="password" required/>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-success btn-lg">Войти</button>
+
+                </form>
+
+
+            </div>
+
+            <div class="mastfoot">
+                <div class="inner">
+                    <p>by <a href="https://twitter.com/mmishak" target="_blank">@mmishak</a></p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>
