@@ -1,0 +1,17 @@
+<h1>{{ program.name }}</h1>
+<p>Продолжительность: {{ program.duration }}</p>
+<p>Описание:</p>
+<p>{{ program.description }}</p>
+<p>Дата трансляции: {{ program.broadcast_date }}</p>
+<p>Наличие рекламы:
+  {% if program.advertisement %}
+    да
+  {% else %}
+    нет
+  {% endif %}
+</p>
+<form action="{% url 'delete' program.id %}" method="post">
+  {% csrf_token %}
+  <input type="submit" value="Delete">
+</form>
+<a href="{% url 'change' program.id %}">Изменить</a>
