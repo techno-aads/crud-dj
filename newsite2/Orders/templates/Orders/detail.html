@@ -1,15 +1,32 @@
-<h1>{{ order.title }}</h1>
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'Orders/style.css' %}" />
+<div class="main">
+
+<h1> <a href="{% url 'Orders:index' %}" title="Undo to list">{{ order.title }}</a></h1>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<p><label for="order.count"> Count= {{ order.count }}</label></p>
-<form action="" method="post">
+<table cellspacing="4" cellpadding="4">
+	<tr>
+		<td>
+<form>
    {% csrf_token %}
-   <input type="text" name="count"
-       value="{{ order.count.count }}">
-  <input type="submit" value="Save" />
+  <input type="button" value="Edit" onClick='location.href="{% url 'Orders:edit' order.id %}"'/>
  </form>
-<p><label for="order.count"> Address: {{ order.address }}</label></p>
-<p><label for="order.count"> Date of delivery: {{ order.date }}</label></p>
-<p><label for="order.count"> Status of delivery: {{ order.status }}</label></p>
+		</td>
+		<td></td>
+		<td>
+ <form action="{% url 'Orders:edit' order.id %}" method="get">
+   {% csrf_token %}
+  <input type="button" value="Delete" >
+ </form></td>
+ </tr>
+</table>
 
+<p><label for="order.count"> Count = {{ order.count }}</label></p>
+<p><label for="order.count"> Address: {{ order.address }}</label></p>
+<p><label for="order.count"> Status of delivery: {{ order.status }}</label></p>
+<p><label for="order.count"> Date of delivery: {{ order.date }}</label></p>
+
+</div>
