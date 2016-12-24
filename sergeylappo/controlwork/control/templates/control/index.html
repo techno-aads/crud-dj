@@ -1,0 +1,68 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Goods list</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/control.css' %}">
+</head>
+<body>
+<div class="page-header">
+    <h1><a href="/">Products list</a></h1>
+</div>
+{% if product_list %}
+    <table cellspacing="5" cellpadding="10" border="1" width="100%">
+        <tr>
+            <th>Product</th>
+            <th>Due date</th>
+            <th>Count</th>
+            <th>Address</th>
+            <th>Status</th>
+        </tr>
+        {% for product in product_list %}
+            <tr>
+                <td><a href="{% url 'details' product.id %}">{{ product.name }} </a></td>
+                <td>{{ product.date }}</td>
+                <td>{{ product.count }}</td>
+                <td>{{ product.address }} </td>
+                <td>{{ product.get_deliveryStatus_display }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No products are available.</p>
+{% endif %}
+{% if user.is_authenticated %}
+<h3>New product</h3>
+
+<form action="{% url 'product' %}" method="post">
+    {% csrf_token %}
+    <table cellspacing="5" cellpadding="10" border="1" width="100%">
+        <tr>
+            <th>Product</th>
+            <th>Due date</th>
+            <th>Count</th>
+            <th>Address</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td><input class="inputField" type="text" placeholder="Enter product name" name="name"
+                       value="{{ product.name }}"/></td>
+            <td><input class="inputField" type="date" name="date" value="{{ product.date|date:"c" }}"/></td>
+            <td><input class="inputField" type="number" placeholder="Enter products count" name="count"
+                       value="{{ product.count }}"/></td>
+            <td><input class="inputField" type="text" placeholder="Enter delivery address" name="address"
+                       value="{{ product.address }}"/></td>
+            <td>Created</td>
+        </tr>
+    </table>
+    <input class="submitField" type="submit" value="Add"/>
+</form>
+    <a class="backButton" href="/logout"> Logout </a>
+{% else %}
+    <a class="backButton" href="/login"> Login </a>
+{% endif %}
+</body>
+</html>
