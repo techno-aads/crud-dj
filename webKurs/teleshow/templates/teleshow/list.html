@@ -7,5 +7,7 @@
 {% else %}
     <p>No programs are available.</p>
 {% endif %}
-<br>
-<a href="{% url 'add' %}">Добавить программу</a>
+{% if allowedToEdit %}
+  <br>
+  <a href="{% url 'add' %}">Добавить программу</a>
+{% endif %}

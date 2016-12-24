@@ -1,20 +1,27 @@
 from django.shortcuts import render, get_object_or_404
-from django.views import generic
 from django import forms
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .models import Program
-class ListView(generic.ListView):
-    template_name = 'teleshow/list.html'
-    context_object_name = 'program_list'
+from authorization.models import User
 
-    def get_queryset(self):
-        return Program.objects.order_by('broadcast_date')
+def list(request):
+    allowedToEdit = request.session.get('user_id', False)
+    if allowedToEdit != False:
+        allowedToEdit = User.objects.get(pk=allowedToEdit).allowedToEdit
+    return render(request, 'teleshow/list.html', {
+        'program_list' : Program.objects.order_by('broadcast_date'),
+        'allowedToEdit' : allowedToEdit })
 
-class DetailView(generic.DetailView):
-    model = Program
-    template_name = 'teleshow/detail.html'
+def detail(request, pk):
+    program = get_object_or_404(Program, pk=pk)
+    allowedToEdit = request.session.get('user_id', False)
+    if allowedToEdit != False:
+        allowedToEdit = User.objects.get(pk=allowedToEdit).allowedToEdit
+    return render(request, 'teleshow/detail.html', {
+        'program' : program,
+        'allowedToEdit' : allowedToEdit })
 
 def add(request):
     return render(request, 'teleshow/add.html')

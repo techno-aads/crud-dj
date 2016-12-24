@@ -10,8 +10,10 @@
     нет
   {% endif %}
 </p>
-<form action="{% url 'delete' program.id %}" method="post">
-  {% csrf_token %}
-  <input type="submit" value="Delete">
-</form>
-<a href="{% url 'change' program.id %}">Изменить</a>
+{% if allowedToEdit %}
+  <form action="{% url 'delete' program.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete">
+  </form>
+  <a href="{% url 'change' program.id %}">Изменить</a>
+{% endif %}

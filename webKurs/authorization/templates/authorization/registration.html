@@ -1,0 +1,16 @@
+<h1>Registration</h1>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<label>Минимальное количество символов в каждом поле - 4</label>
+<form action="{% url 'authorization:addUser' %}" method="post">
+  {% csrf_token %}
+  <input type="text" name="login" pattern=".{4,}" required>
+  <label>login</label>
+  <br>
+  <input type="password" name="password" pattern=".{4,}" required>
+  <label>password</label>
+  <br>
+  <label>Are you admin?</label>
+  <input type="checkbox" name="allowedToEdit">
+  <br>
+  <input type="submit" value="register">
+</form>
