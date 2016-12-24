@@ -48,15 +48,16 @@
             <li>{{ product.delivery_date }}</li>
             <li> {% if product.status %}Доставлен{% else %}Не доставлен{% endif %}</li>
             <br>
-            <input type="button" onclick="window.location='{% url 'orders:delete' product.id %}'" class="btn btn-danger"
-                   value="Delete">
-            <input type="button" onclick="window.location='{% url 'orders:update' product.id %}'" class="btn"
-                   value="Update">
+            {% if user.is_authenticated %}
+                <input type="button" onclick="window.location='{% url 'orders:delete' product.id %}'"
+                       class="btn btn-danger"
+                       value="Delete">
+                <input type="button" onclick="window.location='{% url 'orders:update' product.id %}'" class="btn"
+                       value="Update">
+            {% endif %}
         </ul>
     </div>
 </div>
-
-<script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
 
 </body>
 </html>
