@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link type="text/css" rel="stylesheet" href="{% static 'Telecast/materialize/css/materialize.min.css' %}" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'Telecast/style.css' %}"/>
+    <title>Edit</title>
+</head>
+<body background="{% static 'Telecast/images/main.jpg' %}">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'Telecast/materialize/js/materialize.min.js' %}"></script>
+
+    <div class="parent">
+        <div class="block">
+            <form class="col s12" action="{% url 'Telecast:program_new' %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="{{ obj.name }}" name="name" placeholder="Name" type="text" class="validate">
+                        <input value="{{ obj.description }}" name="description" placeholder="Description" type="text" class="validate">
+                        <input class="waves-effect waves-light btn indigo try_button" type="submit" value="Create"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

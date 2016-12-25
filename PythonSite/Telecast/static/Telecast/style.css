@@ -1,0 +1,113 @@
+body {
+    margin: 0;
+    height: 100%;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.try_button {
+    font-size: 15px;
+}
+
+.top_name {
+    width: 700px;
+    margin: auto;
+    background-color: white;
+    font-size: 35px;
+    text-align: center;
+}
+
+.td_name {
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    font-size: 35px;
+    text-align: center;
+}
+
+.main_table {
+     box-shadow: 0 0 10px rgba(0,0,0,0.5);
+     background-color: #FFFFFF;
+     width: 500px;
+     margin: auto;
+     height: 500px;
+}
+
+.edit_table {
+     box-shadow: 0 0 10px rgba(0,0,0,0.5);
+     background-color: #FFFFFF;
+     width: 500px;
+     margin: auto;
+}
+
+
+.button_table {
+     width: 500px;
+     margin: auto;
+}
+
+li {
+    padding-top: 10px;
+    padding-bottom: 0px;
+}
+
+.li_button {
+    padding-bottom: 30px;
+}
+
+#EditLabel {
+    text-align: center;
+}
+
+#add {
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    width: 100%;
+    position: relative;
+    float: left;
+}
+#change {
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    width: 100%;
+    position: relative;
+    float: right;
+}
+#delete {
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    width: 100%;
+    position: relative;
+    float: right;
+}
+
+.add_b {
+    margin: auto;
+    width: 100px;
+}
+
+.form {
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    background-color: #FFFFFF;
+    width: 500px;
+    margin: auto;
+    height: 500px;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+.parent {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: auto;
+}
+
+.block {
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -125px 0 0 -125px;
+}

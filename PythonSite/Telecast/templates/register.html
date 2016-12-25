@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link type="text/css" rel="stylesheet" href="{% static 'Telecast/materialize/css/materialize.min.css' %}" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'Telecast/style.css' %}"/>
+    <title>Registration</title>
+</head>
+<body background="{% static 'Telecast/images/main.jpg' %}">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'Telecast/materialize/js/materialize.min.js' %}"></script>
+
+    <div class="parent">
+        <div class="block">
+            <form class="col s12" action="{% url 'Telecast:register' %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="input-field col s12">
+                        <p class="flow-text" style="color: white; font-size: 10px">Name</p>
+                        {{ form.username }}
+                        <p class="flow-text" style="color: white; font-size: 10px">Password</p>
+                        {{ form.password1 }}
+                        <p class="flow-text" style="color: white; font-size: 10px">Password again</p>
+                        {{ form.password2 }}
+                        <input class="waves-effect waves-light btn indigo try_button" type="submit" value="Register"/>
+                    </div>
+                    <span style="color: red;">{{ form.errors }}</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
