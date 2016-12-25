@@ -1,0 +1,78 @@
+{% load staticfiles %}
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<title>Order's list</title>
+
+</head>
+
+<h1 style="text-align:center">Order's list</h1>
+<br>
+
+<table class="table" style="width:500px;margin:auto;">
+  <tr>
+    <td><strong>Name</strong></td>
+    <td><strong>Action</strong></td>
+  </tr>
+{% for order in orders %}
+   <tr>
+     <td style="width:400px;"><a href="show_full/{{order.id}}">{{order.name}}</td>
+     <td style="width:10px;text-align:center;">
+       <form action="{%if flag%}delete_order/{{order.id}} {%else%}#{%endif%}">
+         {% csrf_token %}    	   
+         <input type="submit" value="x" {%if not flag%}disabled="disabled" title="Please login and you can delete orders"{%endif%}>
+       </form>
+     </td>
+   </tr>
+{% endfor %}
+</table>
+
+{% if flag %}
+
+<div style="position:absolute;right:15px;top:0px;margin-top:-5px;">
+  <h4>You login as: {{user.username}}</h4>
+  <form action = "/app/logout">
+  {% csrf_token %}
+    <input type="submit" class="btn btn-primary" value="logout">
+  </form>
+</div>
+
+<h2 style="text-align:center">Add new order</h2>
+<br>
+
+<div style="position:fixed;width:400px;left:50%;margin-left:-200px;">
+<form action = "add_order/" method ="post">
+{% csrf_token %}
+
+  <div class="form-group">
+    <input id="name" name="name" type="text" class="form-control" placeholder="name" style="width:400px" required>
+  </div>
+
+  <div class="form-group">
+    <input id="amount" name="amount" min="1" type="number" class="form-control" placeholder="amount" style="width:400px" required>
+  </div>
+
+  <div class="form-group">
+    <input id="addres" name="addres" type="text" class="form-control" placeholder="addres" style="width:400px" required>
+  </div>
+
+  <div class="form-group">
+    <input id="date" name="date" type="text"required pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" class="form-control" placeholder="YYYY-MM-DD" style="width:400px">
+  </div>
+  
+  <div class="form-group" style="position:absolute;right:0px;">
+  <label>Order status: <input id="status" name="status" type="checkbox" checked>
+  </div>
+   <br>
+  </label>
+  <br>
+  <div class="form-group" style="position:absolute;right:0px;">
+    <input type="submit" class="btn btn-primary" value = "Add">
+  </div>
+</form>
+</div>
+{%else%}
+<h3 style="text-align:center">
+  <a href="/app/login">Log in</a> or <a href="/app/registration"> log on </a> and you can add new orders</h3>
+{%endif%}

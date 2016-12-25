@@ -1,0 +1,44 @@
+{% load staticfiles %}
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<title>Log on</title>
+
+</head>
+
+<h2 style="text-align:center;">Log on</h2>
+<br>
+
+<div style="position:fixed;width:400px;left:50%;margin-left:-200px;">
+<form method="post" action="/app/create_user/">
+  {% csrf_token %}
+  
+  <div class="form-group">
+      <input type="text" class="form-control" id="username" name="username" placeholder="Enter login" style="width:400px;" required>
+    </div>
+
+  <div class="form-group">
+      <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" style="width:400px;" onchange="checkPasswords()" required>
+    </div>
+
+  <div class="form-group">
+      <input type="password" class="form-control" id="confirmPassword" placeholder="Enter password again" style="width:400px;" onchange="checkPasswords()" required>
+    </div>
+
+  <div class="form-group" style="position:absolute;right:0px;">
+      <input type="submit" class="btn btn-primary" value="Log on">
+    </div>
+</form>
+</div>
+<script type="text/javascript">
+function checkPasswords()
+{
+    var passl = document.getElementById("password");
+    var pass2 = document.getElementById("confirmPassword");
+    if(passl.value!=pass2.value)
+        passl.setCustomValidity("Passwords do not match!");
+    else
+        passl.setCustomValidity("");
+}
+</script> 
