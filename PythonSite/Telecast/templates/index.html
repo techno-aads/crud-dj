@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link type="text/css" rel="stylesheet" href="{% static 'Telecast/materialize/css/materialize.min.css' %}" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'Telecast/style.css' %}"/>
+    <title>Telecast</title>
+</head>
+<body background="{% static 'Telecast/images/main.jpg' %}">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'Telecast/materialize/js/materialize.min.js' %}"></script>
+
+    <nav>
+    <div class="nav-wrapper indigo">
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'Telecast:logout' %}">Log out</a></li>
+            {% else %}
+            <li><a href="{% url 'Telecast:login' %}">Login</a></li>
+            <li><a href="{% url 'Telecast:register' %}">Register</a></li>
+            {% endif %}
+        </ul>
+        </div>
+    </nav>
+
+    {% if List %}
+        <ul class="main_ul">
+            {% for obj in List %}
+            <li>
+
+                <div class="card small main_table">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="{% static 'Telecast/images/image.jpg' %}">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">{{ obj.name }}<i class="material-icons right">more</i></span>
+                        <p>Date published: {{ obj.date }}</p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Description<i class="material-icons right">close</i></span>
+                        <p>Current duration: {{ obj.duration }}</p>
+                        <p> {% if obj.advert %}
+                            Advertising presence: Присутствует реклама
+                            {% else %}
+                            Advertising presence: Реклама отсутсвует
+                            {% endif %} </p>
+                        <p>{{ obj.description }}</p>
+                    </div>
+                </div>
+
+            {% if user.is_authenticated %}
+            <li class="li_button">
+                <table class="button_table">
+                    <tr>
+                        <td align="center"><a id="change" class="waves-effect waves-light btn indigo" href="{% url 'Telecast:edit' obj.id %}">Change</a></td>
+                        <td align="right"><a id="delete" class="waves-effect waves-light btn indigo" href="{{ obj.id }}/delete">Delete</a></td>
+                    </tr>
+                </table>
+            </li>
+            {% endif %}
+
+            {% endfor %}
+        </ul>
+    {% else %}
+    <h1>No tv-programs are available.</h1>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <ul class="add_b">
+        <td align="left"><a id="add" class="waves-effect waves-light btn indigo" href="{% url 'Telecast:create' %}">Add</a></td>
+    </ul>
+    {% endif %}
+</body>
+</html>
