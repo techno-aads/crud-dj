@@ -1,19 +1,30 @@
-<h1>{{ program.name }}</h1>
-<p>Продолжительность: {{ program.duration }}</p>
-<p>Описание:</p>
-<p>{{ program.description }}</p>
-<p>Дата трансляции: {{ program.broadcast_date }}</p>
-<p>Наличие рекламы:
-  {% if program.advertisement %}
-    да
-  {% else %}
-    нет
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'teleshow/style.css' %}"/>
+<div class="elem">
+  <h1>{{ program.name }}</h1>
+  <table class="description">
+    <tr>
+      <td>Продолжительность: </td>
+      <td>{{ program.duration }}<td>
+    </tr>
+    <tr>
+      <td>Описание: </td>
+      <td>{{ program.description }}</td>
+    </tr>
+    <tr>
+      <td>Дата трансляции: </td>
+      <td>{{ program.broadcast_date }}</td>
+    </tr>
+    <tr>
+      <td>Наличие рекламы: </td>
+      <td>{% if program.advertisement %}да{% else %}нет{% endif %}</td>
+    </tr>
+  </table>
+  {% if allowedToEdit %}
+    <a class="admin_btn" href="{% url 'change' program.id %}">Изменить</a>
+    <form action="{% url 'delete' program.id %}" metdod="post">
+      {% csrf_token %}
+      <input class="admin_btn" type="submit" value="Удалить">
+    </form>
   {% endif %}
-</p>
-{% if allowedToEdit %}
-  <form action="{% url 'delete' program.id %}" method="post">
-    {% csrf_token %}
-    <input type="submit" value="Delete">
-  </form>
-  <a href="{% url 'change' program.id %}">Изменить</a>
-{% endif %}
+</div>

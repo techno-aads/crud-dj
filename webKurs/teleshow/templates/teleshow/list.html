@@ -1,13 +1,18 @@
-{% if program_list %}
-    <ul>
-    {% for program in program_list %}
-        <li><a href="{% url 'detail' program.id %}">{{ program.name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No programs are available.</p>
-{% endif %}
-{% if allowedToEdit %}
-  <br>
-  <a href="{% url 'add' %}">Добавить программу</a>
-{% endif %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'teleshow/style.css' %}"/>
+<div class="elem list">
+  <h1>Все программы</h1>
+  {% if program_list %}
+      <ul>
+      {% for program in program_list %}
+          <li><a href="{% url 'detail' program.id %}">{{ program.name }}</a></li>
+      {% endfor %}
+      </ul>
+  {% else %}
+      <p>No programs are available.</p>
+  {% endif %}
+  {% if allowedToEdit %}
+    <br>
+    <a class="admin_btn" href="{% url 'add' %}">Добавить программу</a>
+  {% endif %}
+</div>

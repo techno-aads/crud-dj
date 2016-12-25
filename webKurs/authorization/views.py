@@ -34,6 +34,13 @@ def login(request):
 def registration(request):
     return render(request, 'authorization/registration.html')
 
+def guest(request):
+    try:
+        del request.session['user_id']
+    except KeyError:
+        pass
+    return render(request, 'teleshow/list.html')
+
 def addUser(request):
     login = request.POST['login']
     if len(User.objects.filter(login=login)) > 0:
