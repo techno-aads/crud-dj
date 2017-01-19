@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+{% load static %}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Телепрограмма</title>
+</head>
+<body>
+<div class="jumbotron text-left">
+    <div class="container">
+        <div class="col-lg-9">
+            <h1>Технополис-ТВ</h1>
+            <p>Телепрограмма</p>
+        </div>
+        {% if username %}
+        <div class="col-xs-offset-10">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{username}}
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="">Редактировать телепрограмму</a></li>
+                    <li><a href="{% url 'tvshows:logout' %}">Выйти</a></li>
+                </ul>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-xs-offset-10">
+                    <a href="{% url 'tvshows:register' %}">
+                        <button class="btn btn-sm btn-primary  btn-block " type="button">Зарегистрироваться</button>
+                    </a>
+        </div>
+        <div class="col-xs-offset-10">
+                    <a href="{% url 'tvshows:login' %}">
+                        <button class="btn btn-sm btn-primary  btn-block" type="button">Войти</button>
+                    </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="container">
+    {% if list_shows %}
+  <table class="table">
+    <thead>
+      <tr>
+          <th>Название передачи</th>
+          <th>Дата</th>
+          <th>Время</th>
+          <th>Описание</th>
+          <th>Реклама</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for show in list_shows %}
+      <tr>
+          <td>{{show.name}}</td>
+          <td>{{show.broadcast_date}}</td>
+          <td>{{show.time}}</td>
+          <td>{{show.description}}</td>
+          <td>{{show.advert}}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+    <h1>Передачи закончились. Канал закрывается.</h1>
+{% endif %}
+</div>
+</body>
+</html>

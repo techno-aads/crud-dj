@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'tvshows/css/bootstrap.css' %}" />
+<script src="{% static 'tvshows/js/bootstrap.min.js' %}"></script>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Войти</title>
+</head>
+<body>
+    <div class="container col-lg-offset-4 col-lg-3">
+      <form class="form-signin" action="{% url 'tvshows:Userlogin' %}" method="post">
+          {% csrf_token %}
+        <h2 class="form-signin-heading">Авторизация</h2>
+        <input type="text" class="form-control" name="login" placeholder="логин" required>
+        <input type="password" class="form-control" name="pass" placeholder="пароль" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+      </form>
+        {% if error %}
+          <p class="text-danger">{{ error }}</p>
+          {% endif %}
+    </div>
+  </body>
+</html>
