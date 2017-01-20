@@ -1,3 +1,10 @@
+{% extends 'products/base.html' %}
+{% block content %}
+
+<form action="{% url 'index' %}">
+    <input type="submit" value="Назад"/>
+</form>
+
 <form action="{% url 'products:editOrderDone'%}" method="post">
     {% csrf_token %}
     <input type="hidden" name="id" value="{{product.id}}">
@@ -16,3 +23,5 @@
 
     <p><input type="submit" value="Добавить заказ">
 </form>
+
+{% endblock %}

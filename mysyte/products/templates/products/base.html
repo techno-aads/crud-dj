@@ -1,0 +1,31 @@
+<form action="{% url 'products:index' %}">
+    <input type="submit" value="Домой"/>
+</form>
+
+
+{% if user.is_authenticated %}
+<form action="{% url 'logout' %}">
+    <input type="submit" value="Выйти"/>
+</form>
+{% else %}
+<form action="{% url 'login' %}">
+    <input type="submit" value="Войти"/>
+</form>
+<form action="{% url 'registration' %}">
+    <input type="submit" value="Регистрация"/>
+</form>
+{% endif %}
+
+<div class="container">
+    <form>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-info">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+    </form>
+    {% block content %}
+    {% endblock %}
+</div>

@@ -1,6 +1,12 @@
+{% extends 'products/base.html' %}
+{% block content %}
+
+
+{% if user.is_authenticated %}
 <form>
     <button formaction="{% url 'products:addOrder' %}">Добавить заказ</button>
 </form>
+{% endif %}
 
 {% if product_list %}
 <ul>
@@ -10,6 +16,7 @@
         <p>{{ product.address }}
         <p>{{ product.delivery_date }}
         <p>{{ product.status }}
+        {% if user.is_authenticated and user.get_username == product.customer%}
         <form action="{% url 'products:editOrder'%}" method="post">
             {% csrf_token %}
             <input type="hidden" name="id" value="{{product.id}}">
@@ -20,9 +27,13 @@
             <input type="hidden" name="id" value="{{product.id}}">
             <input type="submit" value="Удалить">
         </form>
+        {% endif %}
     </li>
     {% endfor %}
 </ul>
 {% else %}
 <p>No polls are available.</p>
 {% endif %}
+
+{% endblock %}
+

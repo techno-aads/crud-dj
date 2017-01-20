@@ -7,10 +7,12 @@ class Product(models.Model):
     address = models.CharField(max_length=200)
     delivery_date = models.DateTimeField('date published')
     status = models.BooleanField(default=False)
+    customer = models.CharField(max_length=300)
 
     def __str__(self):
         return "name=" + self.name + " " \
         "count=" + str(self.count) + " " \
         "address=" + self.address + " " \
         "delivery_date=" + str(self.delivery_date) + " " \
-        "status=" + str(self.status)
+        "status=" + str(self.status) + " " \
+        "customer=" + str(self.customer)
