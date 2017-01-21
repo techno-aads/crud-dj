@@ -1,18 +1,18 @@
-<form action="{% url 'products:index' %}">
-    <input type="submit" value="Домой"/>
+<form action="{% url 'orders:index' %}">
+    <input type="submit" value="Home"/>
 </form>
 
 
 {% if user.is_authenticated %}
-<form action="{% url 'logout' %}">
-    <input type="submit" value="Выйти"/>
-</form>
+    <form action="{% url 'logout' %}">
+        <input type="submit" value="Logout"/>
+    </form>
 {% else %}
 <form action="{% url 'login' %}">
-    <input type="submit" value="Войти"/>
+    <input type="submit" value="Login"/>
 </form>
 <form action="{% url 'registration' %}">
-    <input type="submit" value="Регистрация"/>
+    <input type="submit" value="Registration"/>
 </form>
 {% endif %}
 

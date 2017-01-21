@@ -1,0 +1,19 @@
+{% extends 'orders/base.html' %}
+{% block content %}
+
+<form action="{% url 'orders:addDone'%}" method="post">
+    {% csrf_token %}
+
+    {% for field in form %}
+        {% if not field.label == "Customer" %}
+                {{ field.label_tag }}<br>
+                {{ field }}<br>
+        {% else %}
+            <input type="hidden" name="customer" value="{{user.username}}">
+        {% endif %}
+    {% endfor %}
+
+    <p><input type="submit" value="Add order">
+</form>
+
+{% endblock %}

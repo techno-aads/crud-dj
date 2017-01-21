@@ -16,13 +16,13 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth import views
-from products import views as auth_views
+from orders import views as auth_views
 
 urlpatterns = [
-    url(r'', include('products.urls')),
-    url(r'^login/?', views.login, {'template_name': 'products/login.html'}, name='login'),
+    url(r'^login/?', views.login, {'template_name': 'orders/login.html'}, name='login'),
     url(r'^logout', views.logout, {'next_page': '/'}, name='logout'),
     url(r'^registration/$', auth_views.registration, name='registration'),
-    url(r'^products/', include('products.urls')),
+    url(r'^orders/', include('orders.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'', include('orders.urls')),
 ]
