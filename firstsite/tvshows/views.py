@@ -2,11 +2,12 @@ from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext, loader
 from django.template.context_processors import csrf
 from django.urls import reverse
 
+from .forms import ShowForm
 from .models import Show
 
 
@@ -57,3 +58,35 @@ def register(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('tvshows:index'))
+
+def edit(request):
+    list_shows = Show.objects.order_by('broadcast_date', 'time')
+    template = loader.get_template('tvshows/edit.html')
+    context = {
+        'list_shows': list_shows,
+        'username': auth.get_user(request).username,
+        'form': ShowForm,
+    }
+    return HttpResponse(template.render(context, request))
+
+def delete(request):
+    Show.objects.filter(id=request.POST["id"]).delete()
+    return HttpResponseRedirect(reverse('tvshows:edit'))
+
+def editshow(request):
+    show = get_object_or_404(Show, id=show_id)
+    try:
+
+        show.save()
+    except KeyError:
+        return render(request, 'tvshow/edit.html', {'show': Show})
+    else:
+        return HttpResponseRedirect(reverse('tvshows:edit'))
+
+def add(request):
+    show = Show(name=request.POST['name'], broadcast_date=request.POST['date'],
+                  time=request.POST['time'],
+                  description=request.POST['descrip'],
+                  advert=request.POST['advert'])
+    show.save()
+    return HttpResponseRedirect(reverse('tvshows:edit'))
