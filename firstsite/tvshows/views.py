@@ -69,17 +69,28 @@ def edit(request):
     }
     return HttpResponse(template.render(context, request))
 
+
 def delete(request):
     Show.objects.filter(id=request.POST["id"]).delete()
     return HttpResponseRedirect(reverse('tvshows:edit'))
 
-def editshow(request):
+
+def editShow(request, show_id):
+    show = get_object_or_404(Show, id=show_id)
+    return render(request, 'tvshows/editshow.html', {'show': show, 'user': auth.get_user(request).username})
+
+
+def updateShow(request, show_id):
     show = get_object_or_404(Show, id=show_id)
     try:
-
+        show.name=request.POST['name']
+        show.time=request.POST['time']
+        show.description=request.POST['descrip']
+        show.broadcast_date=request.POST['date']
+        show.advert=request.POST['advert']
         show.save()
     except KeyError:
-        return render(request, 'tvshow/edit.html', {'show': Show})
+        return render(request, 'tvshow/edit.html', {'show': show})
     else:
         return HttpResponseRedirect(reverse('tvshows:edit'))
 

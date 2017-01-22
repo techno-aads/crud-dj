@@ -27,7 +27,6 @@
     </div>
 </div>
 <div class="container">
-    {% if list_shows %}
   <table class="table">
     <thead>
       <tr>
@@ -41,6 +40,7 @@
       </tr>
     </thead>
     <tbody>
+    {% if list_shows %}
     {% for show in list_shows %}
       <tr>
           <td>{{show.name}}</td>
@@ -49,11 +49,8 @@
           <td>{{show.description}}</td>
           <td>{{show.advert}}</td>
           <td>
-              <form action="{% url 'tvshows:editshow' %}" method="POST">
-                                {% csrf_token %}
-                  <input type="hidden" name="id" value="{{ show.id }}">
-              <button type="submit" class="btn-sm btn btn-success">Изменить</button>
-              </form>
+              <a class="btn-sm btn btn-success"
+                 href="{% url 'tvshows:editShow' show.id %}">Изменить</a>
           </td>
           <td>
               <form action="{% url 'tvshows:delete' %}" method="POST">
@@ -64,6 +61,7 @@
           </td>
       </tr>
     {% endfor %}
+    {% endif %}
     <tr>
     <form action="{% url 'tvshows:add' %}" method="post">
         {% csrf_token %}
@@ -93,9 +91,6 @@
     </tr>
     </tbody>
   </table>
-{% else %}
-    <h1>Передачи закончились. Канал закрывается.</h1>
-{% endif %}
 </div>
 {% else %}
 <h1 class="bg-danger text-center">ДОСТУП ЗАПРЕЩЁН</h1>

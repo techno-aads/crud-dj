@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^register/', views.register, name='register'),
     url(r'^edit/', views.edit, name='edit'),
     url(r'^delete/', views.delete, name='delete'),
-    url(r'^editshow/', views.editshow, name='editshow'),
+    url(r'^editshow/(?P<show_id>[0-9]+)$', views.editShow, name='editShow'),
     url(r'^add/', views.add, name='add'),
+    url(r'updateshow/(?P<show_id>[0-9]+)$', views.updateShow, name='updateShow')
 ]
