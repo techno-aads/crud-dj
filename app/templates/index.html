@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/starter-template.css' %}">
+    <title>TV</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">TV programm</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'add_new' %}">Add new</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="starter-template">
+        <h1>List of TV programms</h1>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Duration</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Commercials</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for obj in list %}
+                <tr>
+                    <th>{{ forloop.counter }}</th>
+                    <th>{{ obj.name }}</th>
+                    <th>{{ obj.duration }}</th>
+                    <th>{{ obj.description }}</th>
+                    <th>{{ obj.date_prog }}</th>
+                    <th>{{ obj.commercials }}</th>
+                    <th><a href="{% url 'edit' obj.id %}">Edit</a></th>
+                    <th><a href="{% url 'delete' obj.id %}">Delete</a></th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

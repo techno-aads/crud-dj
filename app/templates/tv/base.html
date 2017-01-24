@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/starter-template.css' %}">
+    <title>TV</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        {% if user.is_authenticated %}
+            <p class="navbar-text navbar-right">Hello, {{ user.username }}&nbsp;&nbsp;
+                {% if user.is_superuser %}
+                    <span class="glyphicon glyphicon-user"></span>
+                    <a href="{% url "admin:index" %}" class="navbar-link">Admin panel</a>
+                    &nbsp;&nbsp;
+                {% endif %}
+                <span class="glyphicon glyphicon-log-out"></span>
+                <a href="{% url 'login_app:logout' %}" class="navbar-link">Log out</a>
+            </p>
+        {% else %}
+            <p class="navbar-text navbar-right">
+                <a class="navbar-link" href="{% url 'login_app:register' %}">Sigh Up</a>
+                &nbsp
+                <a class="navbar-link" href="{% url 'login_app:login' %}">Sign In</a>
+            </p>
+        {% endif %}
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'tv:index' %}">TV programm</a>
+        </div>
+        <li id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'tv:index' %}">Home</a></li>
+                {% if request.user.is_staff %}
+                    <li><a href="{% url 'tv:add_new' %}">Add new</a></li>
+                {% endif %}
+                <li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    {% block login %}{% endblock %}
+    {% block content %}{% endblock %}
+
+</div>
+</body>
+</html>
