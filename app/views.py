@@ -1,20 +1,21 @@
+from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 from .forms import EditForm
 from .models import tv_program
-
-# Create your views here.
 
 def index(request):
     list = tv_program.objects.all()
     context = {
         "list": list
     }
-    return render(request, 'index.html', context)
+    return render(request, 'tv/index.html', context)
 
+@staff_member_required
 def add_new(request):
     if request.method == "POST":
         form = EditForm(request.POST)
@@ -23,11 +24,12 @@ def add_new(request):
             #elem.author = request.user
             #elem.published_date = timezone.now()
             elem.save()
-            return HttpResponseRedirect(reverse('index'));
+            return HttpResponseRedirect(reverse('tv:index'));
     else:
         form = EditForm()
-    return render(request, 'edit.html', {'form': form})
+    return render(request, 'tv/edit.html', {'form': form})
 
+@staff_member_required
 def edit(request, id):
     elem = get_object_or_404(tv_program, pk=id)
     if request.method == "POST":
@@ -37,12 +39,13 @@ def edit(request, id):
             #elem.author = request.user
             #elem.published_date = timezone.now()
             elem.save()
-            return HttpResponseRedirect(reverse('index'));
+            return HttpResponseRedirect(reverse('tv:index'));
     else:
         form = EditForm(instance=elem)
-    return render(request, 'edit.html', {'form': form})
+    return render(request, 'tv/edit.html', {'form': form})
 
+@staff_member_required
 def delete(request, id):
     elem = get_object_or_404(tv_program, pk=id)
     elem.delete()
-    return HttpResponseRedirect(reverse('index'));
+    return HttpResponseRedirect(reverse('tv:index'));
