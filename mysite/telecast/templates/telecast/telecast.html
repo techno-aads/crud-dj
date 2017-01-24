@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'telecast/style.css' %}"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Telecasts list</title>
+</head>
+<body>
+<div class="container">
+    <h1>TV Program's table</h1>
+    {% if telecast_list %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Duration</th>
+                    <th>Date</th>
+                    <th>is Advertising?</th>
+                </tr>
+                {% for telecast in telecast_list %}
+                    <tr onclick="window.location = '{% url 'telecast:edit_telecast' telecast.id %}'">
+                        <th>{{ telecast.id }}</th>
+                        <th>{{ telecast.title }}</th>
+                        <th>{{ telecast.description }}</th>
+                        <th>{{ telecast.duration }}</th>
+                        <th>{{ telecast.broadcastDate|date:"Y-m-d H:i" }}</th>
+                        <th>{{ telecast.isAdvertising }}</th>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <p>No telecasts are available.</p>
+    {% endif %}
+
+    <a class="btn btn-primary" href="{% url 'telecast:add_telecast' %}" role="button">Add new</a>
+    <a class="btn btn-primary" href="{% url 'authorization:login' %}" role="button">Login</a>
+</div>
+</body>
+</html>
