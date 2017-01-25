@@ -44,9 +44,9 @@
         <td align="center">{{ order.customer }}</td>
 
         {% if user.is_authenticated %}
-
+            <td align="center">
             {% if user.get_username == order.customer or user.is_superuser %}
-        <td align="center">
+
             <form action="{% url 'orders:edit'%}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="id" value="{{order.id}}">
@@ -57,8 +57,10 @@
                 <input type="hidden" name="id" value="{{order.id}}">
                 <input type="submit" value="Remove">
             </form>
-        </td>
+            {% else %}
+                Not Available
             {% endif %}
+            </td>
         {% endif %}
     </tr>
     {% endfor %}

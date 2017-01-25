@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'^addDone/$', views.addDone, name='addDone'),
     url(r'^edit/$', views.edit, name='edit'),
     url(r'^editDone/$', views.editDone, name='editDone'),
-    url(r'^remove/$', views.remove, name='remove'),
+    url(r'^remove/$', views.remove, name='remove')
 ]

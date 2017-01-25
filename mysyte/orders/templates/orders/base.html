@@ -5,7 +5,7 @@
 
 {% if user.is_authenticated %}
     <form action="{% url 'logout' %}">
-        <input type="submit" value="Logout"/>
+        <input type="submit" value="Logout {{ user.username }}"/>
     </form>
 {% else %}
 <form action="{% url 'login' %}">

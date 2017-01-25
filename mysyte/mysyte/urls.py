@@ -24,5 +24,5 @@ urlpatterns = [
     url(r'^registration/$', auth_views.registration, name='registration'),
     url(r'^orders/', include('orders.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'', include('orders.urls')),
+    url(r'', include('orders.urls'))
 ]
