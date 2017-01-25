@@ -1,0 +1,130 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polis/css/bootstrap.css' %}" />
+
+<script src="{% static 'polis/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'polis/js/jquery-3.1.1.min.js' %}"></script>
+
+<div class="container-fluid" style="background-color:#2BBBAD; height: 30px;">
+    <p class="text-center">
+        {% if username %}
+            <a style="color: white; font-size: 20px;" href="{% url 'polis:logout' %}">log out ({{ username }})</a>
+        {% else %}
+            <a style="color: white; font-size: 20px;" href="{% url 'polis:login' %}">login</a>
+            <span style="color:white; padding-left:20px; padding-right:20px;">|</span>
+            <a style="color: white; font-size: 20px;" href="{% url 'polis:register' %}">register</a>
+        {% endif %}
+    </p>
+</div>
+
+{% if listOfShows %}
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <table class="table table-bordered table-hover table-condensed" style="margin-top:25px; margin-bottom: 30px;">
+            <thead>
+                <tr style="text-align:center;">
+                    <td>№</td>
+                    <td>Телепередача</td>
+                    <td>Описание</td>
+                    <td>Длительность</td>
+                    <td>Дата показа</td>
+                    <td>Реклама</td>
+                    <td colspan="2">Настройки</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for shows in listOfShows %}
+                <tr style="text-align:center;">
+                    <td>
+                        {{ forloop.counter }}
+                    </td>
+
+                    <td>
+                        {{ shows.name }}
+                    </td>
+
+                    <td>
+                        {{ shows.description }}
+                    </td>
+
+                    <td>
+                        {{ shows.duration }}
+                    </td>
+
+                    <td>
+                        {{ shows.date }}
+                    </td>
+
+                    <td>
+                        {% if shows.hasAd == "True" %}
+                            +
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if username %}
+                            <form action="{% url 'polis:delete' %}" style="height: 10px; margin-top: -6px;" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="id" value="{{ shows.id }}">
+                                <button type="submit" class="btn btn-link" style="color:red;">удалить</button>
+                            </form>
+                        {% else %}
+                            <a data-toggle="tooltip" title="you need to login" style="color:red;" href="login">удалить</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if username %}
+                            <a data-toggle="tooltip" title="you need to login" style="color:green;" href="{% url 'polis:edit' shows.id %}">редактировать</a>
+                        {% else %}
+                            <a data-toggle="tooltip" title="you need to login" style="color:green;" href="login">редактировать</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<div class="col-md-6 col-md-offset-3" style="text-align: center;">
+    <H2>Список телепередач пуст.</H2>
+    <hr>
+</div>
+{% endif %}
+
+{% if username %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-info">
+          <div class="panel-heading">Добавить телепередачу</div>
+          <div class="panel-body">
+              <form action="{% url 'polis:add' %}" method="post">
+                  {% csrf_token %}
+                  <input type="text" class="form-control" name="name" placeholder="Название" required><br>
+                  <input type="text" class="form-control" name="description" placeholder="Описание" required><br>
+                  <input type="number" class="form-control" name="duration" placeholder="Длительность" required><br>
+                  <input type="text" name="date" class="form-control" pattern=
+                          "(19|20)\d\d-((0[1-9]|1[012])-(0[1-9]|[12]\d)|(0[13-9]|1[012])-30|(0[13578]|1[02])-31)"
+                         placeholder="YYYY-MM-DD" required><br>
+                  <input type="radio" name="hasAd" value="True">С рекламой<br>
+                  <input type="radio" name="hasAd" value="False" checked>Без рекламы<br><br>
+
+                  <input class="btn btn-default btn btn-success" type="submit" value="добавить">
+              </form>
+          </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-info">
+          <div class="panel-heading">Добавить телепередачу</div>
+          <div class="panel-body">
+            <p style="padding-top:5px;">Доступ отклонён. Необходима авторизация.</p>
+          </div>
+        </div>
+    </div>
+</div>
+{% endif%}

@@ -1,0 +1,25 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polis/css/bootstrap.css' %}" />
+<script src="{% static 'polis/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'polis/js/jquery-3.1.1.min.js' %}"></script>
+
+<title>Login</title>
+
+<div class="row" style="margin-top: 50px;">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-info">
+          <div class="panel-heading">Authorization (login: admin/user; pass: qwer1234)</div>
+          <div class="panel-body">
+              <form action="{% url 'polis:Userlogin' %}" method="post">
+                  {% csrf_token %}
+                  {% if error %}
+                    <label style="color: red;">{{ error }}</label>
+                  {% endif %}
+                  <input type="text" class="form-control" name="login" placeholder="login" required><br>
+                  <input type="password" class="form-control" name="pass" placeholder="password" required><br>
+                  <input class="btn btn-default btn btn-success" type="submit" value="log in">
+              </form>
+          </div>
+        </div>
+    </div>
+</div>

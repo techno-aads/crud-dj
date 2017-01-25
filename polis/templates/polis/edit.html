@@ -1,0 +1,41 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polis/css/bootstrap.css' %}" />
+
+<script src="{% static 'polis/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'polis/js/jquery-3.1.1.min.js' %}"></script>
+
+
+
+{% if user %}
+<div class="row" style="margin-top: 25px;">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-info">
+          <div class="panel-heading">редактировать товар</div>
+          <div class="panel-body">
+              <form action="{% url 'polis:updateShows' shows.id %}" method="post">
+                  {% csrf_token %}
+                  <label>Телепередача</label>
+                  <input type="text" class="form-control" name="name" placeholder="Название" value="{{ shows.name }}" required><br>
+                  <label>Описание</label>
+                  <input type="text" class="form-control" name="description" placeholder="Описание" value="{{ shows.description }}" required><br>
+                  <label>Длительность</label>
+                  <input type="number" class="form-control" name="duration" placeholder="Длительность" value="{{ shows.duration }}" required><br>
+                  <label>Дата показа</label>
+                  <input type="text" name="date" value="{{ shows.date }}" pattern=
+                          "(19|20)\d\d-((0[1-9]|1[012])-(0[1-9]|[12]\d)|(0[13-9]|1[012])-30|(0[13578]|1[02])-31)" placeholder="YYYY-MM-DD"><br>
+
+                  {% if shows.hasAd == "True" %}
+                        <input type="radio" name="hasAd" value="True" checked>С рекламой<br>
+                        <input type="radio" name="hasAd" value="False">Без рекламы<br><br>
+                  {% else %}
+                        <input type="radio" name="hasAd" value="True">С рекламой<br>
+                        <input type="radio" name="hasAd" value="False" checked>Без рекламы<br><br>
+                  {% endif %}
+
+                  <input class="btn btn-default btn btn-success" type="submit" value="изменить">
+              </form>
+          </div>
+        </div>
+    </div>
+</div>
+{% endif %}
