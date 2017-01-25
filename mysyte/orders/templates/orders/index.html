@@ -1,0 +1,74 @@
+{% extends 'orders/base.html' %}
+{% block content %}
+
+
+{% if user.is_authenticated %}
+<form>
+    <button formaction="{% url 'orders:add' %}">Add order</button>
+</form>
+{% endif %}
+
+{% if order_list %}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th><h4>Number</h4></th>
+        <th><h4>Name of product</h4></th>
+        <th><h4>Count</h4></th>
+        <th><h4>Delivery address</h4></th>
+        <th><h4>Delivery date</h4></th>
+        <th><h4>State</h4></th>
+        <th><h4>Customer</h4></th>
+        {% if user.is_authenticated %}
+        <th><h4>Actions</h4></th>
+        {% endif %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for order in order_list %}
+    <tr>
+        <td  height="40px">{{ order.id }}</td>
+        <td>{{ order.product }}</td>
+        <td>{{ order.count }}</td>
+        <td>{{ order.delivery_address }}</td>
+        <td>{{ order.delivery_date }}</td>
+        <td>
+            {% if order.delivery_date < date %}
+                Delivered
+            {% else %}
+                Waiting
+            {% endif %}
+        </td>
+
+        <td>{{ order.customer }}</td>
+
+        {% if user.is_authenticated %}
+            <td>
+            {% if user.get_username == order.customer or user.is_superuser %}
+
+            <form action="{% url 'orders:edit'%}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{order.id}}">
+                <input type="submit" value="Edit">
+            </form>
+            <form action="{% url 'orders:remove'%}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{order.id}}">
+                <input type="submit" value="Remove">
+            </form>
+            {% else %}
+                Not Available
+            {% endif %}
+            </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No polls are available.</p>
+{% endif %}
+
+{% endblock %}
+

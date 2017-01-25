@@ -1,0 +1,35 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/bootstrap.css' %}" />
+<link rel="stylesheet" href="{% static 'orders/css/myFirstCSS.css' %}" />
+
+<form class="myButton" action="{% url 'orders:index' %}">
+    <input type="submit" value="Home"/>
+</form>
+
+{% if user.is_authenticated %}
+    <form action="{% url 'logout' %}">
+        <input type="submit" value="Logout {{ user.username }}"/>
+    </form>
+{% else %}
+<form action="{% url 'login' %}">
+    <input type="submit" value="Login"/>
+</form>
+<form action="{% url 'registration' %}">
+    <input type="submit" value="Registration"/>
+</form>
+{% endif %}
+
+<div class="container">
+    <form>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-info">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+    </form>
+    {% block content %}
+    {% endblock %}
+</div>
