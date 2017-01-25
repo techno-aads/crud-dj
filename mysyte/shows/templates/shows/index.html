@@ -1,0 +1,39 @@
+{% extends 'shows/base.html' %}
+{% block content %}
+
+
+{% if user.username %}
+<form>
+    <button formaction="{% url 'shows:add' %}">Add show</button>
+</form>
+{% endif %}
+
+{% if show_list %}
+<ul>
+    {% for show in show_list %}
+    <li><p><b>{{ show.name }}</b>
+        <p><b>Duration: </b>{{ show.duration}}
+        <p><b>Date: </b>{{ show.show_date }}
+        <p><b>Description: </b>{{ show.description }}
+        <p><b>Adds: </b>{{ show.adds }}
+        {% if user.username %}
+            <form action="{% url 'shows:edit'%}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{show.id}}">
+                <input type="submit" value="Edit">
+            </form>
+            <form action="{% url 'shows:remove'%}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{show.id}}">
+                <input type="submit" value="Remove">
+            </form>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No shows are available.</p>
+{% endif %}
+
+{% endblock %}
+

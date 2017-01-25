@@ -1,0 +1,13 @@
+{% extends 'shows/base.html' %}
+{% block content %}
+<form action="{% url 'shows:editDone'%}" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+            {{ field.label_tag }}<br>
+            {{ field }}<br>
+    {% endfor %}
+    <input type="hidden" name="id" value="{{show_id}}">
+    <p><input type="submit" value="Commit">
+</form>
+
+{% endblock %}

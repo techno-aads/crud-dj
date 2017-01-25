@@ -1,0 +1,20 @@
+<form action="{% url 'timetable:addShowDone'%}" method="post">
+    {% csrf_token %}
+    <p><b>Show name:</b><br>
+        <input name="name" type="text" size="40">
+    </p>
+    <p><b>Duration:</b><br>
+        <input name="duration" type="number" size="40" max="300" min="1" value="1">
+    </p>
+    <p><b>Description:</b><br>
+        <input name="description" type="text" size="200">
+    </p>
+    <p><b>Date and time:</b><br>
+        <input name="date" type="datetime-local" size="40">
+    </p>
+    <p><b>Adds:</b><br>
+        <input name="adds" type="text" size="3">
+    </p>
+
+    <p><input type="submit" value="Add show">
+</form>
