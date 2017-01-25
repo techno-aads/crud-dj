@@ -70,14 +70,14 @@
                                 <button type="submit" class="btn btn-link" style="color:red;">удалить</button>
                             </form>
                         {% else %}
-                            <a data-toggle="tooltip" title="you need to login" style="color:red;" href="#">удалить</a>
+                            <a data-toggle="tooltip" title="you need to login" style="color:red;" href="login">удалить</a>
                         {% endif %}
                     </td>
                     <td>
                         {% if username %}
                             <a data-toggle="tooltip" title="you need to login" style="color:green;" href="{% url 'polis:edit' shows.id %}">редактировать</a>
                         {% else %}
-                            <a data-toggle="tooltip" title="you need to login" style="color:green;" href="#">редактировать</a>
+                            <a data-toggle="tooltip" title="you need to login" style="color:green;" href="login">редактировать</a>
                         {% endif %}
                     </td>
                 </tr>

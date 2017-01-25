@@ -19,17 +19,23 @@ def index(request):
 
 
 def add(request):
-    shows = Shows(name=request.POST['name'], description=request.POST['description'],
-                  duration=request.POST['duration'],
-                  date=request.POST['date'],
-                  hasAd=request.POST['hasAd'])
-    shows.save()
-    return HttpResponseRedirect(reverse('polis:index'))
+    if request.user.is_authenticated():
+        shows = Shows(name=request.POST['name'], description=request.POST['description'],
+                    duration=request.POST['duration'],
+                    date=request.POST['date'],
+                    hasAd=request.POST['hasAd'])
+        shows.save()
+        return HttpResponseRedirect(reverse('polis:index'))
+    else:
+        return HttpResponseRedirect(reverse('polis:login'))
 
 
 def delete(request):
-    Shows.objects.filter(id=request.POST["id"]).delete()
-    return HttpResponseRedirect(reverse('polis:index'))
+    if request.user.is_authenticated(): 
+        Shows.objects.filter(id=request.POST["id"]).delete()
+        return HttpResponseRedirect(reverse('polis:index'))
+    else:
+        return HttpResponseRedirect(reverse('polis:login'))
 
 
 def editShows(request, shows_id):

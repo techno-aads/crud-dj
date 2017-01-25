@@ -21,11 +21,9 @@
                   <label>Длительность</label>
                   <input type="number" class="form-control" name="duration" placeholder="Длительность" value="{{ shows.duration }}" required><br>
                   <label>Дата показа</label>
-                  <input type="text" name="date" class="form-control" pattern=
-                          "(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}"
-                         placeholder="DD.MM.YYYY" value="{{ shows.date }}" required><br>
+                  <input type="datetime" name="date" value="{{ shows.date }}" placeholder="DD.MM.YYYY"><br>
 
-                  {% if shows.isArrive == "True" %}
+                  {% if shows.hasAd == "True" %}
                         <input type="radio" name="hasAd" value="True" checked>С рекламой<br>
                         <input type="radio" name="hasAd" value="False">Без рекламы<br><br>
                   {% else %}
@@ -33,7 +31,7 @@
                         <input type="radio" name="hasAd" value="False" checked>Без рекламы<br><br>
                   {% endif %}
 
-                  <input class="btn btn-default btn btn-success" type="submit" value="добавить">
+                  <input class="btn btn-default btn btn-success" type="submit" value="изменить">
               </form>
           </div>
         </div>
