@@ -7,6 +7,7 @@ from django.urls import reverse
 from .models import Order, OrderForm
 from django.contrib.auth.forms import UserCreationForm
 from datetime import date
+from django.forms.utils import ErrorList
 
 
 def index(request):
@@ -40,6 +41,7 @@ def addDone(request):
             messages.info(request, "Add successful")
             return HttpResponseRedirect(reverse('orders:index'))
         else:
+            messages.info(request, "Data is not valid")
             return render(request, 'orders/add.html', {'form': form})
     return redirect('orders:index')
 
@@ -76,7 +78,6 @@ def editDone(request):
             messages.info(request, "Edit successful")
             return redirect('orders:index')
         else:
-            messages.info(request, "HERE")
             return render(request, 'orders/edit.html', {'form': form})
     return redirect('orders:index')
 

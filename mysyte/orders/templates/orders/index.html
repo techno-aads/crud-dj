@@ -10,30 +10,30 @@
 
 {% if order_list %}
 
-<table width=100%>
+<table class="table">
     <thead>
     <tr>
-        <th>Number</th>
-        <th>Name of product</th>
-        <th>Count</th>
-        <th>Delivery address</th>
-        <th>Delivery date</th>
-        <th>State</th>
-        <th>Customer</th>
+        <th><h4>Number</h4></th>
+        <th><h4>Name of product</h4></th>
+        <th><h4>Count</h4></th>
+        <th><h4>Delivery address</h4></th>
+        <th><h4>Delivery date</h4></th>
+        <th><h4>State</h4></th>
+        <th><h4>Customer</h4></th>
         {% if user.is_authenticated %}
-        <th>Actions</th>
+        <th><h4>Actions</h4></th>
         {% endif %}
     </tr>
     </thead>
     <tbody>
     {% for order in order_list %}
     <tr>
-        <td align="center" height="60px">{{ order.id }}</td>
-        <td align="center">{{ order.product }}</td>
-        <td align="center">{{ order.count }}</td>
-        <td align="center">{{ order.delivery_address }}</td>
-        <td align="center">{{ order.delivery_date }}</td>
-        <td align="center">
+        <td  height="40px">{{ order.id }}</td>
+        <td>{{ order.product }}</td>
+        <td>{{ order.count }}</td>
+        <td>{{ order.delivery_address }}</td>
+        <td>{{ order.delivery_date }}</td>
+        <td>
             {% if order.delivery_date < date %}
                 Delivered
             {% else %}
@@ -41,10 +41,10 @@
             {% endif %}
         </td>
 
-        <td align="center">{{ order.customer }}</td>
+        <td>{{ order.customer }}</td>
 
         {% if user.is_authenticated %}
-            <td align="center">
+            <td>
             {% if user.get_username == order.customer or user.is_superuser %}
 
             <form action="{% url 'orders:edit'%}" method="post">

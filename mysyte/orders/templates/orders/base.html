@@ -1,7 +1,11 @@
-<form action="{% url 'orders:index' %}">
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/bootstrap.css' %}" />
+<link rel="stylesheet" href="{% static 'orders/css/myFirstCSS.css' %}" />
+
+<form class="myButton" action="{% url 'orders:index' %}">
     <input type="submit" value="Home"/>
 </form>
-
 
 {% if user.is_authenticated %}
     <form action="{% url 'logout' %}">

@@ -6,8 +6,8 @@
 
     {% for field in form %}
         {% if not field.label == "Customer" or user.is_superuser %}
-            {{ field.label_tag }}<br>
-            {{ field }}<br>
+                {{ field.label_tag }}<br>
+                {{ field }}<br>
         {% else %}
             <input type="hidden" name="customer" value="{{field.value}}">
         {% endif %}
