@@ -1,4 +1,5 @@
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -59,6 +60,8 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('tvshows:index'))
 
+
+@login_required(login_url='tvshows:login.html')
 def edit(request):
     list_shows = Show.objects.order_by('broadcast_date', 'time')
     template = loader.get_template('tvshows/edit.html')
@@ -70,16 +73,23 @@ def edit(request):
     return HttpResponse(template.render(context, request))
 
 
+@login_required(login_url='tvshows:login')
 def delete(request):
-    Show.objects.filter(id=request.POST["id"]).delete()
-    return HttpResponseRedirect(reverse('tvshows:edit'))
+    user=auth.get_user(request).username
+    if user is not None:
+        Show.objects.filter(id=request.POST["id"]).delete()
+        return HttpResponseRedirect(reverse('tvshows:edit'))
+    else:
+        return HttpResponseRedirect(reverse('tvshows:editshow'))
 
 
+@login_required(login_url='tvshows:login')
 def editShow(request, show_id):
     show = get_object_or_404(Show, id=show_id)
     return render(request, 'tvshows/editshow.html', {'show': show, 'user': auth.get_user(request).username})
 
 
+@login_required(login_url='tvshows:login')
 def updateShow(request, show_id):
     show = get_object_or_404(Show, id=show_id)
     try:
@@ -94,6 +104,7 @@ def updateShow(request, show_id):
     else:
         return HttpResponseRedirect(reverse('tvshows:edit'))
 
+@login_required(login_url='tvshows:login')
 def add(request):
     show = Show(name=request.POST['name'], broadcast_date=request.POST['date'],
                   time=request.POST['time'],
