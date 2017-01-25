@@ -50,6 +50,7 @@ def create(request):
 def delete(request, show_id):
     show = get_object_or_404(Show, pk=show_id)  
     show.delete()
+    messages.info(request, "Show was deleted.")
     return redirect('shows:index')
 
 def registration(request):

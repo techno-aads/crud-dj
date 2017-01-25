@@ -36,7 +36,10 @@
                     {% if user.is_authenticated %}
                     <td>
                         <a href="{% url 'shows:edit' show.id %}" class="btn btn-warning">Edit</a>
-                        <a href="{% url 'shows:delete' show.id %}" class="btn btn-danger" onclick="return confirm('Are you sure?');">Delete</a>
+                        <form action="{% url 'shows:delete' show.id %}" method="post">
+                            {% csrf_token %}
+                            <input class="btn btn-danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');"/>
+                        </form>
                     </td>   
                     {% endif %}
                 </tr>
