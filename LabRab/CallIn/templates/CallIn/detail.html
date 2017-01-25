@@ -1,0 +1,57 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'CallIn/style.css' %}" />
+
+<div class="righttop">
+  <selection>
+    <ul>
+      {% if username %}
+        <li><a href="{% url 'CallIn:logout' %}">Выйти ({{ username }})</a></li>
+      {% else %}
+        <li><a href="{% url 'CallIn:login' %}" class="logc">Войти</a></li>
+      {% endif %}
+    </ul>
+  </selection>
+</div>
+<div class="lefttop"><a href="{% url 'CallIn:index' %}" class="logc">Вернуться на главную страницу</a></div>
+
+<h1>{{ telecast.tel_name}}</h1>
+<p> This is the story {{ telecast.tel_descr}}</p>
+<p> Telecast starts at {{telecast.tel_date}}
+    and will run for {{ telecast.tel_duration}} minutes</p>
+
+
+{% if username %}
+ <form action="{% url 'CallIn:delete' %}" style="height: 10px; margin-top: -6px;" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ telecast.id }}">
+                            <button type="submit" class="btn btn-link" style="color:red;">remove</button>
+                        </form>
+
+
+<div>
+    <div >
+        <div >
+          <div >Edit telecast</div>
+          <div >
+                <form action="{% url 'CallIn:updateTelecast' telecast.id %}" method="post">
+                {% csrf_token %}
+                    <label>Telecast name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ telecast.tel_name }}" required><br>
+                    <label>Telecast description</label>
+                    <input type="text" class="form-control" id="description"
+                                 name="description" value="{{ telecast.tel_descr }}" required><br>
+                     <label>Telecast duration</label>
+                    <input type="number" class="form-control" id="duration"
+                                 name="duration" value="{{ telecast.tel_duration }}" min="1" max="50" required><br>
+                     <label>Telecast date</label>
+                    <input type="date" class="form-control" id="date"
+                                 name="date" value="{{ telecast.tel_date }}" required><br>
+                    <input class="btn btn-default btn btn-warning" type="submit" value="save changes">
+
+                </form>
+          </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}

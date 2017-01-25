@@ -1,0 +1,12 @@
+p {
+    color: black;
+}
+h1 {
+    color: black;
+}
+li {
+    color: black;
+}
+body {
+    background: blue url("images/images.jpg") no-repeat right bottom;
+}

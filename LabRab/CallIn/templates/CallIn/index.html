@@ -1,0 +1,51 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'CallIn/style.css' %}" />
+
+<div class="righttop">
+  <selection>
+    <ul>
+      {% if username %}
+        <li><a href="{% url 'CallIn:logout' %}" class="logc">Выйти ({{ username }})</a></li>
+      {% else %}
+        <li><a href="{% url 'CallIn:login' %}" class="logc">Войти</a></li>
+      {% endif %}
+    </ul>
+  </selection>
+</div>
+
+
+{% if latest_telecast_list %}
+    <ul>
+    {% for telecast in latest_telecast_list %}
+        <li><a href="/CallIn/{{ telecast.id }}/">{{ telecast.tel_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No call-ins are available.</p>
+{% endif %}
+
+{% if username %}
+<div >
+    <div >
+        <div >
+          <div >add new telecast</div>
+          <div >
+
+              <form action="{% url 'CallIn:add' %}" method="post">
+                  {% csrf_token %}
+                  <input type="text" class="form-control" id="tel_name" name="name" placeholder="telecast name" required><br>
+
+                  <input type="text" class="form-control" id="tel_decsr"
+                         name="description" placeholder="telecast description" required><br>
+                  <input type="number" class="form-control" id="tel_duration"
+                         name="duration" placeholder="telecast duration" required><br>
+                  <input type="date" class="form-control" id="tel_date"
+                         name="date" placeholder="telecast date" required><br>
+                  <input class="btn btn-default btn btn-success" type="submit" value="add telecast">
+              </form>
+          </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
