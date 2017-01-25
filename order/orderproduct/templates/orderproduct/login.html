@@ -1,0 +1,17 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'orderproduct/style.css' %}" />
+<div>
+	<form action="{% url 'orderproduct:login' %}" method="post" class="centerc">
+		{% csrf_token %}
+		<label>Имя пользователя</label>
+		<input type="text" id="username" name="username" required><br>
+        <label>Пароль</label><br>
+         <input type="password"  id="password" name="password" required><br>
+         {% if login_error %}
+         	<label>{{ login_error }}</label>
+         {% endif %}
+         <input type="submit" value="Войти">
+         <div  class="reg"><a href="{% url 'orderproduct:register' %}">Регистрация</a></div>
+	</form>
+</div>

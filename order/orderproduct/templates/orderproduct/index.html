@@ -1,0 +1,49 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'orderproduct/style.css' %}" />
+<div class="righttop">
+  <selection>
+    <ul>
+      {% if username %}
+        <li><a href="logout/" class="logc">Выйти ({{ username }})</a></li>
+      {% else %}
+        <li><a href="login/" class="logc">Войти</a></li>
+      {% endif %}
+    </ul>
+  </selection>
+</div>
+<table class="sptable">
+  <tr>
+    <td class="topleft">
+<!--{% if listOfOrders %}-->
+	<ul>
+	{% for orderprod in listOfOrders %}
+		<li class="bigword"><a href="{% url 'orderproduct:detail' orderprod.id %}">{{ orderprod.order_title }}</a></li>
+	{% endfor %}
+	</ul>
+</td>
+<td>
+  <form action="{% url 'orderproduct:add' %}" method="post"  class="rightc">
+                  {% csrf_token %}
+                  <label>Название</label><br>
+                  <input type="text" id="ordtit" name="order_title" required><br>
+                  <label>Количество</label><br>
+                  <input type="number"  id="cnt" name="order_count" value="1" min="1" max="50" required><br>
+                  <label>Адрес</label><br>
+                  <input type="text" id="ordadd" name="order_address" required><br>
+                  <label>Дата доставки</label><br>
+                  <input type="datetime-local" id="orddat" name="order_data" required><br>
+                  <label>Статус заказа</label><br>
+                  <div class="big">
+                  <select id="ordst" name="order_status" required >
+                      <option>выполнен</option>
+                      <option  selected>не выполнен</option> 
+                  </select></div><br>
+                  <input type="submit" value="Добавить">
+    </form>
+  </td>
+  </tr>
+</table>
+{% else %}
+	<p>No order are available.</p>
+{% endif %}
