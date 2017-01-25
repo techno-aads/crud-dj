@@ -6,6 +6,7 @@ from django.template import loader
 from django.shortcuts import render, get_object_or_404, render_to_response, redirect
 from django.urls import reverse
 from django.contrib import auth
+from django.contrib.auth.forms import UserCreationForm
 from django.template.context_processors import csrf
 
 from .models import OrderProd
@@ -49,16 +50,29 @@ def add(request):
     return HttpResponseRedirect(reverse('orderproduct:index'))
 
 def delete(request):
-    OrderProd.objects.filter(id=request.POST["id"]).delete()
-    return HttpResponseRedirect(reverse('orderproduct:index'))
+    args={}
+    args.update(csrf(request))
+    if request.user.is_authenticated():
+        OrderProd.objects.filter(id=request.POST["id"]).delete()
+        return HttpResponseRedirect(reverse('orderproduct:index'))
+    else:
+        args['login_error']="Пользователь не найден"
+        return render_to_response('orderproduct/login.html',args)
 
 def edit(request, orderprod_id):
-    orderproduct = get_object_or_404(OrderProd, pk=orderprod_id)
-    return render(request, 'orderproduct/edit.html', {'orderproduct': orderproduct,'username':auth.get_user(request).username})
+    args={}
+    args.update(csrf(request))
+    if request.user.is_authenticated():
+        orderproduct = get_object_or_404(OrderProd, pk=orderprod_id)
+        return render(request, 'orderproduct/edit.html', {'orderproduct': orderproduct,'username':auth.get_user(request).username})
+    else:
+        args['login_error']="Пользователь не найден"
+        return render_to_response('orderproduct/login.html',args)
 
 def update(request, orderprod_id):
     OrderProd.objects.filter(id=orderprod_id).update(order_title=request.POST['order_title'], order_count=request.POST['order_count'], order_address=request.POST['order_address'], oredr_status=request.POST['order_status'])
     return HttpResponseRedirect(reverse('orderproduct:index'))
+
 
 def login(request):
     args={}
@@ -80,3 +94,18 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('orderproduct:index'))
+
+def register(request):
+    args={}
+    args.update(csrf(request))
+    args['form']=UserCreationForm()
+    if request.POST:
+        newuser_form=UserCreationForm(request.POST)
+        if newuser_form.is_valid():
+            newuser_form.save()
+            newuser=auth.authenticate(username=newuser_form.cleaned_data['username'], password=newuser_form.cleaned_data['password2'])
+            auth.login(request, newuser)
+            return HttpResponseRedirect(reverse('orderproduct:index'))
+        else:
+            args['form']=newuser_form
+    return render_to_response('orderproduct/register.html', args)
