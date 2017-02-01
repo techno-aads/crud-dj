@@ -11,6 +11,35 @@
 <body>
     <h1>TVShows</h1>
 
+    {% if username %}
+
+        <div class="col-xs-offset-10">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{ username }}
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'app:edit' %}">Редактировать телепрограмму</a></li>
+                    <li><a href="{% url 'app:logout' %}">Выйти</a></li>
+                </ul>
+            </div>
+        </div>
+
+    {% else %}
+
+    <div class="col-xs-offset-10">
+        <a href="{% url 'app:register' %}">
+            <button class="btn btn-sm btn-primary  btn-block " type="button">Зарегистрироваться</button>
+        </a>
+    </div>
+    <br>
+    <div class="col-xs-offset-10">
+        <a href="{% url 'app:login' %}">
+            <button class="btn btn-sm btn-primary  btn-block" type="button">Войти</button>
+        </a>
+    </div>
+
+    {% endif %}
+
     {% if tv_show_list %}
     <table class="table">
         <thead>
@@ -37,16 +66,6 @@
     {% else %}
         <p>No tv shows are available.</p>
     {% endif %}
-
-    <!--{% if tv_show_list %}
-        <ul>
-        {% for tv_show in tv_show_list %}
-            <li><a href="{% url 'app:detail' tv_show.id %}">{{ tv_show.name }}</a></li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No tv shows are available.</p>
-    {% endif %}-->
 
     <br><br><br>
 
