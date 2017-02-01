@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django import forms
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 
 from .models import Program
@@ -24,13 +24,28 @@ def detail(request, pk):
         'allowedToEdit' : allowedToEdit })
 
 def add(request):
+    allowedToEdit = request.session.get('user_id', False)
+    if allowedToEdit != False:
+        allowedToEdit = User.objects.get(pk=allowedToEdit).allowedToEdit
+    if allowedToEdit == False:
+        return HttpResponse('Unauthorized', status=401)
     return render(request, 'teleshow/add.html')
 
 def change(request, pk):
+    allowedToEdit = request.session.get('user_id', False)
+    if allowedToEdit != False:
+        allowedToEdit = User.objects.get(pk=allowedToEdit).allowedToEdit
+    if allowedToEdit == False:
+        return HttpResponse('Unauthorized', status=401)
     program = get_object_or_404(Program, pk=pk)
     return render(request, 'teleshow/add.html', {'program': program})
 
 def save(request, pk):
+    allowedToEdit = request.session.get('user_id', False)
+    if allowedToEdit != False:
+        allowedToEdit = User.objects.get(pk=allowedToEdit).allowedToEdit
+    if allowedToEdit == False:
+        return HttpResponse('Unauthorized', status=401)
     prog = Program()
     if pk != "-1":
         prog = get_object_or_404(Program, pk=pk)
@@ -58,6 +73,11 @@ def save(request, pk):
         return HttpResponseRedirect(reverse('list'))
 
 def delete(request, pk):
+    allowedToEdit = request.session.get('user_id', False)
+    if allowedToEdit != False:
+        allowedToEdit = User.objects.get(pk=allowedToEdit).allowedToEdit
+    if allowedToEdit == False:
+        return HttpResponse('Unauthorized', status=401)
     program = get_object_or_404(Program, pk=pk)
     program.delete()
     return HttpResponseRedirect(reverse('list'))
