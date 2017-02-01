@@ -1,0 +1,110 @@
+html {
+  font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+
+.elem {
+  background-color: #f1fbf6;
+  width: 600px;
+  border-radius: 10px;
+  font-size: 30px;
+  color: green;
+  padding-bottom: 10px;
+}
+
+.elem h1 {
+  color: #20AA76;
+  background-color: #C9F0DD;
+  font-size: 45px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.list a:visited {
+  color: inherit;
+}
+
+.list a:hover {
+  color: #20AA76;
+}
+
+td {
+  font-size: 30px;
+  color: green;
+  text-align: left;
+  vertical-align: bottom;
+  padding: 10px 10px 10px 0px;
+}
+
+td:nth-child(even) {
+  font-style: italic;
+  font-size: 20px;
+}
+
+.admin_btn {
+  border: 0;
+  display: table;
+  margin: 10px auto;
+  padding: 10px;
+  color: #20AA76;
+  background-color: #C9F0DD;
+  border-radius: 10px;
+  font-size: 30px;
+}
+
+.admin_btn:hover {
+  background-color: #B9F0CD;
+  cursor: pointer;
+}
+
+.changearea {
+  background-color: #f1fbf6;
+  width: 400px;
+  border-radius: 10px;
+  font-size: 25px;
+  color: green;
+}
+
+.changearea input[type="text"] {
+  font-size: 25px;
+  width: 300px;
+  padding: 5px;
+  margin: 5px;
+  color: #20AA76;
+}
+
+.changearea textarea {
+  width: 300px;
+  max-width: 390px;
+  font-size: 25px;
+  padding: 5px;
+  margin: 5px;
+  color: #20AA76;
+}
+
+.changearea input[type=checkbox] {
+  transform: scale(1.5);
+}
+
+.loginarea {
+  background-color: #f1fbf6;
+  width: 400px;
+  border-radius: 10px;
+  font-size: 25px;
+  color: green;
+}
+
+.loginarea  input[type="text"], input[type="password"] {
+  font-size: 25px;
+  width: 200px;
+  padding: 5px;
+  margin: 5px;
+  color: #20AA76;
+}
+
+.loginarea input[type=checkbox] {
+  transform: scale(1.5);
+}
