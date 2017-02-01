@@ -13,15 +13,11 @@
     <header>
         {% if user.is_authenticated %}
             Hi {{ user.username }}!
-            <a href="{% url 'logout' %}">logout</a>
+            <a class="btn btn-link" href="{% url 'logout' %}" role="button">logout</a>
         {% else %}
-            <a href="{% url 'login' %}">login</a>
+            <a class="btn btn-link" href="{% url 'login' %}" role="button">login</a>
         {% endif %}
     </header>
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
     <h1>Telecast table</h1>
     {% if telecast_list %}
         <div class="table-responsive">

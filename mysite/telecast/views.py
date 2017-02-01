@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -11,6 +12,7 @@ def get_telecast_list(request):
     return render(request, "telecast/telecast.html", context)
 
 
+@login_required
 def add_telecast(request):
     if request.method == 'GET':
         return render(request, 'telecast/add_telecast.html')
@@ -31,12 +33,14 @@ def add_telecast(request):
             return HttpResponseRedirect(reverse('telecast:telecast'))
 
 
+@login_required
 def edit_telecast(request, id):
     telecast = get_object_or_404(Telecast, pk=id)
     context = {'telecast': telecast}
     return render(request, 'telecast/edit_telecast.html', context)
 
 
+@login_required
 def save_telecast(request, id):
     telecast = get_object_or_404(Telecast, pk=id)
     try:
@@ -53,6 +57,7 @@ def save_telecast(request, id):
         return HttpResponseRedirect(reverse('telecast:telecast'))
 
 
+@login_required
 def delete_telecast(request, id):
     telecast = get_object_or_404(Telecast, pk=id)
     telecast.delete()
