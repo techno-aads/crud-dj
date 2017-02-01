@@ -12,6 +12,7 @@ from django.urls import reverse
 from django.http import Http404
 from django.views import generic
 
+from .forms import ShowForm
 from .models import TVShow
 
 
@@ -69,10 +70,10 @@ def register(request):
             newuser = auth.authenticate(username=newuser_form.cleaned_data['username'],
                                         password=newuser_form.cleaned_data['password2'])
             auth.login(request, newuser)
-            return HttpResponseRedirect(reverse('tvshows:index'))
+            return HttpResponseRedirect(reverse('app:index'))
         else:
             args['form'] = newuser_form
-    template = loader.get_template('tvshows/register.html')
+    template = loader.get_template('app/register.html')
     return HttpResponse(template.render(args, request))
 
 
@@ -96,9 +97,27 @@ def edit(request):
     context = {
         'list_shows': list_shows,
         'username': auth.get_user(request).username,
-        'form': ShowForm,
+        'form': ShowForm
     }
     return HttpResponse(template.render(context, request))
+
+
+@login_required(login_url='app:login')
+def editShow(request, show_id):
+    show = get_object_or_404(TVShow, id=show_id)
+    return render(request, 'app/edit_show.html', {'show': show, 'user': auth.get_user(request).username})
+
+
+@login_required(login_url='app:login')
+def delete(request):
+    user=auth.get_user(request).username
+    if user is not None:
+        TVShow.objects.filter(id=request.POST["id"]).delete()
+        return HttpResponseRedirect(reverse('app:edit'))
+    else:
+        return HttpResponseRedirect(reverse('app:edit_show'))
+
+
 
 
     

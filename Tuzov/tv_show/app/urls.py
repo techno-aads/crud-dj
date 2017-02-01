@@ -18,7 +18,10 @@ urlpatterns = [
     url(r'^userLogin/', views.userLogin, name='userLogin'),
     url(r'^logout/', views.logout, name='logout'),
     url(r'^edit/', views.edit, name='edit'),
+    url(r'^delete/', views.delete, name='delete'),
+    url(r'^edit_show/(?P<show_id>[0-9]+)$', views.editShow, name='edit_show'),
     url(r'^login/', views.login, name='login')
+
 
 
 
