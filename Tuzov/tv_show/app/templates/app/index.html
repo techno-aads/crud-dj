@@ -1,10 +1,44 @@
+<!DOCTYPE html>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>TV Shows</title>
+</head>
 
-<h1>TVShows</h1>
+<body>
+    <h1>TVShows</h1>
+
     {% if tv_show_list %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>TV Show name</th>
+                <th>Date</th>
+                <th>Duration</th>
+                <th>Description</th>
+                <th>Advertising</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tv_show in tv_show_list %}
+            <tr>
+                <td>{{ tv_show.name }}</td>
+                <td>{{ tv_show.broadcast_date }}</td>
+                <td>{{ tv_show.duration }}</td>
+                <td>{{ tv_show.description }}</td>
+                <td>{{ tv_show.advertisement }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No tv shows are available.</p>
+    {% endif %}
+
+    <!--{% if tv_show_list %}
         <ul>
         {% for tv_show in tv_show_list %}
             <li><a href="{% url 'app:detail' tv_show.id %}">{{ tv_show.name }}</a></li>
@@ -12,7 +46,7 @@
         </ul>
     {% else %}
         <p>No tv shows are available.</p>
-    {% endif %}
+    {% endif %}-->
 
     <br><br><br>
 
@@ -35,4 +69,5 @@
 
             <br><br>
             <input type="submit" class="btn btn-primary" value="Add show" name="btnAdd"></input>
-          </form>
+    </form>
+</body>
