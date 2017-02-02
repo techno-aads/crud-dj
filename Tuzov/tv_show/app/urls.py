@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^edit/', views.edit, name='edit'),
     url(r'^delete/', views.delete, name='delete'),
     url(r'^edit_show/(?P<show_id>[0-9]+)$', views.editShow, name='edit_show'),
-    url(r'updateshow/(?P<show_id>[0-9]+)$', views.updateShow, name='update_show'),
+    url(r'update_show/(?P<show_id>[0-9]+)$', views.updateShow, name='update_show'),
     url(r'^login/', views.login, name='login')
 
     # ex: /polls/5/

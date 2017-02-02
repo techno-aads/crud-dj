@@ -43,7 +43,6 @@ def add(request):
     return HttpResponseRedirect(reverse('app:index'))
 
 
-
 def login(request):
     template = loader.get_template('app/login.html')
     return HttpResponse(template.render({}, request))
@@ -118,7 +117,7 @@ def updateShow(request, show_id):
     show = get_object_or_404(TVShow, id=show_id)
     try:
         show.name=request.POST['name']
-        show.time=request.POST['time']
+        show.duration=request.POST['time']
         show.description=request.POST['descrip']
         show.broadcast_date=request.POST['date']
         show.advert=request.POST['advert']
