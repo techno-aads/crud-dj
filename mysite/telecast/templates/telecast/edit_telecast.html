@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'telecast/style.css' %}"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Telecast</title>
+</head>
+<body>
+<div class="container">
+    <h1>Edit TV Program</h1>
+    {% if isAbleToEdit %}  
+        <form action="{% url 'telecast:save_telecast' telecast.id %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control"
+                   name="title" value="{{ telecast.title }}">
+            </div>
+            <div class="form-group">
+                <label>Duration</label>
+                <input type="text" class="form-control"
+                   name="duration" value="{{ telecast.duration }}">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" class="form-control"
+                    name="description" value="{{ telecast.description }}">
+            </div>
+            <div class="form-group">
+                <label>Broadcast date</label>
+                <input type="text" class="form-control"
+                    name="broadcastDate" value="{{ telecast.broadcastDate|date:"Y-m-d H:i" }}">
+            </div>
+            <div class="form-group">
+                <label>Is advertising</label>
+                <input type="text" class="form-control"
+                    name="isAdvertising" value="{{ telecast.isAdvertising }}">
+            </div>
+            <input class="btn btn-primary" type="submit" value="Save"/>
+            <a class="btn btn-primary" href="{% url 'telecast:delete_telecast' telecast.id %}" role="button">Delete</a>
+            <a class="btn btn-primary" href="{% url 'telecast:add_telecast' %}" role="button">Add new</a>
+        </form>
+    {% else %}
+            <h1> You are not able to edit </h1>
+            <a class="btn btn-primary" href="{% url 'authorization:login' %}" role="button">Login</a>
+            <a class="admin_btn" href="{% url 'authorization:registration' %}">Register</a>
+    {% endif %}
+</div>
+</body>
+</html>

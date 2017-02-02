@@ -1,0 +1,17 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'telecast/style.css' %}"/>
+
+  <h1>Form of log in</h1>
+  {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+  <form action="{% url 'authorization:login' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="login" pattern=".{4,}" required>
+    <label>Login</label>
+    <br>
+    <input type="password" name="password" pattern=".{4,}" required>
+    <label>Password</label>
+    <br>
+    <input class="admin_btn" type="submit" value="Log In">
+    <a class="admin_btn" href="{% url 'authorization:registration' %}">Register</a>
+  </form>
+  <a class="admin_btn" href="{% url 'telecast:telecast' %}">Log In as a Guest</a>

@@ -1,0 +1,19 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'telecast/style.css' %}"/>
+<div class="elem loginarea">
+  <h1>Form of registration</h1>
+  {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+  <form action="{% url 'authorization:addUser' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="login" pattern=".{4,}" required title="Please enter at least 4 characters">
+    <label>Login</label>
+    <br>
+    <input type="password" name="password" pattern=".{4,}" required title="Please enter at least 4 characters">
+    <label>Password</label>
+    <br>
+    <label>Are you able to edit?</label>
+    <input type="checkbox" name="isAbleToEdit">
+    <br>
+    <input class="admin_btn usr" type="submit" value="Register">
+  </form>
+</div>
