@@ -70,23 +70,32 @@
     <br><br><br>
 
     <form action="{% url 'app:add' %}" method="post">
-            {% csrf_token %}
+        <table>
+            <tr>
+                {% csrf_token %}
+                <td>
+                    <input type="text" class="form-control" name="name" placeholder="название" required>
+                </td>
+                <td>
+                    <input type="text" name="date" class="form-control" pattern=
+                                  "^[0-9]{4}-(0[1-9]|1[0-2])-(0[0-9]|1[0-9]|2[0-9]|3[01])$"
+                                 placeholder="YYYY-MM-DD" required>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="time" placeholder="MMM" required>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="descrip" placeholder="описание" required>
+                </td>
+                <td colspan="2">
+                    <input type="radio" name="advert" value="True" checked>Yes
+                    <input type="radio" name="advert" value="False">No
+                </td>
+                <td>
+                    <input class="btn btn-lm btn-success" type="submit" value="Добавить">
+                </td>
+            </tr>
+        </table>
 
-            Select tv show name <br>
-            <input type="text" name="name"></input><br>
-
-            Select duration<br>
-            <input type="number" name="dur"></input><br>
-
-            Select description<br>
-            <input type="text" name="descr"></input><br>
-
-            Select broadcasting date<br>
-            <input type="date" name="date"></input><br>
-
-            Select advertisement<br>
-
-            <br><br>
-            <input type="submit" class="btn btn-primary" value="Add show" name="btnAdd"></input>
     </form>
 </body>

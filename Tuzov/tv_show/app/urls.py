@@ -22,9 +22,6 @@ urlpatterns = [
     url(r'^edit_show/(?P<show_id>[0-9]+)$', views.editShow, name='edit_show'),
     url(r'^login/', views.login, name='login')
 
-
-
-
     # ex: /polls/5/
     #url(r'^(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
     # ex: /polls/5/results/

@@ -31,22 +31,17 @@ def detail(request, tv_show_id):
     return render(request, 'app/detail.html', {'tv_show': tv_show})
 
 
+@login_required(login_url='app:login')
 def add(request):
-    if ('name' in request.POST) and ('dur' in request.POST) and ('descr' in request.POST) and ('date' in request.POST): #default values?!
-        #Insert data in DB
-        n  = request.POST['name']
-        dur   = request.POST['dur']
-        descr = request.POST['descr']
-        date  = request.POST['date']
+    #TODO:add validation on the server side
+    show = TVShow(name=request.POST['name'],
+                  broadcast_date=request.POST['date'],
+                  duration=request.POST['time'],
+                  description=request.POST['descrip'],
+                  advertisement=(request.POST['advert']) == 'Yes')
+    show.save()
+    return HttpResponseRedirect(reverse('app:index'))
 
-        show = TVShow(name = n, description = descr, broadcast_date = date)
-        #show = TVShow(name = n, duration = dur, description = descr, broadcast_date = date)
-        show.save()
-
-        msg = "Succes"
-    else:
-        msg = "you submitted an empty or part-empty form"
-    return render(request, 'app/add_success.html', {})
 
 
 def login(request):
