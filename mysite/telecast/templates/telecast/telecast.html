@@ -22,23 +22,39 @@
                     <th>Date</th>
                     <th>is Advertising?</th>
                 </tr>
-                {% for telecast in telecast_list %}
-                    <tr onclick="window.location = '{% url 'telecast:edit_telecast' telecast.id %}'">
-                        <th>{{ telecast.id }}</th>
-                        <th>{{ telecast.title }}</th>
-                        <th>{{ telecast.description }}</th>
-                        <th>{{ telecast.duration }}</th>
-                        <th>{{ telecast.broadcastDate|date:"Y-m-d H:i" }}</th>
-                        <th>{{ telecast.isAdvertising }}</th>
-                    </tr>
-                {% endfor %}
+                
+                {% if isAbleToEdit %}
+                    {% for telecast in telecast_list %}
+                        <tr onclick="window.location = '{% url 'telecast:edit_telecast' telecast.id %}'">
+                            <th>{{ telecast.id }}</th>
+                            <th>{{ telecast.title }}</th>
+                            <th>{{ telecast.description }}</th>
+                            <th>{{ telecast.duration }}</th>
+                            <th>{{ telecast.broadcastDate|date:"Y-m-d H:i" }}</th>
+                            <th>{{ telecast.isAdvertising }}</th>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    {% for telecast in telecast_list %}
+                        <tr>
+                            <th>{{ telecast.id }}</th>
+                            <th>{{ telecast.title }}</th>
+                            <th>{{ telecast.description }}</th>
+                            <th>{{ telecast.duration }}</th>
+                            <th>{{ telecast.broadcastDate|date:"Y-m-d H:i" }}</th>
+                            <th>{{ telecast.isAdvertising }}</th>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
             </table>
         </div>
     {% else %}
         <p>No telecasts are available.</p>
     {% endif %}
 
-    <a class="btn btn-primary" href="{% url 'telecast:add_telecast' %}" role="button">Add new</a>
+    {% if isAbleToEdit %}
+        <a class="btn btn-primary" href="{% url 'telecast:add_telecast' %}" role="button">Add new</a>
+    {% endif %}
     <a class="btn btn-primary" href="{% url 'authorization:login' %}" role="button">Login</a>
 </div>
 </body>

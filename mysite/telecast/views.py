@@ -9,18 +9,22 @@ from authorization.models import User
 
 
 def get_telecast_list(request):
+    isAbleToEdit = request.session.get('user_id', False)
+    if isAbleToEdit != False:
+        isAbleToEdit = User.objects.get(pk=isAbleToEdit).isAbleToEdit
     telecast_list = Telecast.objects.all()
-    context = {'telecast_list': telecast_list}
+    context = {
+    'telecast_list': telecast_list, 
+    'isAbleToEdit' : isAbleToEdit}
     return render(request, "telecast/telecast.html", context)
 
-def get_telecast_guest_list(request):
-    telecast_list = Telecast.objects.all()
-    context = {'telecast_list': telecast_list}
-    return render(request, "telecast/telecast_guest.html", context)
-
 def add_telecast(request):
+    isAbleToEdit = request.session.get('user_id', False)
+    if isAbleToEdit != False:
+        isAbleToEdit = User.objects.get(pk=isAbleToEdit).isAbleToEdit
     if request.method == 'GET':
-        return render(request, 'telecast/add_telecast.html')
+        context = {'isAbleToEdit' : isAbleToEdit}
+        return render(request, 'telecast/add_telecast.html', context)
     else:
         try:
             title = request.POST['title']
@@ -33,7 +37,9 @@ def add_telecast(request):
                                 isAdvertising=isAdvertising)
             telecast.save()
             telecast_list = Telecast.objects.all()
-            context = {'telecast_list': telecast_list}
+            context = {
+                'telecast_list': telecast_list, 
+                'isAbleToEdit' : isAbleToEdit}
             return render(request, "telecast/telecast.html", context)
         except KeyError:
             return render(request, 'telecast/add_telecast.html')
@@ -43,7 +49,9 @@ def edit_telecast(request, id):
     isAbleToEdit = request.session.get('user_id', False)
     if isAbleToEdit != False:
         telecast = get_object_or_404(Telecast, pk=id)
-        context = {'telecast': telecast}
+        context = {
+        'telecast': telecast,
+        'isAbleToEdit' : isAbleToEdit}
         return render(request, 'telecast/edit_telecast.html', context)
     else:
         telecast_list = Telecast.objects.all()
