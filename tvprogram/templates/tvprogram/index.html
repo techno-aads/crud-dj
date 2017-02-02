@@ -1,0 +1,43 @@
+{% extends 'tvprogram/base.html' %}
+
+{% block title %}
+    Программа телепередач
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron" style="background: snow">
+        <div class="container text-center">
+            <h1>Программа телепередач</h1>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading panel-title">
+            <a class="center-align" href="{% url 'tvprogram:create' %}">
+                <button type="button" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-plus-sign"></span> Добавить телепередачу в программу
+                </button>
+            </a>
+        </div>
+    </div>
+
+    {% if tvprogram %}
+        {% for tv_show in tvprogram %}
+            <div class="panel panel-default">
+                <div class="panel-heading panel-title">
+                    <h4>
+                        <a href="{% url 'tvprogram:detail' tv_show.id %}" class="label label-default big-font"
+                           title="Название">{{ tv_show.name }}</a>
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <h4>Продолжительность: {{ tv_show.duration }}</h4>
+                    <h4>Описание: {{ tv_show.description }}</h4>
+                    <h4>Дата вещания: {{ tv_show.broadcasting_date | date:'d.m.Y' }}</h4>
+                    <h4>Наличие рекламы: {% if tv_show.contains_advertisement %} Да {% else %} Нет {% endif %}</h4>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}
