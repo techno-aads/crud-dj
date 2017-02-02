@@ -108,9 +108,25 @@ def delete(request):
     user=auth.get_user(request).username
     if user is not None:
         TVShow.objects.filter(id=request.POST["id"]).delete()
-        return HttpResponseRedirect(reverse('app:edit'))
+        return HttpResponseRedirect(reverse('app:index'))
     else:
-        return HttpResponseRedirect(reverse('app:edit_show'))
+        return HttpResponseRedirect(reverse('app:index'))
+
+
+@login_required(login_url='app:login')
+def updateShow(request, show_id):
+    show = get_object_or_404(TVShow, id=show_id)
+    try:
+        show.name=request.POST['name']
+        show.time=request.POST['time']
+        show.description=request.POST['descrip']
+        show.broadcast_date=request.POST['date']
+        show.advert=request.POST['advert']
+        show.save()
+    except KeyError:
+        return render(request, 'app/index.html', {'show': show})
+    else:
+        return HttpResponseRedirect(reverse('app:index'))
 
 
 
