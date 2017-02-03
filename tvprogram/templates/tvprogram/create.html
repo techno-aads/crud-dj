@@ -11,44 +11,42 @@
         </div>
 
         <div class="panel-body">
-            {% if user.is_authenticated %}
-                <form action="{% url 'tvprogram:add' %}" method="post">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="name">Название телепередачи:</label>
-                        <input id="name" name="name" type="text" class="form-control" placeholder="Название" required>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="duration">Продолжительность (в минутах):</label>
-                        <input id="duration" name="duration" type="number" class="form-control"
-                               placeholder="Продолжительность"
-                               required>
-                    </div>
+            <form action="{% url 'tvprogram:add' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Название телепередачи:</label>
+                    <input id="name" name="name" type="text" class="form-control" placeholder="Название" required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="description">Описание:</label>
-                        <input id="description" name="description" type="text" class="form-control"
-                               placeholder="Описание" required>
-                    </div>
+                <div class="form-group">
+                    <label for="duration">Продолжительность (в минутах):</label>
+                    <input id="duration" name="duration" type="number" class="form-control"
+                           placeholder="Продолжительность"
+                           required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="broadcasting_date">Дата вещания:</label>
-                        <input id="broadcasting_date" name="broadcasting_date" type="date" class="form-control"
-                               placeholder="Дата вещания" required>
-                    </div>
+                <div class="form-group">
+                    <label for="description">Описание:</label>
+                    <input id="description" name="description" type="text" class="form-control"
+                           placeholder="Описание" required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="contains_advertisement">Содержит рекламу:</label>
-                        <input id="contains_advertisement" name="contains_advertisement" type="checkbox"
-                               class="form-check-input"
-                               placeholder="Содержит рекламу">
-                    </div>
-                    <input type="submit" class="btn btn-success center-block btn-send" value="Добавить">
-                </form>
-            {% else %}
-                <div class="text-danger text-center">Авторизуйтесь, для того чтобы добавить телепередачу.</div>
-            {% endif %}
+                <div class="form-group">
+                    <label for="broadcasting_date">Дата вещания:</label>
+                    <input id="broadcasting_date" name="broadcasting_date" type="date" class="form-control"
+                           placeholder="Дата вещания" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contains_advertisement">Содержит рекламу:</label>
+                    <input id="contains_advertisement" name="contains_advertisement" type="checkbox"
+                           class="form-check-input"
+                           placeholder="Содержит рекламу">
+                </div>
+                <input type="submit" class="btn btn-success center-block btn-send" value="Добавить">
+            </form>
+
         </div>
 
     </div>
