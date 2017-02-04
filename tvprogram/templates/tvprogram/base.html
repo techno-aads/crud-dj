@@ -1,0 +1,51 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %} - Программа телепередач</title>
+    <link rel="stylesheet" href="{% static 'tvprogram/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'tvprogram/css/styles.css' %}">
+    <script src="{% static 'tvprogram/js/jquery-3.1.1.js' %}"></script>
+    <script src="{% static 'tvprogram/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<main class="container" role="main">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid" id="first">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'tvprogram:index' %}">
+                    <span class="glyphicon glyphicon glyphicon-play"></span> Программа телепередач
+                </a>
+            </div>
+
+            {% block buttons %}
+                {% if user.is_authenticated %}
+                    <form action="{% url 'tvprogram:logout' %}">
+                        <button type="submit" class="btn btn-default navbar-btn navbar-right mar-right">
+                            Выйти
+                        </button>
+                    </form>
+                    <div class="navbar-right" style="margin-top: 15px; margin-right: 15px">
+                        Добро пожаловать, {{ user.username }}!
+                    </div>
+                {% else %}
+                    <form action="{% url 'tvprogram:signup' %}">
+                        <button type="submit" class="btn btn-default navbar-btn navbar-right mar-right">
+                            Зарегистрироваться
+                        </button>
+                    </form>
+                    <form action="{% url 'tvprogram:login' %}">
+                        <button type="submit" class="btn btn-default navbar-btn navbar-right mar-right">
+                            Авторизоваться
+                        </button>
+                    </form>
+                {% endif %}
+            {% endblock %}
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+</main>
+</body>
+</html>

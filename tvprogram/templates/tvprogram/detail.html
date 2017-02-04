@@ -1,0 +1,69 @@
+{% extends 'tvprogram/base.html' %}
+
+{% block title %}
+    Внесение изменений в телепередачу {{ tv_show.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading panel-title">
+            <h4>Изменение телепередачи {{ tv_show.name }}</h4>
+        </div>
+        <div class="panel-body">
+            <form action="{% url 'tvprogram:save' tv_show.id %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Название товара:</label>
+
+                    <input id="name" name="name" type="text" class="form-control" placeholder="Название"
+                           value="{{ tv_show.name }}" required {% if not user.is_authenticated %} readonly {% endif %}>
+                </div>
+
+                <div class="form-group">
+                    <label for="duration">Продолжительность:</label>
+                    <input id="duration" name="duration" type="number" class="form-control"
+                           placeholder="Продолжительность"
+                           value="{{ tv_show.duration }}" required {% if not user.is_authenticated %}
+                           readonly {% endif %}>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Описание:</label>
+                    <input id="description" name="description" type="text" class="form-control" placeholder="Описание"
+                           value="{{ tv_show.description }}" required
+                            {% if not user.is_authenticated %} readonly {% endif %}>
+                </div>
+
+                <div class="form-group">
+                    <label for="broadcasting_date">Дата вещания:</label>
+                    <input id="broadcasting_date" name="broadcasting_date" type="date" class="form-control"
+                           placeholder="Дата вещания"
+                           value="{{ tv_show.broadcasting_date | date:'Y-m-d' }}" required
+                            {% if not user.is_authenticated %} readonly {% endif %}>
+                </div>
+
+                <div class="form-group">
+                    <label for="contains_advertisement">Наличие рекламы:</label>
+                    <input id="contains_advertisement" name="contains_advertisement" type="checkbox"
+                           class="form-check-input" placeholder="Наличие рекламы"
+                            {% if not user.is_authenticated %} onclick="return false;" {% endif %}
+                            {% if tv_show.contains_advertisement %} checked {% endif %}>
+                </div>
+                {% if user.is_authenticated %}
+                    <input type="submit" class="btn btn-success" value="Подтвердить изменения" required>
+                {% else %}
+                    <div class="text-danger text-center">Авторизуйтесь, чтобы изменить телепередачу или удалить из
+                        программы.
+                    </div>
+                {% endif %}
+            </form>
+            {% if user.is_authenticated %}
+                <form action="{% url 'tvprogram:delete' tv_show.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-danger right-align btn-send" value="Удалить телепередачу"
+                           style="margin-top: -35px">
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
