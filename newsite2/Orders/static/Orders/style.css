@@ -1,0 +1,60 @@
+h1 {
+	 color:  rgb(47, 109, 124);
+	 font-family: Helvetica, Geneva, Arial, sans-serif;
+	 text-align: center;
+    }
+
+li  {
+	list-style-type: decimal;
+	color: rgb(47, 109, 124);
+    font: 16pt/16pt sans-serif;	   
+	}
+li a {
+		font: 16pt/16pt sans-serif;
+}
+
+label	{
+	font-family: Helvetica, Geneva, Arial, sans-serif;
+	color: rgb(33,15,127);
+	text-align: center;
+	
+}
+h1 a {
+	font-family: Helvetica, Geneva, Arial, sans-serif;
+	font: inherit;
+	color:  inherit;	
+}
+
+.main {
+	margin-left:auto;
+	margin-right:auto;
+	width:30%;
+	background-color:#ffffff;
+}
+
+table {
+	margin-left:auto;
+	margin-right:auto;
+	
+}
+
+tr {
+	text-align: center;
+	
+}
+
+.err {
+	font: 12pt/10pt Tahoma;
+	color: red;
+	text-align: center;
+	
+}
+
+.cnt {
+	text-align: center;
+}
+
+.log {
+	align: right;
+	
+}
