@@ -9,7 +9,14 @@
 	{% csrf_token %}
 	<input type="button" value="Sign in" onClick='location.href="{% url 'Orders:login' %}"'/>
 </form>
-</td>
+		</td>
+		<td></td>
+		<td>
+<form>
+	{% csrf_token %}
+	<input type="button" value="Sign on" onClick='location.href="{% url 'Orders:register' %}"'/>
+</form>
+		</td>
 		<td></td>
 		<td>
 <form action="{% url 'Orders:logout' %}" method="post">

@@ -12,14 +12,14 @@
 		<td>
 <form>
    {% csrf_token %}
-  <input type="button" value="Edit" onClick='location.href="{% url 'Orders:edit' order.id %}"'/>
+  <input type="button" value="Edit" onClick='location.href="{% url 'Orders:edit' order.id %}"'>
  </form>
 		</td>
 		<td></td>
 		<td>
  <form action="{% url 'Orders:edit' order.id %}" method="get">
    {% csrf_token %}
-  <input type="button" value="Delete" >
+  <input type="button" value="Delete" onClick='location.href="{% url 'Orders:remove' order.id %}"'>
  </form></td>
  </tr>
 </table>

@@ -1,15 +1,18 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
+from django.core.exceptions import ValidationError
 from django.http import Http404
 from django.urls import reverse
 from django.contrib.auth.forms import AuthenticationForm
 from django.views.generic.edit import FormView
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.conf import settings
 
 import datetime
+import re
 
 from .models import Status, Order
 
@@ -31,50 +34,96 @@ def edit(request, order_id):
 	else:
 		order = get_object_or_404(Order, pk=order_id)
 		status_list = Status.objects.order_by('-name')
-		return render(request, 'Orders/edit.html',{'order': order, 'status_list': status_list,})
+		dt=order.date.strftime('%Y-%m-%d %H:%M')
+		return render(request, 'Orders/edit.html',{'order': order, 'status_list': status_list, 'dt': dt,})
 
 
 def save(request, order_id):
-	order = get_object_or_404(Order, pk=order_id)
-	status_list = Status.objects.order_by('-name')
-	try:
-		order.count=int(request.POST['count'])
-		order.address=request.POST['address']
-		#order.date=datetime.datetime.now()
-		#order.status=request.POST['status']
-	except (KeyError,ValueError):
-		# Redisplay the question voting form.
-		return render(request, 'Orders/edit.html', {
-			'order': order,
-			'status_list': status_list,
-			'error_message': "Uncorrect data input!",})
-	else:
-		#order.count = request.POST
-		order.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
-		return HttpResponseRedirect(reverse('Orders:detail', args=(order.id,)))
+		order = get_object_or_404(Order, pk=order_id)
+		status_list = Status.objects.order_by('-name')
+		dt=order.date.strftime('%Y-%m-%d %H:%M')
+		tpl='\d\d\d\d-\d\d-\d\d \d\d:\d\d'
+		strd=str(request.POST['date'])
+		if re.fullmatch(tpl,strd) is not None:
+			try:
+				order.count=int(request.POST['count'])
+				order.address=request.POST['address']
+				order.date=request.POST['date']
+				if str(request.POST['status'])==str(status_list[1]):
+					stat=status_list[1]
+				if str(request.POST['status'])==str(status_list[0]):
+					stat=status_list[0]
+				order.status=stat
+			except (KeyError,ValueError):
+				return render(request, 'Orders/edit.html', {
+					'order': order,
+					'status_list': status_list,
+					'dt': dt,
+					'error_message': "Uncorrect data input!",})
+			else:
+				order.save()
+				return HttpResponseRedirect(reverse('Orders:detail', args=(order.id,)))
+		else:
+			return render(request, 'Orders/edit.html', {
+				'order': order,
+				'status_list': status_list,
+				'dt': dt,
+				'error_message': "Uncorrect data input!",})
+				
 
 def new(request):
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect(reverse('Orders:login'))
 	else:
 		status_list = Status.objects.order_by('-name')
-		try:
-			new_order=Order(title=request.POST['title'],count=int(request.POST['count']),address=request.POST['address'],date=request.POST['date'],status=request.POST['status'])
-		except (KeyError,ValueError):
-		# Redisplay the question voting form.
-			return render(request, 'Orders/new.html', {
-				'status_list': status_list,
-				'error_message': "Uncorrect data input!",})
+		if request.method == 'POST':
+			tpl='\d\d\d\d-\d\d-\d\d \d\d:\d\d'
+			strd=str(request.POST['date'])
+			if re.fullmatch(tpl,strd) is not None:
+				try:
+					if str(request.POST['status'])==str(status_list[1]):
+						stat=status_list[1]
+					if str(request.POST['status'])==str(status_list[0]):
+						stat=status_list[0]
+					new_order=Order(title=request.POST['title'],count=int(request.POST['count']),address=request.POST['address'],date=request.POST['date'], status=stat)
+				except (KeyError,ValueError):
+					return render(request, 'Orders/new.html', {
+						'status_list': status_list,
+						'error_message': "Uncorrect data input!",})
+				else:
+					new_order.save()
+					return HttpResponseRedirect(reverse('Orders:index'))
+			else:
+				return render(request, 'Orders/new.html', {
+						'status_list': status_list,
+						'error_message': "Uncorrect data input!",})
 		else:
-		#order.count = request.POST
-			new_order.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
-			return HttpResponseRedirect(reverse('Orders:index'))
+			return render(request, 'Orders/new.html', {
+					'status_list': status_list,
+					})
+			
+			
+			
+def remove(request, order_id):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect(reverse('Orders:login'))
+	else:
+		order = get_object_or_404(Order, pk=order_id)
+		order.delete()
+		return HttpResponseRedirect(reverse('Orders:index'))
+			
+			
+class RegisterFormView(FormView):
+	form_class = UserCreationForm
+
+	success_url = "/Orders/login/"
+
+	template_name = "Orders/register.html"
+
+	def form_valid(self, form):
+		form.save()
+
+		return super(RegisterFormView, self).form_valid(form)
 		
 		
 class LoginFormView(FormView):

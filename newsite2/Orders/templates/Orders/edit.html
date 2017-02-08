@@ -20,13 +20,13 @@
 				
 		<p><label for="order.status"> Status of delivery: </label> &nbsp;
 		<select name="status" value="{{ order.status }}">
-		{% for status in status_list %}
-			<option value='status1'> {{ status }} </option>
+		{% for status1 in status_list %}
+			<option> {{ status1 }} </option>
 		{% endfor %}
 		</select></p>
 
 		<p><label for="order.date"> Date of delivery: </label> &nbsp;
-		<input type="datetime" READONLY name="date" value="{{ order.date }}" title="unchangeable field"></p>
+		<input type="datetime" name="date" value="{{ dt }}"></p>
 		
 		<input type="submit" value="Save" style "width: 90px" />
 		</fieldset>

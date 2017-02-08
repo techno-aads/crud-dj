@@ -24,14 +24,16 @@
 		<p><label for="order.status"> Status of delivery: </label> &nbsp;
 		<select name="status" value="{{ frizz }}">
 		{% for status in status_list %}
-			<option value='status1'> {{ status }} </option>
+			<option> {{ status }} </option>
 		{% endfor %}
 		</select></p>
 
 		<p><label for="order.date"> Date of delivery: </label> &nbsp;
-		<input type="datetime" READONLY name="date" value="{{ frizz }}" title="unchangeable field"></p>
+		<input type="datetime" name="date" value="{{ frizz }}" title="Enter the date in the format: YYYY-MM-DD HH:MM"></p>
 		
 		<input type="submit" value="Save" style "width: 90px" />
+		
+		<input type="button" value="Cancel" style "width: 90px" onClick='location.href="{% url 'Orders:index' %}"'/>
 		</fieldset>
 		
 	</form>
