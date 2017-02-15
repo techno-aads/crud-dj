@@ -1,0 +1,40 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'Orders/style.css' %}" />
+<div class="main">
+
+<h1> Add the new order</h1>
+
+
+<div class=err>{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+</div>
+	<form action="{% url 'Orders:new'%}" method="post">
+		{% csrf_token %}
+		
+		<fieldset title="Enter new data">
+		<label for="order.title"> Title = </label> &nbsp;
+		<input type="text" name="title" value="{{ frizz }}">
+		
+		<p><label for="order.count"> Count = </label> &nbsp;
+		<input type="text" name="count" value="{{ frizz }}"></p>
+		
+		<p><label for="order.address"> Address: </label> &nbsp;
+		<input type="text" name="address" value="{{ frizz }}"></p>
+				
+		<p><label for="order.status"> Status of delivery: </label> &nbsp;
+		<select name="status" value="{{ frizz }}">
+		{% for status in status_list %}
+			<option> {{ status }} </option>
+		{% endfor %}
+		</select></p>
+
+		<p><label for="order.date"> Date of delivery: </label> &nbsp;
+		<input type="datetime" name="date" value="{{ frizz }}" title="Enter the date in the format: YYYY-MM-DD HH:MM"></p>
+		
+		<input type="submit" value="Save" style "width: 90px" />
+		
+		<input type="button" value="Cancel" style "width: 90px" onClick='location.href="{% url 'Orders:index' %}"'/>
+		</fieldset>
+		
+	</form>
+</div>

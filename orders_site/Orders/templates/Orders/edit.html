@@ -1,0 +1,35 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'Orders/style.css' %}" />
+<div class="main">
+
+<h1> Edit {{ order.title }}</h1>
+
+
+<div class=err>{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+</div>
+	<form action="{% url 'Orders:save' order.id %}" method="post">
+		{% csrf_token %}
+		
+		<fieldset title="Enter new data">
+		<label for="order.count"> Count = </label> &nbsp;
+		<input type="text" name="count" value="{{ order.count }}">
+		
+		<p><label for="order.address"> Address: </label> &nbsp;
+		<input type="text" name="address" value="{{ order.address }}"></p>
+				
+		<p><label for="order.status"> Status of delivery: </label> &nbsp;
+		<select name="status" value="{{ order.status }}">
+		{% for status1 in status_list %}
+			<option> {{ status1 }} </option>
+		{% endfor %}
+		</select></p>
+
+		<p><label for="order.date"> Date of delivery: </label> &nbsp;
+		<input type="datetime" name="date" value="{{ dt }}"></p>
+		
+		<input type="submit" value="Save" style "width: 90px" />
+		</fieldset>
+		
+	</form>
+</div>
