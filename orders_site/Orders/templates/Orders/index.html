@@ -1,0 +1,48 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'Orders/style.css' %}" />
+
+
+<div class=log><table cellspacing="0" cellpadding="4">
+	<tr>
+		<td>
+<form>
+	{% csrf_token %}
+	<input type="button" value="Sign in" onClick='location.href="{% url 'Orders:login' %}"'/>
+</form>
+		</td>
+		<td></td>
+		<td>
+<form>
+	{% csrf_token %}
+	<input type="button" value="Sign on" onClick='location.href="{% url 'Orders:register' %}"'/>
+</form>
+		</td>
+		<td></td>
+		<td>
+<form action="{% url 'Orders:logout' %}" method="post">
+	{% csrf_token %}
+	<input type="submit" value="Log out">
+</form></td>
+ </tr>
+</table>
+</div>
+<div class="main">
+<h1>{{ "Orders list" }}</h1>
+
+{% if order_list %}
+    <ul>
+    {% for order in order_list %}
+        <li><a href="{% url 'Orders:detail' order.id %}">{{ order.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No orders are available.</p>
+{% endif %}
+<br>
+
+<form>
+	{% csrf_token %}
+	<div class=cnt><input type="button" value="Add new order" onClick='location.href="{% url 'Orders:new' %}"'/></div>
+</form>
+
+</div>
